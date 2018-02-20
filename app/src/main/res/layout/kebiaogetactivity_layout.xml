@@ -8,9 +8,10 @@
         android:id="@+id/kebiaogetactivity_toolbar"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:layout_marginTop="22dp"
         android:background="@color/colorPrimary"
         android:theme="@style/ToolbarTheme"
-        android:titleTextColor="@color/white" />
+        android:titleTextColor="@color/global_blue" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,6 +45,30 @@
                 android:inputType="textPassword"
                 android:textSize="15sp" />
         </android.support.design.widget.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="选择学期 :  "
+                android:textColor="@color/global_blue"
+                android:textSize="14sp" />
+
+            <Spinner
+                android:id="@+id/kebiaogetactivity_sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:gravity="center" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/kebiaogetactivity_tv_forget"

@@ -3,6 +3,7 @@ package com.yangs.kedaquan.bbs;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -45,9 +46,13 @@ public class BBSReplyActivity extends AppCompatActivity implements OnItemClickLi
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bbsreplyactivity_layout);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
         setHandler();
         list = new ArrayList<>();
-        toolbar = (Toolbar) findViewById(R.id.bbsreply_toolbar);
+        toolbar = findViewById(R.id.bbsreply_toolbar);
         toolbar.setTitle("消息中心");
         setSupportActionBar(toolbar);
         toolbar.setOnMenuItemClickListener(this);
@@ -57,7 +62,7 @@ public class BBSReplyActivity extends AppCompatActivity implements OnItemClickLi
                 finish();
             }
         });
-        lRecyclerView = (LRecyclerView) findViewById(R.id.bbsreply_layout_lr);
+        lRecyclerView = findViewById(R.id.bbsreply_layout_lr);
         lRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         bbsReplyAdapter = new BBSReplyAdapter(list, this);
         lRecyclerViewAdapter = new LRecyclerViewAdapter(bbsReplyAdapter);

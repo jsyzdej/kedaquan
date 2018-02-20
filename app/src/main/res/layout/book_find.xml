@@ -8,6 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginTop="22dp"
         android:background="@color/colorPrimary"
         android:orientation="horizontal">
 
@@ -16,7 +17,7 @@
             android:layout_width="48dp"
             android:layout_height="match_parent"
             android:padding="12dp"
-            android:src="@drawable/ic_arraw_back_white" />
+            app:srcCompat="@drawable/ic_arraw_back_white" />
 
         <EditText
             android:id="@+id/book_find_ti_text"
@@ -25,10 +26,10 @@
             android:layout_weight="1"
             android:ellipsize="end"
             android:hint="在此输入书名"
-            android:textColorHint="@color/white"
             android:padding="15dp"
             android:singleLine="true"
             android:textColor="@color/white"
+            android:textColorHint="@color/white"
             android:textColorLink="@color/white" />
 
         <ImageView
@@ -36,7 +37,7 @@
             android:layout_width="48dp"
             android:layout_height="match_parent"
             android:padding="12dp"
-            android:src="@drawable/ic_arraw_find_white" />
+            app:srcCompat="@drawable/ic_arraw_find_white" />
     </LinearLayout>
 
     <Button

@@ -64,9 +64,24 @@ public class KebiaoFragment extends LazyLoadFragment implements Toolbar.OnMenuIt
     private TextView kebiao_tv_friday;
     private TextView kebiao_tv_Staday;
     private TextView kebiao_tv_Sunday;
+    private TextView kebiao_tv_monday_h;
+    private TextView kebiao_tv_tuesday_h;
+    private TextView kebiao_tv_wednesday_h;
+    private TextView kebiao_tv_fourthday_h;
+    private TextView kebiao_tv_friday_h;
+    private TextView kebiao_tv_Staday_h;
+    private TextView kebiao_tv_Sunday_h;
+    private LinearLayout kebiao_header_ll_1;
+    private LinearLayout kebiao_header_ll_2;
+    private LinearLayout kebiao_header_ll_3;
+    private LinearLayout kebiao_header_ll_4;
+    private LinearLayout kebiao_header_ll_5;
+    private LinearLayout kebiao_header_ll_6;
+    private LinearLayout kebiao_header_ll_7;
     private int firstDayOfWeek;
     private LinearLayout side_index_layout;
     private TextView kebiao_extra;
+    private LinearLayout kebiao_ll_extra;
     private LinearLayout[] linearLayout;
     private ArrayList<Integer> myImageList;
     private DisplayMetrics dm;
@@ -112,11 +127,11 @@ public class KebiaoFragment extends LazyLoadFragment implements Toolbar.OnMenuIt
         activity = getActivity();
         mLayKebiao = getContentView();
         setHasOptionsMenu(true);
-        kebiao_ll = (LinearLayout) mLayKebiao.findViewById(R.id.kebiao_ll);
+        kebiao_ll = mLayKebiao.findViewById(R.id.kebiao_ll);
         onLoginListener = (OnKebiaoRefreshListener) activity;
-        toolbar = (Toolbar) mLayKebiao.findViewById(R.id.kebiao_toolbar);
-        toolbar_login = (TextView) mLayKebiao.findViewById(R.id.kebiao_toolbar_login);
-        toolbar_time = (TextView) mLayKebiao.findViewById(R.id.kebiao_toolbar_time);
+        toolbar = mLayKebiao.findViewById(R.id.kebiao_toolbar);
+        toolbar_login = mLayKebiao.findViewById(R.id.kebiao_toolbar_login);
+        toolbar_time = mLayKebiao.findViewById(R.id.kebiao_toolbar_time);
         toolbar.setTitle("");
         toolbar_login.setText(APPAplication.save.getString("name", "未登录"));
         toolbar_time.setText("第" + APPAplication.week + "周 ▾");
@@ -134,25 +149,40 @@ public class KebiaoFragment extends LazyLoadFragment implements Toolbar.OnMenuIt
                 e.printStackTrace();
             }
         }
-        kebiao_tv_start = (TextView) mLayKebiao.findViewById(R.id.textView_Start);
-        kebiao_tv_monday = (TextView) mLayKebiao.findViewById(R.id.textView_Monday);
-        kebiao_tv_tuesday = (TextView) mLayKebiao.findViewById(R.id.textView_Tuesday);
-        kebiao_tv_wednesday = (TextView) mLayKebiao.findViewById(R.id.textView_Wednesday);
-        kebiao_tv_fourthday = (TextView) mLayKebiao.findViewById(R.id.textView_Thursday);
-        kebiao_tv_friday = (TextView) mLayKebiao.findViewById(R.id.textView_Friday);
-        kebiao_tv_Staday = (TextView) mLayKebiao.findViewById(R.id.textView_Saturday);
-        kebiao_tv_Sunday = (TextView) mLayKebiao.findViewById(R.id.textView_Sunday);
+        kebiao_tv_start = mLayKebiao.findViewById(R.id.textView_Start);
+        kebiao_tv_monday = mLayKebiao.findViewById(R.id.textView_Monday);
+        kebiao_tv_tuesday = mLayKebiao.findViewById(R.id.textView_Tuesday);
+        kebiao_tv_wednesday = mLayKebiao.findViewById(R.id.textView_Wednesday);
+        kebiao_tv_fourthday = mLayKebiao.findViewById(R.id.textView_Thursday);
+        kebiao_tv_friday = mLayKebiao.findViewById(R.id.textView_Friday);
+        kebiao_tv_Staday = mLayKebiao.findViewById(R.id.textView_Saturday);
+        kebiao_tv_Sunday = mLayKebiao.findViewById(R.id.textView_Sunday);
+        kebiao_tv_monday_h = mLayKebiao.findViewById(R.id.textView_Monday_h);
+        kebiao_tv_tuesday_h = mLayKebiao.findViewById(R.id.textView_Tuesday_h);
+        kebiao_tv_wednesday_h = mLayKebiao.findViewById(R.id.textView_Wednesday_h);
+        kebiao_tv_fourthday_h = mLayKebiao.findViewById(R.id.textView_Thursday_h);
+        kebiao_tv_friday_h = mLayKebiao.findViewById(R.id.textView_Friday_h);
+        kebiao_tv_Staday_h = mLayKebiao.findViewById(R.id.textView_Saturday_h);
+        kebiao_tv_Sunday_h = mLayKebiao.findViewById(R.id.textView_Sunday_h);
+        kebiao_header_ll_1 = mLayKebiao.findViewById(R.id.kebiao_header_ll_one);
+        kebiao_header_ll_2 = mLayKebiao.findViewById(R.id.kebiao_header_ll_two);
+        kebiao_header_ll_3 = mLayKebiao.findViewById(R.id.kebiao_header_ll_three);
+        kebiao_header_ll_4 = mLayKebiao.findViewById(R.id.kebiao_header_ll_four);
+        kebiao_header_ll_5 = mLayKebiao.findViewById(R.id.kebiao_header_ll_five);
+        kebiao_header_ll_6 = mLayKebiao.findViewById(R.id.kebiao_header_ll_six);
+        kebiao_header_ll_7 = mLayKebiao.findViewById(R.id.kebiao_header_ll_seven);
         initKebiaoHeader(new Date(System.currentTimeMillis()));
-        side_index_layout = (LinearLayout) mLayKebiao.findViewById(R.id.side_index_layout);
-        kebiao_extra = (TextView) mLayKebiao.findViewById(R.id.kebiao_tv_shixi);
+        side_index_layout = mLayKebiao.findViewById(R.id.side_index_layout);
+        kebiao_extra = mLayKebiao.findViewById(R.id.kebiao_tv_shixi);
+        kebiao_ll_extra = mLayKebiao.findViewById(R.id.kebiao_ll_extra);
         linearLayout = new LinearLayout[7];
-        linearLayout[0] = (LinearLayout) mLayKebiao.findViewById(R.id.linearLayout1);
-        linearLayout[1] = (LinearLayout) mLayKebiao.findViewById(R.id.linearLayout2);
-        linearLayout[2] = (LinearLayout) mLayKebiao.findViewById(R.id.linearLayout3);
-        linearLayout[3] = (LinearLayout) mLayKebiao.findViewById(R.id.linearLayout4);
-        linearLayout[4] = (LinearLayout) mLayKebiao.findViewById(R.id.linearLayout5);
-        linearLayout[5] = (LinearLayout) mLayKebiao.findViewById(R.id.linearLayout6);
-        linearLayout[6] = (LinearLayout) mLayKebiao.findViewById(R.id.linearLayout7);
+        linearLayout[0] = mLayKebiao.findViewById(R.id.linearLayout1);
+        linearLayout[1] = mLayKebiao.findViewById(R.id.linearLayout2);
+        linearLayout[2] = mLayKebiao.findViewById(R.id.linearLayout3);
+        linearLayout[3] = mLayKebiao.findViewById(R.id.linearLayout4);
+        linearLayout[4] = mLayKebiao.findViewById(R.id.linearLayout5);
+        linearLayout[5] = mLayKebiao.findViewById(R.id.linearLayout6);
+        linearLayout[6] = mLayKebiao.findViewById(R.id.linearLayout7);
         myImageList = new ArrayList<>();
         myImageList.add(R.drawable.textview_border_bohelv);
         myImageList.add(R.drawable.textview_border_cheng);
@@ -172,13 +202,30 @@ public class KebiaoFragment extends LazyLoadFragment implements Toolbar.OnMenuIt
         activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
         heightPixels = dm.heightPixels;
         widthPixels = dm.widthPixels;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 1; i <= 5; i++) {
             TextView textView = new TextView(side_index_layout.getContext());
-            textView.setTextColor(Color.rgb(27, 124, 220));
-            textView.setText((i + 1) + "");
+            textView.setTextColor(getResources().getColor(R.color.kebiao_bg_gray2));
+            switch (i) {
+                case 1:
+                    textView.setText("08:00\n" + "第" + i + "节\n" + "09:40");
+                    break;
+                case 2:
+                    textView.setText("10:00\n" + "第" + i + "节\n" + "11:40");
+                    break;
+                case 3:
+                    textView.setText("14:00\n" + "第" + i + "节\n" + "15:40");
+                    break;
+                case 4:
+                    textView.setText("15:50\n" + "第" + i + "节\n" + "17:30");
+                    break;
+                case 5:
+                    textView.setText("19:00\n" + "第" + i + "节\n" + "21:35");
+                    break;
+            }
+            textView.setTextSize(12f);
             textView.setGravity(Gravity.CENTER);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT, heightPixels / 12);
+                    LinearLayout.LayoutParams.MATCH_PARENT, heightPixels / 6);
             textView.setLayoutParams(params);
             side_index_layout.addView(textView);
         }
@@ -189,59 +236,74 @@ public class KebiaoFragment extends LazyLoadFragment implements Toolbar.OnMenuIt
         cal2.setTimeInMillis(DateUtil.getFirstDayOfWeek(d).getTime());
         int startMonth = cal2.get(Calendar.MONTH) + 1;
         Date td = DateUtil.getFirstDayOfWeek(d);
-        kebiao_tv_start.setText(startMonth + "月");
+        kebiao_tv_start.setText(startMonth + "");
         kebiao_tv_start.setTextColor(Color.rgb(27, 124, 220));
         kebiao_tv_start.setGravity(Gravity.CENTER);
-        kebiao_tv_monday.setText("周一\n" + DateUtil.geDayAfter(td, 0));
-        kebiao_tv_tuesday.setText("周二\n" + DateUtil.geDayAfter(td, 1));
-        kebiao_tv_wednesday.setText("周三\n" + DateUtil.geDayAfter(td, 2));
-        kebiao_tv_fourthday.setText("周四\n" + DateUtil.geDayAfter(td, 3));
-        kebiao_tv_friday.setText("周五\n" + DateUtil.geDayAfter(td, 4));
-        kebiao_tv_Staday.setText("周六\n" + DateUtil.geDayAfter(td, 5));
-        kebiao_tv_Sunday.setText("周日\n" + DateUtil.geDayAfter(td, 6));
-        kebiao_tv_Sunday.setBackgroundColor(getResources().getColor(R.color.kebiao_header_color));
-        kebiao_tv_Sunday.getBackground().setAlpha(150);
-        kebiao_tv_monday.setBackgroundColor(getResources().getColor(R.color.kebiao_header_color));
-        kebiao_tv_monday.getBackground().setAlpha(150);
-        kebiao_tv_tuesday.setBackgroundColor(getResources().getColor(R.color.kebiao_header_color));
-        kebiao_tv_tuesday.getBackground().setAlpha(150);
-        kebiao_tv_wednesday.setBackgroundColor(getResources().getColor(R.color.kebiao_header_color));
-        kebiao_tv_wednesday.getBackground().setAlpha(150);
-        kebiao_tv_friday.setBackgroundColor(getResources().getColor(R.color.kebiao_header_color));
-        kebiao_tv_friday.getBackground().setAlpha(150);
-        kebiao_tv_Staday.setBackgroundColor(getResources().getColor(R.color.kebiao_header_color));
-        kebiao_tv_Staday.getBackground().setAlpha(150);
+        kebiao_tv_monday.setText(DateUtil.geDayAfter(td, 0) + "");
+        kebiao_tv_tuesday.setText(DateUtil.geDayAfter(td, 1) + "");
+        kebiao_tv_wednesday.setText(DateUtil.geDayAfter(td, 2) + "");
+        kebiao_tv_fourthday.setText(DateUtil.geDayAfter(td, 3) + "");
+        kebiao_tv_friday.setText(DateUtil.geDayAfter(td, 4) + "");
+        kebiao_tv_Staday.setText(DateUtil.geDayAfter(td, 5) + "");
+        kebiao_tv_Sunday.setText(DateUtil.geDayAfter(td, 6) + "");
+        kebiao_header_ll_1.setBackgroundResource(R.drawable.kebiao_header_unselect);
+        kebiao_header_ll_2.setBackgroundResource(R.drawable.kebiao_header_unselect);
+        kebiao_header_ll_3.setBackgroundResource(R.drawable.kebiao_header_unselect);
+        kebiao_header_ll_4.setBackgroundResource(R.drawable.kebiao_header_unselect);
+        kebiao_header_ll_5.setBackgroundResource(R.drawable.kebiao_header_unselect);
+        kebiao_header_ll_6.setBackgroundResource(R.drawable.kebiao_header_unselect);
+        kebiao_header_ll_7.setBackgroundResource(R.drawable.kebiao_header_unselect);
+        kebiao_tv_monday_h.setTextColor(getResources().getColor(R.color.global_blue));
+        kebiao_tv_tuesday_h.setTextColor(getResources().getColor(R.color.global_blue));
+        kebiao_tv_wednesday_h.setTextColor(getResources().getColor(R.color.global_blue));
+        kebiao_tv_fourthday_h.setTextColor(getResources().getColor(R.color.global_blue));
+        kebiao_tv_friday_h.setTextColor(getResources().getColor(R.color.global_blue));
+        kebiao_tv_Staday_h.setTextColor(getResources().getColor(R.color.global_blue));
+        kebiao_tv_Sunday_h.setTextColor(getResources().getColor(R.color.global_blue));
+        kebiao_tv_Sunday.setTextColor(getResources().getColor(R.color.kebiao_bg_gray2));
+        kebiao_tv_monday.setTextColor(getResources().getColor(R.color.kebiao_bg_gray2));
+        kebiao_tv_tuesday.setTextColor(getResources().getColor(R.color.kebiao_bg_gray2));
+        kebiao_tv_wednesday.setTextColor(getResources().getColor(R.color.kebiao_bg_gray2));
+        kebiao_tv_friday.setTextColor(getResources().getColor(R.color.kebiao_bg_gray2));
+        kebiao_tv_Staday.setTextColor(getResources().getColor(R.color.kebiao_bg_gray2));
         if (DateUtil.geDayAfter(d, 0) != DateUtil.geDayAfter(new Date(System.currentTimeMillis()), 0))
             return;
         int w = DateUtil.getDayofWeek(d);
         switch (w) {
             case 0:
-                kebiao_tv_Sunday.setBackgroundColor(getResources().getColor(R.color.white));
-                kebiao_tv_Sunday.getBackground().setAlpha(150);
+                kebiao_header_ll_7.setBackgroundResource(R.drawable.kebiao_header_select);
+                kebiao_tv_Sunday_h.setTextColor(getResources().getColor(R.color.white));
+                kebiao_tv_Sunday.setTextColor(getResources().getColor(R.color.white));
                 break;
             case 1:
-                kebiao_tv_monday.setBackgroundColor(getResources().getColor(R.color.white));
-                kebiao_tv_monday.getBackground().setAlpha(150);
+                kebiao_header_ll_1.setBackgroundResource(R.drawable.kebiao_header_select);
+                kebiao_tv_monday_h.setTextColor(getResources().getColor(R.color.white));
+                kebiao_tv_monday.setTextColor(getResources().getColor(R.color.white));
                 break;
             case 2:
-                kebiao_tv_tuesday.setBackgroundColor(getResources().getColor(R.color.white));
-                kebiao_tv_tuesday.getBackground().setAlpha(150);
+                kebiao_header_ll_2.setBackgroundResource(R.drawable.kebiao_header_select);
+                kebiao_tv_tuesday_h.setTextColor(getResources().getColor(R.color.white));
+                kebiao_tv_tuesday.setTextColor(getResources().getColor(R.color.white));
                 break;
             case 3:
-                kebiao_tv_wednesday.setBackgroundColor(getResources().getColor(R.color.white));
-                kebiao_tv_wednesday.getBackground().setAlpha(150);
+                kebiao_header_ll_3.setBackgroundResource(R.drawable.kebiao_header_select);
+                kebiao_tv_wednesday_h.setTextColor(getResources().getColor(R.color.white));
+                kebiao_tv_wednesday.setTextColor(getResources().getColor(R.color.white));
                 break;
             case 4:
-                kebiao_tv_fourthday.setBackgroundColor(getResources().getColor(R.color.white));
-                kebiao_tv_fourthday.getBackground().setAlpha(150);
+                kebiao_header_ll_4.setBackgroundResource(R.drawable.kebiao_header_select);
+                kebiao_tv_fourthday_h.setTextColor(getResources().getColor(R.color.white));
+                kebiao_tv_fourthday.setTextColor(getResources().getColor(R.color.white));
                 break;
             case 5:
-                kebiao_tv_friday.setBackgroundColor(getResources().getColor(R.color.white));
-                kebiao_tv_friday.getBackground().setAlpha(150);
+                kebiao_header_ll_5.setBackgroundResource(R.drawable.kebiao_header_select);
+                kebiao_tv_friday_h.setTextColor(getResources().getColor(R.color.white));
+                kebiao_tv_friday.setTextColor(getResources().getColor(R.color.white));
                 break;
             case 6:
-                kebiao_tv_Staday.setBackgroundColor(getResources().getColor(R.color.white));
-                kebiao_tv_Staday.getBackground().setAlpha(150);
+                kebiao_header_ll_6.setBackgroundResource(R.drawable.kebiao_header_select);
+                kebiao_tv_Staday_h.setTextColor(getResources().getColor(R.color.white));
+                kebiao_tv_Staday.setTextColor(getResources().getColor(R.color.white));
                 break;
         }
     }
@@ -249,14 +311,16 @@ public class KebiaoFragment extends LazyLoadFragment implements Toolbar.OnMenuIt
     public void initKebiao() {
         try {
             counts = new int[7];
-            for (int nn = 0; nn < 7; nn++) {      //刷新格子
+            for (int nn = 0; nn < 7; nn++) {
                 linearLayout[nn].removeAllViews();
                 counts[nn] = 0;
             }
-            kebiao_extra.setText(" 备注 :\n");
-            kebiao_extra.setTextColor(Color.rgb(27, 124, 220));
-            for (String t : APPAplication.save.getString("extra", "").split(";")) {
-                kebiao_extra.append(t + "\n");
+            String extra = APPAplication.save.getString("extra", "");
+            if (TextUtils.isEmpty(extra))
+                kebiao_ll_extra.setVisibility(View.GONE);
+            else {
+                kebiao_ll_extra.setVisibility(View.VISIBLE);
+                kebiao_extra.setText(extra);
             }
             for (int i = 1; i <= 7; i++) {
                 for (int j = 1; j <= 5; j++) {
@@ -282,11 +346,10 @@ public class KebiaoFragment extends LazyLoadFragment implements Toolbar.OnMenuIt
                             }
                             Boolean flag = false;
                             TextView textView = new TextView(linearLayout[i - 1].getContext());
-                            textView.setTextSize(12);
+                            textView.setTextSize(12f);
                             textView.setPadding(5, 15, 5, 15);
                             textView.setGravity(Gravity.CENTER_HORIZONTAL);
                             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, heightPixels / 6);
-                            //params.setMargins(0, (j - 1 - counts[i - 1]) * heightPixels / 6 + (j - 1 - counts[i - 1] + 1) * 6, 0, 0); //left,top,right, bottom
                             params.setMargins(0, (j - 1 - counts[i - 1]) * heightPixels / 6 + (j - counts[i - 1]) * 6, 0, 0);
                             textView.setLayoutParams(params);
                             linearLayout[i - 1].addView(textView);
@@ -401,14 +464,14 @@ public class KebiaoFragment extends LazyLoadFragment implements Toolbar.OnMenuIt
         switch (item.getItemId()) {
             case R.id.kebiao_menu_add:
                 View view = LayoutInflater.from(activity).inflate(R.layout.kebiao_add_dialog, null);
-                final EditText c_kcm = (EditText) view.findViewById(R.id.kebiao_detail_kcm_c2);
-                final EditText c_kcdm = (EditText) view.findViewById(R.id.kebiao_detail_kcdm_c2);
-                final EditText c_ls = (EditText) view.findViewById(R.id.kebiao_detail_ls_c2);
-                final EditText c_js = (EditText) view.findViewById(R.id.kebiao_detail_js_c2);
-                final EditText c_sj = (EditText) view.findViewById(R.id.kebiao_detail_sj_c2);
-                final EditText c_zc = (EditText) view.findViewById(R.id.kebiao_detail_zc_c2);
-                Button c_bt1 = (Button) view.findViewById(R.id.kebiao_detail_bt1);
-                Button c_bt2 = (Button) view.findViewById(R.id.kebiao_detail_bt2);
+                final EditText c_kcm = view.findViewById(R.id.kebiao_detail_kcm_c2);
+                final EditText c_kcdm = view.findViewById(R.id.kebiao_detail_kcdm_c2);
+                final EditText c_ls = view.findViewById(R.id.kebiao_detail_ls_c2);
+                final EditText c_js = view.findViewById(R.id.kebiao_detail_js_c2);
+                final EditText c_sj = view.findViewById(R.id.kebiao_detail_sj_c2);
+                final EditText c_zc = view.findViewById(R.id.kebiao_detail_zc_c2);
+                Button c_bt1 = view.findViewById(R.id.kebiao_detail_bt1);
+                Button c_bt2 = view.findViewById(R.id.kebiao_detail_bt2);
                 final Dialog dialog = new AlertDialog.Builder(activity).setView(view).setTitle("添加课程")
                         .setCancelable(false).create();
                 c_bt2.setOnClickListener(new View.OnClickListener() {
@@ -512,13 +575,16 @@ public class KebiaoFragment extends LazyLoadFragment implements Toolbar.OnMenuIt
                 }).create().show();
                 break;
             case R.id.kebiao_menu_changeterm:
-                final String[] datalist = new String[5];
-                datalist[0] = "2015-2016-1";
-                datalist[1] = "2015-2016-2";
-                datalist[2] = "2016-2017-1";
-                datalist[3] = "2016-2017-2";
-                datalist[4] = "2017-2018-1";
-                int index = 4;
+                final String[] datalist = new String[8];
+                datalist[0] = "2014-2015-1";
+                datalist[1] = "2014-2015-2";
+                datalist[2] = "2015-2016-1";
+                datalist[3] = "2015-2016-2";
+                datalist[4] = "2016-2017-1";
+                datalist[5] = "2016-2017-2";
+                datalist[6] = "2017-2018-1";
+                datalist[7] = "2017-2018-2";
+                int index = 6;
                 for (int i = 0; i < datalist.length; i++) {
                     if (datalist[i].equals(APPAplication.term))
                         index = i;
@@ -565,11 +631,11 @@ public class KebiaoFragment extends LazyLoadFragment implements Toolbar.OnMenuIt
                 }
                 if (kebiao_show_ct == 0) {
                     kebiao_show_ct = 1;
-                    APPAplication.save.edit().putInt("show_mode", kebiao_show_ct).apply();
+                    APPAplication.save.edit().putInt("kebiao_show_ct", kebiao_show_ct).apply();
                     initKebiao();
                 } else {
                     kebiao_show_ct = 0;
-                    APPAplication.save.edit().putInt("show_mode", kebiao_show_ct).apply();
+                    APPAplication.save.edit().putInt("kebiao_show_ct", kebiao_show_ct).apply();
                     initKebiao();
                 }
                 break;
@@ -625,7 +691,7 @@ public class KebiaoFragment extends LazyLoadFragment implements Toolbar.OnMenuIt
             case R.id.kebiao_toolbar_time:
                 if (APPAplication.login_stat != 0) {
                     View view = View.inflate(activity, R.layout.changweek_layout, null);
-                    ListView weekList = (ListView) view.findViewById(R.id.weekList);
+                    ListView weekList = view.findViewById(R.id.weekList);
                     ArrayList<String> strList = new ArrayList<String>();
                     for (int i = 1; i < 21; i++) {
                         if (i == APPAplication.week) {

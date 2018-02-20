@@ -7,10 +7,11 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/browser_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
         android:background="@color/colorPrimary"
         android:theme="@style/ToolbarTheme"
-        android:titleTextColor="@color/white" />
+        android:titleTextColor="@color/global_blue" />
 
     <com.tencent.smtt.sdk.WebView
         android:id="@+id/browser_webview"

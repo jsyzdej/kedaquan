@@ -3,6 +3,7 @@ package com.yangs.kedaquan.book;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -53,24 +54,28 @@ public class Book_Find extends Activity implements View.OnClickListener, View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.book_find);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
         setHandler();
-        iv_back = (ImageView) findViewById(R.id.book_find_ti_back);
-        iv_find = (ImageView) findViewById(R.id.book_find_ti_find);
-        et_text = (EditText) findViewById(R.id.book_find_ti_text);
-        bt_lend = (Button) findViewById(R.id.book_find_bt_lend);
+        iv_back = findViewById(R.id.book_find_ti_back);
+        iv_find = findViewById(R.id.book_find_ti_find);
+        et_text = findViewById(R.id.book_find_ti_text);
+        bt_lend = findViewById(R.id.book_find_bt_lend);
         bt_lend.setOnClickListener(this);
         iv_back.setOnClickListener(this);
         iv_find.setOnClickListener(this);
         et_text.setOnKeyListener(this);
         et_text.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
-        list = new ArrayList<Book2>();
-        lRecyclerView = (LRecyclerView) findViewById(R.id.book_find_lr);
+        list = new ArrayList<>();
+        lRecyclerView = findViewById(R.id.book_find_lr);
         lRecyclerView.setLayoutManager(new LinearLayoutManager(Book_Find.this));
         bookFindAdapter = new BookFindAdapter(list, getLayoutInflater());
         lRecyclerViewAdapter = new LRecyclerViewAdapter(bookFindAdapter);
         header_view = LayoutInflater.from(this).inflate(R.layout.book_find_header_view,
                 (ViewGroup) findViewById(android.R.id.content), false);
-        header_text = (TextView) header_view.findViewById(R.id.book_find_header_tv);
+        header_text = header_view.findViewById(R.id.book_find_header_tv);
         lRecyclerViewAdapter.addHeaderView(header_view);
         lRecyclerView.setAdapter(lRecyclerViewAdapter);
         lRecyclerView.setHeaderViewColor(R.color.colorAccent, R.color.gallery_dark_gray, android.R.color.white);
@@ -111,6 +116,10 @@ public class Book_Find extends Activity implements View.OnClickListener, View.On
             lRecyclerViewAdapter.notifyDataSetChanged();
             APPAplication.showToast("请输入书名!", 0);
         } else {
+            APPAplication.recordUtil.addRord(
+                    APPAplication.save.getString("name", ""),
+                    APPAplication.save.getString("xh", ""),
+                    "查图书", et_text.getText().toString().trim());
             bt_lend.setVisibility(View.GONE);
             bookFindAdapter.clear();
             lRecyclerViewAdapter.notifyDataSetChanged();

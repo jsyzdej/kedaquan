@@ -7,7 +7,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -17,11 +19,15 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.yangs.kedaquan.R;
+
+import java.io.File;
 
 /**
  * Created by yangs on 2017/2/16.
@@ -38,7 +44,7 @@ public class Kebiao_detail extends AppCompatActivity implements Toolbar.OnMenuIt
     private TextView jc;
     private int index;
     private Bundle bundle;
-    private View v_ad;
+    private SimpleDraweeView v_ad;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -50,6 +56,10 @@ public class Kebiao_detail extends AppCompatActivity implements Toolbar.OnMenuIt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.kebiao_detail);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
         toolbar = findViewById(R.id.kebiao_detail_toolbar);
         kcm = findViewById(R.id.kebiao_detail_kcm);
         kcdm = findViewById(R.id.kebiao_detail_kcdm);
@@ -99,22 +109,29 @@ public class Kebiao_detail extends AppCompatActivity implements Toolbar.OnMenuIt
                 break;
 
         }
-        v_ad.setBackgroundResource(R.drawable.bg_ad_1);
-        v_ad.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PackageManager packageManager = getPackageManager();
-                try {
-                    packageManager.getPackageInfo("com.tencent.mobileqq", 0);
-                    String url = "mqqwpa://im/chat?chat_type=wpa&uin=985581806";
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                } catch (PackageManager.NameNotFoundException e) {
-                    APPAplication.showToast("安装QQ后才能抢占名额哦", 0);
+        String status = APPAplication.save.getString("kbxx_status", "关");
+        if (status.equals("开")) {
+            String url = APPAplication.save.getString("kbxx_url", "");
+            v_ad.setImageURI(url);
+            v_ad.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String qq = APPAplication.save.getString("kbxx_remark", "");
+                    if (qq.equals(""))
+                        return;
+                    PackageManager packageManager = getPackageManager();
+                    try {
+                        packageManager.getPackageInfo("com.tencent.mobileqq", 0);
+                        String url = "mqqwpa://im/chat?chat_type=wpa&uin=" + qq;
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    } catch (PackageManager.NameNotFoundException e) {
+                        APPAplication.showToast("无法拉起手机qq", 0);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     @Override

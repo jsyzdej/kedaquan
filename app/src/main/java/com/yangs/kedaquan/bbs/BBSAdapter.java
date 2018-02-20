@@ -67,9 +67,9 @@ public class BBSAdapter extends RecyclerView.Adapter<BBSAdapter.ViewHolder> {
 
         public ViewHolder(View view) {
             super(view);
-            title = (TextView) view.findViewById(R.id.bbs_listview_title);
-            user = (TextView) view.findViewById(R.id.bbs_listview_user);
-            num = (TextView) view.findViewById(R.id.bbs_listview_num);
+            title = view.findViewById(R.id.bbs_listview_title);
+            user = view.findViewById(R.id.bbs_listview_user);
+            num = view.findViewById(R.id.bbs_listview_num);
         }
     }
 }

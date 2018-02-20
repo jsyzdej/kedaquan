@@ -59,10 +59,14 @@ public class Browser extends AppCompatActivity implements View.OnClickListener, 
             cookie = bundle.getString("cookie");
         }
         setContentView(R.layout.browser_layout);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
         toolbar = findViewById(R.id.browser_toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arraw_back_white);
         toolbar.setTitle("");
-        toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.global_blue));
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

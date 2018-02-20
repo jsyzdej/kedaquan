@@ -20,7 +20,7 @@
     <item
         android:id="@+id/score_menu_advie"
         android:orderInCategory="100"
-        android:title="反馈"
+        android:title="绩点错误反馈"
         app:showAsAction="never" />
 
 

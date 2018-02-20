@@ -21,6 +21,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.yangs.kedaquan.R;
 import com.yangs.kedaquan.activity.APPAplication;
 import com.yangs.kedaquan.activity.BBSLoginActivity;
@@ -30,10 +32,8 @@ import com.yangs.kedaquan.activity.VpnLoginActivity;
 import com.yangs.kedaquan.activity.meAbout;
 import com.yangs.kedaquan.bbs.BBSSource;
 import com.yangs.kedaquan.utils.AsyncTaskUtil;
+import com.yangs.kedaquan.utils.RecordUtil;
 import com.yangs.kedaquan.utils.VPNUtils;
-import com.yangs.kedaquan.utils.VersionControl;
-
-import org.json.JSONObject;
 
 /**
  * Created by yangs on 2017/5/6.
@@ -44,7 +44,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
     private Activity activity;
     private SharedPreferences save;
     private ProgressDialog progressDialog;
-    private String tmp_version;
+    private JSONObject tmp_version;
     public TextView tv_login;
     public TextView tv_bbs;
     public TextView tv_vpn;
@@ -227,76 +227,72 @@ public class MeFragment extends Fragment implements View.OnClickListener {
                 progressDialog.setCancelable(false);
                 if (!progressDialog.isShowing())
                     progressDialog.show();
-                final Message msg = Message.obtain();
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        VersionControl versionControl = new VersionControl();
-                        tmp_version = versionControl.check(APPAplication.save.getString("xh", "首次+手动"));
-                        JSONObject a;
-                        try {
-                            a = new JSONObject(tmp_version);
-                            if (tmp_version.equals("false")) {
-                                APPAplication.sendHandler(new Runnable() {
+                APPAplication.recordUtil.addRord("checkUpdate", APPAplication.name,
+                        APPAplication.xh, "检测更新", "", new RecordUtil.OnResultListener() {
+                            @Override
+                            public void onSuccess(final String response) {
+                                handler.post(new Runnable() {
                                     @Override
                                     public void run() {
-                                        progressDialog.cancel();
-                                        APPAplication.showToast("网络出错!", 0);
+                                        progressDialog.dismiss();
+                                        praseJson(response);
                                     }
                                 });
-                            } else {
-                                if (a.getString("version").equals(APPAplication.version)) {
-                                    APPAplication.sendHandler(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            progressDialog.cancel();
-                                            APPAplication.showToast("目前还没有新版哦!", 0);
-                                        }
-                                    });
-                                } else {
-                                    APPAplication.sendHandler(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            if (progressDialog != null)
-                                                progressDialog.cancel();
-                                            try {
-                                                JSONObject version_tmp = new JSONObject(tmp_version);
-                                                final String url = version_tmp.getString("url");
-                                                final String app_name = version_tmp.getString("app_name");
-                                                String info = "版本号 : " + version_tmp.getString("version") + "\n"
-                                                        + "大小 : " + version_tmp.getString("size") + "\n"
-                                                        + "详细 : \n" + version_tmp.getString("detail");
-                                                new AlertDialog.Builder(activity).setTitle("发现新版本")
-                                                        .setMessage(info)
-                                                        .setNegativeButton("下载", new DialogInterface.OnClickListener() {
-                                                            @Override
-                                                            public void onClick(DialogInterface dialog, int which) {
-                                                                APPAplication.showToast("正在下载中...", 0);
-                                                                mDownloadAsyncTask = new AsyncTaskUtil(activity, new Handler());
-                                                                mDownloadAsyncTask.execute(url, app_name);
-                                                            }
-                                                        }).setPositiveButton("取消", new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialog, int which) {
-                                                        APPAplication.showToast("新版本有更好的体验哦，推荐下载!", 0);
-                                                    }
-                                                }).show();
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-                                        }
-                                    });
-                                }
                             }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
+
+                            @Override
+                            public void onNetworkError() {
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        progressDialog.dismiss();
+                                        APPAplication.showToast("网络错误", 0);
+                                    }
+                                });
+                            }
+                        });
                 break;
             case R.id.me_layout_about:
                 startActivity(new Intent(activity, meAbout.class));
                 break;
+        }
+    }
+
+    private void praseJson(String response) {
+        JSONObject json = JSON.parseObject(response);
+        tmp_version = json.getJSONObject("版本");
+        if (!tmp_version.getString("versioncode").equals(APPAplication.version)) {
+            try {
+                final String url = tmp_version.getString("url");
+                final String app_name = tmp_version.getString("KeDaQuan.apk");
+                String info = "版本号 : " + tmp_version.getString("versioncode") + "\n"
+                        + "大小 : " + tmp_version.getString("size") + "\n"
+                        + "发布时间 : " + tmp_version.getString("time") + "\n"
+                        + "详细 : \n" + tmp_version.getString("content");
+                new AlertDialog.Builder(getContext()).setTitle("发现新版本")
+                        .setMessage(info)
+                        .setNegativeButton("点击更新", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                APPAplication.showToast("正在下载中", 1);
+                                mDownloadAsyncTask = new AsyncTaskUtil(getContext(), handler);
+                                mDownloadAsyncTask.execute(url, app_name);
+                            }
+                        }).setPositiveButton("手动下载", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent();
+                        intent.setAction("android.intent.action.VIEW");
+                        Uri content_url = Uri.parse(url);
+                        intent.setData(content_url);
+                        startActivity(intent);
+                    }
+                }).show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            APPAplication.showToast("还没有新版本哦!", 0);
         }
     }
 

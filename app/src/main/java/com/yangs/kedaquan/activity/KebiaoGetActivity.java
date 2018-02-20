@@ -12,8 +12,11 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.tencent.smtt.export.external.interfaces.SslErrorHandler;
@@ -28,7 +31,7 @@ import com.yangs.kedaquan.utils.VpnSource;
  * Created by yangs on 2017/11/16 0016.
  */
 
-public class KebiaoGetActivity extends AppCompatActivity implements View.OnClickListener {
+public class KebiaoGetActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     private Toolbar toolbar;
     private EditText et_user;
     private EditText et_pwd;
@@ -38,16 +41,24 @@ public class KebiaoGetActivity extends AppCompatActivity implements View.OnClick
     private VpnSource vpnSource;
     private ProgressDialog progressDialog;
     private Context context;
+    private Spinner spinner;
+    private String[] mItems;
+    private String current_term;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.kebiaogetactivity_layout);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
         progressDialog = new ProgressDialog(this);
         context = this;
         progressDialog.setCancelable(false);
         toolbar = findViewById(R.id.kebiaogetactivity_toolbar);
         et_user = findViewById(R.id.kebiaogetactivity_et_user);
+        spinner = findViewById(R.id.kebiaogetactivity_sp);
         et_pwd = findViewById(R.id.kebiaogetactivity_et_pwd);
         bt_login = findViewById(R.id.kebiaogetactivity_bt_login);
         tv_forget = findViewById(R.id.kebiaogetactivity_tv_forget);
@@ -55,7 +66,7 @@ public class KebiaoGetActivity extends AppCompatActivity implements View.OnClick
         tv_forget.setOnClickListener(this);
         toolbar.setNavigationIcon(R.drawable.ic_arraw_back_white);
         toolbar.setTitle("导入课表");
-        toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.global_blue));
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +80,20 @@ public class KebiaoGetActivity extends AppCompatActivity implements View.OnClick
         }
         et_user.setText(APPAplication.save.getString("xh", ""));
         et_pwd.setText(APPAplication.save.getString("pwd", ""));
+        mItems = new String[8];
+        mItems[0] = "2014-2015-1";
+        mItems[1] = "2014-2015-2";
+        mItems[2] = "2015-2016-1";
+        mItems[3] = "2015-2016-2";
+        mItems[4] = "2016-2017-1";
+        mItems[5] = "2016-2017-2";
+        mItems[6] = "2017-2018-1";
+        mItems[7] = "2017-2018-2";
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, mItems);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+        spinner.setSelection(7, true);
     }
 
     private Handler handler = new Handler(new Handler.Callback() {
@@ -82,7 +107,7 @@ public class KebiaoGetActivity extends AppCompatActivity implements View.OnClick
                             new Thread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    kebiao_status_code = vpnSource.getKebiao("2017-2018-1");
+                                    kebiao_status_code = vpnSource.getKebiao(current_term);
                                     handler.sendEmptyMessage(2);
                                 }
                             }).start();
@@ -115,6 +140,14 @@ public class KebiaoGetActivity extends AppCompatActivity implements View.OnClick
                         case -2:
                             APPAplication.showDialog(KebiaoGetActivity.this
                                     , "网络出错");
+                            break;
+                        case -3:
+                            APPAplication.showDialog(KebiaoGetActivity.this,
+                                    "获取课表时正则失败!");
+                            APPAplication.recordUtil.addRord(
+                                    APPAplication.save.getString("name", ""),
+                                    APPAplication.save.getString("xh", ""),
+                                    "导入课表", "获取课表时正则失败");
                             break;
                     }
                     break;
@@ -176,6 +209,10 @@ public class KebiaoGetActivity extends AppCompatActivity implements View.OnClick
                 }
                 break;
             case R.id.kebiaogetactivity_bt_login:
+                if (current_term == null || current_term.equals("")) {
+                    APPAplication.showToast("请选择学期", 0);
+                    return;
+                }
                 final String user = et_user.getText().toString().trim();
                 final String pwd = et_pwd.getText().toString().trim();
                 if (user.equals("")) {
@@ -202,5 +239,15 @@ public class KebiaoGetActivity extends AppCompatActivity implements View.OnClick
                 }).start();
                 break;
         }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        current_term = mItems[position];
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="@color/colorPrimary"
-            app:titleTextColor="@color/white">
+            app:titleTextColor="@color/global_blue">
 
             <TextView
                 android:id="@+id/me_toolbar_tv"
@@ -26,7 +26,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="我"
-                android:textColor="@android:color/white"
+                android:textColor="@color/global_blue"
                 android:textSize="20sp" />
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>

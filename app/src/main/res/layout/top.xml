@@ -3,6 +3,7 @@
     android:id="@+id/rl_titlebar"
     android:layout_width="match_parent"
     android:layout_height="48dp"
+    android:layout_marginTop="22dp"
     android:background="@color/colorPrimary"
     android:orientation="horizontal">
 
@@ -21,7 +22,7 @@
         android:gravity="center_vertical"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:textColor="@color/colorwhite"
+        android:textColor="@color/global_blue"
         android:textSize="@dimen/txtsize_subhead" />
 
     <TextView
@@ -31,7 +32,7 @@
         android:gravity="center"
         android:maxWidth="224dp"
         android:onClick="weekSelect"
-        android:textColor="@color/colorwhite" />
+        android:textColor="@color/global_blue" />
 
     <ImageView
         android:id="@+id/titlebar_iv_right"
@@ -50,7 +51,7 @@
         android:gravity="center_vertical"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:textColor="@color/colorwhite"
+        android:textColor="@color/global_blue"
         android:textSize="@dimen/txtsize_subhead" />
 
     <View

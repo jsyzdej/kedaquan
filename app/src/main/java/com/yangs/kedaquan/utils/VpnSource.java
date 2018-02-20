@@ -19,6 +19,7 @@ import java.security.SecureRandom;
 import javax.net.ssl.*;
 
 import java.security.cert.X509Certificate;
+import java.util.Date;
 
 import okhttp3.FormBody;
 import okhttp3.Headers;
@@ -111,7 +112,10 @@ public class VpnSource {
             if (location != null && location.contains("welcome.cgi?p=forced-off")) {
                 code = -1;
             } else {
-                code = 0;
+                if (!cookie.contains("DSLastAccess"))
+                    code = -1;
+                else
+                    code = 0;
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -170,6 +174,7 @@ public class VpnSource {
     -2: network error
      */
     public int checkJwUser(String jw_user, String jw_pwd) {
+        exit();
         this.jw_user = jw_user;
         this.jw_pwd = jw_pwd;
         FormBody.Builder formBodyBuilder = new FormBody.Builder().add("USERNAME", this.jw_user)
@@ -179,19 +184,35 @@ public class VpnSource {
                 .url("https://vpn.just.edu.cn/jsxsd/xk/,DanaInfo=jwgl.just.edu.cn,Port=8080+LoginToXk")
                 .headers(requestHeaders).post(requestBody).header("Cookie", cookie).build();
         try {
+            mOkHttpClient.newCall(request).execute();
+            request = new Request.Builder()
+                    .url("https://vpn.just.edu.cn/jsxsd/framework/,DanaInfo=jwgl.just.edu.cn,Port=8080+xsMain.jsp")
+                    .headers(requestHeaders).header("Cookie", cookie).post(requestBody).build();
             Response response = mOkHttpClient.newCall(request).execute();
-            String location = response.header("Location");
-            if (location != null) {
-                cookie = cookie + ";" + response.header("Set-Cookie");
-                response.close();
+            Document document = Jsoup.parse(response.body().string());
+            Element name = document.getElementById("Top1_divLoginName");
+            response.close();
+            if (name != null)
                 return 0;
-            } else {
+            else
                 return -1;
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return -2;
+    }
+
+    public void exit() {
+        Date date = new Date();
+        Request request = new Request.Builder()
+                .url("https://vpn.just.edu.cn/jsxsd/xk/,DanaInfo=jwgl.just.edu.cn,Port=8080+LoginToXk?method=exit&tktime="
+                        + date.getTime())
+                .headers(requestHeaders).header("Cookie", cookie).build();
+        try {
+            mOkHttpClient.newCall(request).execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /*
@@ -311,6 +332,8 @@ public class VpnSource {
             }
         } catch (IOException e) {
             return -2;
+        } catch (Exception e) {
+            return -3;
         }
         return 0;
     }

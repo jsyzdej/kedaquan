@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--4758b3 303F9F-->
-    <color name="colorPrimary">#1e89e7</color>
-    <color name="colorPrimaryDark">#176eb8</color>
+    <color name="colorPrimary">#fdfdfe</color>
+    <color name="colorPrimaryDark">#fdfdfe</color>
     <color name="colorAccent">#0077d8</color>
     <color name="colorAccentPress">#ba0845</color>
     <color name="colorGreen">#46bf1b</color>
@@ -20,10 +20,18 @@
     <color name="border_clo">#ccc</color>
     <color name="color_00">#8A000000</color>
     <color name="text_clo">#333</color>
+    <color name="bbs_listview_gray">#f3f3f3</color>
+    <color name="bbs_listview_blue">#1e88e8</color>
+    <color name="bbs_listview_gray2">#666666</color>
+    <color name="bbs_listview_gray3">#9a9a9a</color>
     <color name="gray3">#8897ac</color>
-    <color name="white">#ffffff</color>
+    <color name="white">#fdfdfe</color>
     <color name="kebiao_header_color">#33FFFFFF</color>
     <color name="blue">#419de4</color>
+    <color name="a_blue">#75b2eb</color>
+    <color name="global_blue">#1e88e5</color>
+    <color name="kebiao_bg_gray">#f3f3f3</color>
+    <color name="kebiao_bg_gray2">#9a9a9a</color>
     <color name="colorDisableHintIcon">#71000000</color>
     <color name="gallery_blue">#4758b3</color>
     <color name="split">#000000</color>

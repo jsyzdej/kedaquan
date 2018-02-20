@@ -66,7 +66,6 @@ public class ScoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             });
             return scoreViewHolder;
         }
-
     }
 
     @Override

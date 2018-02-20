@@ -14,7 +14,7 @@
         android:layout_height="48dp"
         android:background="@color/colorPrimary"
         app:theme="@style/ToolbarTheme"
-        app:titleTextColor="@color/white">
+        app:titleTextColor="@color/global_blue">
 
         <TextView
             android:id="@+id/kebiao_toolbar_login"
@@ -23,7 +23,7 @@
             android:layout_gravity="left"
             android:gravity="center"
             android:text="登录"
-            android:textColor="@android:color/white"
+            android:textColor="@color/global_blue"
             android:textSize="14sp" />
 
         <TextView
@@ -33,9 +33,8 @@
             android:layout_centerInParent="true"
             android:layout_gravity="center"
             android:gravity="center"
-            android:onClick="weekSelect"
-            android:text="第1周"
-            android:textColor="@android:color/white"
+            android:text="第1周 ▾"
+            android:textColor="@color/global_blue"
             android:textSize="20sp" />
     </android.support.v7.widget.Toolbar>
 
@@ -44,95 +43,238 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="48dp"
-        android:background="@drawable/ic_week_course_bg"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/textView_Start"
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:background="#33FFFFFF" />
-
-            <TextView
-                android:id="@+id/textView_Monday"
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="#33FFFFFF"
+            <LinearLayout
+                android:layout_width="35dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
                 android:gravity="center"
-                android:text="周一"
-                android:textColor="@color/colorPrimary" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView_Tuesday"
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="#33FFFFFF"
-                android:gravity="center"
-                android:paddingLeft="2dip"
-                android:text="周二"
-                android:textColor="@color/colorPrimary" />
+                <TextView
+                    android:id="@+id/textView_Start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="1"
+                    android:textColor="@color/global_blue"
+                    android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/textView_Wednesday"
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="#33FFFFFF"
-                android:gravity="center"
-                android:paddingLeft="2dip"
-                android:text="周三"
-                android:textColor="@color/colorPrimary" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="月"
+                    android:textColor="@color/global_blue"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView_Thursday"
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
+            <LinearLayout
+                android:id="@+id/kebiao_header_ll_one"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:layout_weight="1"
-                android:background="#33FFFFFF"
                 android:gravity="center"
-                android:paddingLeft="2dip"
-                android:text="周四"
-                android:textColor="@color/colorPrimary" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView_Friday"
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="#33FFFFFF"
-                android:gravity="center"
-                android:paddingLeft="2dip"
-                android:text="周五"
-                android:textColor="@color/colorPrimary" />
+                <TextView
+                    android:id="@+id/textView_Monday_h"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="一"
+                    android:textColor="@color/global_blue"
+                    android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/textView_Saturday"
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="#33FFFFFF"
-                android:gravity="center"
-                android:paddingLeft="2dip"
-                android:text="周六"
-                android:textColor="@color/colorPrimary" />
+                <TextView
+                    android:id="@+id/textView_Monday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="29"
+                    android:textColor="@color/kebiao_bg_gray2"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView_Sunday"
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
+            <LinearLayout
+                android:id="@+id/kebiao_header_ll_two"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:layout_weight="1"
-                android:background="#33FFFFFF"
                 android:gravity="center"
-                android:paddingLeft="2dip"
-                android:text="周日"
-                android:textColor="@color/colorPrimary" />
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView_Tuesday_h"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="二"
+                    android:textColor="@color/global_blue"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/textView_Tuesday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="30"
+                    android:textColor="@color/kebiao_bg_gray2"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/kebiao_header_ll_three"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView_Wednesday_h"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="三"
+                    android:textColor="@color/global_blue"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/textView_Wednesday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="31"
+                    android:textColor="@color/kebiao_bg_gray2"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/kebiao_header_ll_four"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/kebiao_header_select"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView_Thursday_h"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="四"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/textView_Thursday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="01"
+                    android:textColor="@color/kebiao_bg_gray2"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/kebiao_header_ll_five"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView_Friday_h"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="五"
+                    android:textColor="@color/global_blue"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/textView_Friday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="02"
+                    android:textColor="@color/kebiao_bg_gray2"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/kebiao_header_ll_six"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView_Saturday_h"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="六"
+                    android:textColor="@color/global_blue"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/textView_Saturday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="03"
+                    android:textColor="@color/kebiao_bg_gray2"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/kebiao_header_ll_seven"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView_Sunday_h"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="日"
+                    android:textColor="@color/global_blue"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/textView_Sunday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="04"
+                    android:textColor="@color/kebiao_bg_gray2"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
         </LinearLayout>
 
         <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -150,15 +292,17 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@color/kebiao_bg_gray"
                     android:orientation="horizontal">
 
                     <LinearLayout
                         android:id="@+id/side_index_layout"
-                        android:layout_width="30dp"
+                        android:layout_width="35dp"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                    </LinearLayout>
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@color/white"
+                        android:orientation="vertical" />
 
                     <LinearLayout
                         android:id="@+id/linearLayout1"
@@ -175,7 +319,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:paddingLeft="2dip"></LinearLayout>
+                        android:paddingLeft="2dip" />
 
                     <LinearLayout
                         android:id="@+id/linearLayout3"
@@ -183,7 +327,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:paddingLeft="2dip"></LinearLayout>
+                        android:paddingLeft="2dip" />
 
                     <LinearLayout
                         android:id="@+id/linearLayout4"
@@ -191,7 +335,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:paddingLeft="2dip"></LinearLayout>
+                        android:paddingLeft="2dip" />
 
                     <LinearLayout
                         android:id="@+id/linearLayout5"
@@ -199,7 +343,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:paddingLeft="2dip"></LinearLayout>
+                        android:paddingLeft="2dip" />
 
                     <LinearLayout
                         android:id="@+id/linearLayout6"
@@ -207,7 +351,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:paddingLeft="2dip"></LinearLayout>
+                        android:paddingLeft="2dip" />
 
                     <LinearLayout
                         android:id="@+id/linearLayout7"
@@ -215,20 +359,38 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:paddingLeft="2dip"></LinearLayout>
+                        android:paddingLeft="2dip" />
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/kebiao_ll_extra"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:paddingTop="10dp">
+                    android:layout_height="wrap_content"
+                    android:background="@color/kebiao_bg_gray"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="35dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/a_blue"
+                        android:gravity="center"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:text="备注"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/kebiao_tv_shixi"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="10dp" />
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="35dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="35dp"
+                        android:layout_marginStart="10dp"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/kebiao_bg_gray2"
+                        android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
 

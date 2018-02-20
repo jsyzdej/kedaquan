@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -54,6 +55,10 @@ public class Book_Lend extends Activity implements OnRefreshListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.book_lend);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
         titleBuilder = new TitleBuilder(Book_Lend.this);
         titleBuilder.setLeftImage(R.drawable.ic_arraw_back_white).setTitleText("我的借阅", Boolean.FALSE).setTvTitleNoClick().setIvRightNoClick()
                 .setRightText("刷新", new View.OnClickListener() {
@@ -71,9 +76,9 @@ public class Book_Lend extends Activity implements OnRefreshListener {
         setHandler();
         user = APPAplication.save.getString("book_name", "");
         pwd = APPAplication.save.getString("book_pwd", "");
-        book_lend_lr = (LRecyclerView) findViewById(R.id.book_lend_lr);
+        book_lend_lr = findViewById(R.id.book_lend_lr);
         book_lend_lr.setLayoutManager(new LinearLayoutManager(Book_Lend.this));
-        book_list = new ArrayList<Book>();
+        book_list = new ArrayList<>();
         bookAdapter = new BookAdapter(book_list);
         book_lend_lr_adapter = new LRecyclerViewAdapter(bookAdapter);
         book_lend_lr_adapter.setOnItemClickListener(new OnItemClickListener() {
@@ -235,6 +240,10 @@ public class Book_Lend extends Activity implements OnRefreshListener {
                         dialog.show();
                         break;
                     case 3:
+                        APPAplication.recordUtil.addRord(
+                                APPAplication.save.getString("name", ""),
+                                APPAplication.save.getString("xh", ""),
+                                "查借阅", "");
                         APPAplication.save.edit().putString("book_name", user)
                                 .putString("book_pwd", pwd)
                                 .putString("book_login_type", type_tmp).apply();

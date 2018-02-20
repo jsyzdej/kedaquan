@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/bbs_menu_msg"
-        android:icon="@drawable/ic_textsms_black_24dp"
+        android:icon="@drawable/ic_menu_blue_24dp"
         android:title="查看回复"
         app:showAsAction="ifRoom" />
 </menu>

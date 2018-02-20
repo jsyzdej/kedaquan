@@ -2,6 +2,7 @@ package com.yangs.kedaquan.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -38,8 +39,12 @@ public class NoticeActivity extends AppCompatActivity implements OnItemClickList
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.noticeactivity_layout);
-        toolbar = (Toolbar) findViewById(R.id.notice_toolbar);
-        lRecyclerView = (LRecyclerView) findViewById(R.id.notice_layout_lr);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
+        toolbar = findViewById(R.id.notice_toolbar);
+        lRecyclerView = findViewById(R.id.notice_layout_lr);
         lRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         toolbar.setTitle("通知中心");
         setSupportActionBar(toolbar);

@@ -19,6 +19,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.net.ssl.HostnameVerifier;
@@ -89,25 +90,46 @@ public class getKebiaoSource {
                 .followRedirects(false).followSslRedirects(false).build();
     }
 
+    public void exit() {
+        Date date = new Date();
+        Request request = new Request.Builder()
+                .url("https://vpn.just.edu.cn/jsxsd/xk/,DanaInfo=jwgl.just.edu.cn,Port=8080+LoginToXk?method=exit&tktime="
+                        + date.getTime())
+                .headers(requestHeaders).header("Cookie", cookie).build();
+        try {
+            mOkHttpClient.newCall(request).execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public int checkUser() {
+        exit();
         FormBody.Builder formBodyBuilder = new FormBody.Builder().add("USERNAME", xh).add("PASSWORD",
                 pwd);
         RequestBody requestBody = formBodyBuilder.build();
         Request request = new Request.Builder().url("https://vpn.just.edu.cn/jsxsd/xk/LoginToXk,DanaInfo=jwgl.just.edu.cn,Port=8080")
                 .headers(requestHeaders).header("Cookie", cookie).post(requestBody).build();
         try {
+            mOkHttpClient.newCall(request).execute();
+            request = new Request.Builder()
+                    .url("https://vpn.just.edu.cn/jsxsd/framework/,DanaInfo=jwgl.just.edu.cn,Port=8080+xsMain.jsp")
+                    .headers(requestHeaders).header("Cookie", cookie).post(requestBody).build();
             Response response = mOkHttpClient.newCall(request).execute();
-            String location = response.header("Location");
-            if (location != null) {
-                cookie = cookie + ";" + response.header("Set-Cookie");
-                response.close();
+            Document document = Jsoup.parse(response.body().string());
+            Element name = document.getElementById("Top1_divLoginName");
+            response.close();
+            if (name != null)
                 return 0;
-            } else {
+            else
                 return -1;
-            }
         } catch (Exception e) {
             return -2;
         }
+    }
+
+    public String getCookie() {
+        return cookie;
     }
 
     public int getWeek(Context context) {

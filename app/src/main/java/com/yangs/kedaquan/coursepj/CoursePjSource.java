@@ -1,5 +1,7 @@
 package com.yangs.kedaquan.coursepj;
 
+import android.text.TextUtils;
+
 import com.yangs.kedaquan.activity.APPAplication;
 
 import org.jsoup.Jsoup;
@@ -13,6 +15,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.net.ssl.HostnameVerifier;
@@ -84,6 +87,7 @@ public class CoursePjSource {
     }
 
     public int checkUser() {
+        exit();
         FormBody.Builder formBodyBuilder = new FormBody.Builder().add("USERNAME", xh).add("PASSWORD",
                 pwd);
         RequestBody requestBody = formBodyBuilder.build();
@@ -92,14 +96,32 @@ public class CoursePjSource {
                 .headers(requestHeaders).header("Cookie", cookie).post(requestBody).build();
         try {
             Response response = mOkHttpClient.newCall(request).execute();
-            if (response.header("Location") != null) {
-                cookie = cookie + ";" + response.header("Set-Cookie");
+            cookie = cookie + ";" + response.header("Set-Cookie");
+            request = new Request.Builder()
+                    .url("https://vpn.just.edu.cn/jsxsd/framework/,DanaInfo=jwgl.just.edu.cn,Port=8080+xsMain.jsp")
+                    .headers(requestHeaders).header("Cookie", cookie).post(requestBody).build();
+            response = mOkHttpClient.newCall(request).execute();
+            Document document = Jsoup.parse(response.body().string());
+            Element name = document.getElementById("Top1_divLoginName");
+            if (name != null)
                 return 0;
-            } else {
+            else
                 return -1;
-            }
         } catch (IOException e) {
             return -2;
+        }
+    }
+
+    public void exit() {
+        Date date = new Date();
+        Request request = new Request.Builder()
+                .url("https://vpn.just.edu.cn/jsxsd/xk/,DanaInfo=jwgl.just.edu.cn,Port=8080+LoginToXk?method=exit&tktime="
+                        + date.getTime())
+                .headers(requestHeaders).header("Cookie", cookie).build();
+        try {
+            mOkHttpClient.newCall(request).execute();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -113,7 +135,7 @@ public class CoursePjSource {
             Document document = Jsoup.parse(response.body().string());
             Elements elements = document.getElementsByAttributeValue("title", "点击进入评价");
             for (Element element : elements) {
-                urList.add("https://vpn.just.edu.cn/jsxsd/" + element.attr("href"));
+                urList.add("https://vpn.just.edu.cn" + element.attr("href"));
             }
         } catch (Exception e) {
             APPAplication.showToast(e.toString(), 1);
@@ -121,28 +143,52 @@ public class CoursePjSource {
         return urList;
     }
 
+    private int prasePjTable(String response, List<CoursePJList> pjList) {
+        Document document = Jsoup.parse(response);
+        Elements elements = document.getElementsByAttributeValue("id", "dataList").select("tr");
+        for (int i = 1; i < elements.size(); i++) {
+            CoursePJList coursePJList = new CoursePJList();
+            Elements elements2 = elements.get(i).select("td");
+            coursePJList.setName(elements2.get(2).text());
+            coursePJList.setTeacher(elements2.get(3).text());
+            coursePJList.setScore(elements2.get(4).text());
+            coursePJList.setHasPj(elements2.get(6).text().equals("是"));
+            coursePJList.setUrl("https://vpn.just.edu.cn"
+                    + elements2.get(7).select("a").attr("href").split("javascript:JsMod\\(")[1]
+                    .split("'")[1]
+                    .split(",")[0]);
+            pjList.add(coursePJList);
+        }
+        int index = 1;
+        try {
+            String s_index = document.select("div.Nsb_r_list_fy3").text()
+                    .split("页")[0].split("共")[1];
+            index = Integer.parseInt(s_index);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return index;
+    }
+
     public List<CoursePJList> getPjTable(String urList) {
-        List<CoursePJList> pjList = new ArrayList<CoursePJList>();
+        List<CoursePJList> pjList = new ArrayList<>();
         Request request = new Request.Builder().url(urList).headers(requestHeaders)
                 .header("Cookie", cookie).build();
         try {
             Response response = mOkHttpClient.newCall(request).execute();
-            Document document = Jsoup.parse(response.body().string());
-            Elements elements = document.getElementsByAttributeValue("id", "dataList").select("tr");
-            for (int i = 1; i < elements.size(); i++) {
-                CoursePJList coursePJList = new CoursePJList();
-                Elements elements2 = elements.get(i).select("td");
-                coursePJList.setName(elements2.get(2).text());
-                coursePJList.setTeacher(elements2.get(3).text());
-                coursePJList.setScore(elements2.get(4).text());
-                coursePJList.setHasPj(elements2.get(6).text().equals("是") ? true : false);
-                coursePJList.setUrl("https://vpn.just.edu.cn/jsxsd/"
-                        + elements2.get(7).select("a").attr("href").split("javascript:JsMod\\(")[1]
-                        .split("'")[1]
-                        .split(",")[0]);
-                pjList.add(coursePJList);
+            int index = prasePjTable(response.body().string(), pjList);
+            response.close();
+            for (int i = 2; i <= index; i++) {
+                FormBody.Builder formBodyBuilder = new FormBody.Builder()
+                        .add("pageIndex", i + "")
+                        .add("cj0701id", " ");
+                RequestBody requestBody = formBodyBuilder.build();
+                request = new Request.Builder().url(urList).headers(requestHeaders)
+                        .header("Cookie", cookie).post(requestBody).build();
+                response = mOkHttpClient.newCall(request).execute();
+                prasePjTable(response.body().string(), pjList);
+                response.close();
             }
-
         } catch (Exception e) {
             APPAplication.showToast(e.toString(), 1);
         }
@@ -161,22 +207,9 @@ public class CoursePjSource {
                 .url("https://vpn.just.edu.cn/jsxsd/xspj/,DanaInfo=jwgl.just.edu.cn,Port=8080+xspj_save.do?issubmit=1&" + post1 + post2 + post3)
                 .headers(requestHeaders).header("Cookie", cookie).build();
         try {
-            Response response = mOkHttpClient.newCall(request).execute();
-            System.out.println(response.body().string().split(";")[0].split("alert\\(")[1].replaceAll("'|\\)", ""));
-        } catch (Exception e) {
-            APPAplication.showToast(e.toString(), 1);
-        }
-    }
-
-    public void Success(String flag) {
-        FormBody.Builder formBodyBuilder2 = new FormBody.Builder().add("check", "yangs")
-                .add("xh", xh).add("flag", flag);
-        RequestBody requestBody2 = formBodyBuilder2.build();
-        Request request3 = new Request.Builder().url("http://www.myangs.com:8080/coursepj_record.jsp")
-                .headers(requestHeaders).post(requestBody2).build();
-        try {
-            mOkHttpClient.newCall(request3).execute();
-        } catch (Exception e) {
+            mOkHttpClient.newCall(request).execute();
+        } catch (IOException e) {
+            APPAplication.showToast("网络出错!", 0);
         }
     }
 }

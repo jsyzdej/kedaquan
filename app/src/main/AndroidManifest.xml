@@ -45,7 +45,7 @@
             android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity android:name="com.yangs.kedaquan.book.Book_Lend" />
         <activity android:name="com.yangs.kedaquan.book.Book_Find" />
-        <activity android:name="com.yangs.kedaquan.coursepj.CoursePJ" />
+        <activity android:name="com.yangs.kedaquan.coursepj.CoursePJActivity" />
         <activity android:name="com.yangs.kedaquan.score.ScoreActivity" />
         <activity android:name="com.yangs.kedaquan.bbs.BBSDetailActivity" />
         <activity android:name="com.yangs.kedaquan.activity.BBSLoginActivity" />
@@ -53,12 +53,6 @@
         <activity android:name="com.yangs.kedaquan.activity.NoticeActivity" />
         <activity android:name="com.yangs.kedaquan.activity.KebiaoGetActivity" />
         <activity android:name="com.yangs.kedaquan.activity.VpnLoginActivity" />
-        <activity
-            android:name="com.yangs.kedaquan.activity.KebiaoDialogActivity"
-            android:configChanges="keyboardHidden|orientation"
-            android:launchMode="singleInstance"
-            android:screenOrientation="portrait"
-            android:theme="@style/DialogTheme" />
 
         <receiver android:name="com.yangs.kedaquan.utils.CompleteReceiver">
             <intent-filter>

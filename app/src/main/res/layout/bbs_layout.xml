@@ -18,7 +18,7 @@
             android:layout_height="48dp"
             android:background="@color/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:titleTextColor="@color/white">
+            app:titleTextColor="@color/global_blue">
 
             <TextView
                 android:id="@+id/bbs_toolbar_tv"
@@ -28,7 +28,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="论坛"
-                android:textColor="@android:color/white"
+                android:textColor="@color/global_blue"
                 android:textSize="20sp" />
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
@@ -48,7 +48,7 @@
         android:layout_marginBottom="38dp"
         android:layout_marginEnd="30dp"
         android:layout_marginRight="30dp"
-        fab:fab_colorNormal="@color/yellow"
-        fab:fab_colorPressed="@color/yellow_press" />
+        fab:fab_colorNormal="@color/blue"
+        fab:fab_colorPressed="@color/global_blue" />
 
 </android.support.design.widget.CoordinatorLayout>

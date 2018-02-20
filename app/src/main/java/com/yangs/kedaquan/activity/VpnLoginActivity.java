@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -37,17 +38,21 @@ public class VpnLoginActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vpnloginactivity_layout);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
-        toolbar = (Toolbar) findViewById(R.id.vpnloginactivity_toolbar);
-        et_user = (EditText) findViewById(R.id.vpnloginactivity_et_user);
-        et_pwd = (EditText) findViewById(R.id.vpnloginactivity_et_pwd);
-        tv_info = (TextView) findViewById(R.id.vpnloginactivity_tv_info);
-        bt_login = (Button) findViewById(R.id.vpnloginactivity_bt_login);
+        toolbar = findViewById(R.id.vpnloginactivity_toolbar);
+        et_user = findViewById(R.id.vpnloginactivity_et_user);
+        et_pwd = findViewById(R.id.vpnloginactivity_et_pwd);
+        tv_info = findViewById(R.id.vpnloginactivity_tv_info);
+        bt_login = findViewById(R.id.vpnloginactivity_bt_login);
         bt_login.setOnClickListener(this);
         toolbar.setNavigationIcon(R.drawable.ic_arraw_back_white);
         toolbar.setTitle("绑定VPN");
-        toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.global_blue));
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,17 +76,29 @@ public class VpnLoginActivity extends AppCompatActivity implements View.OnClickL
                     switch (vpn_status_code) {
                         case 0:
                             APPAplication.showToast("绑定VPN成功!", 0);
+                            APPAplication.recordUtil.addRord(
+                                    APPAplication.save.getString("name", ""),
+                                    APPAplication.save.getString("xh", ""),
+                                    "绑定VPN", "成功 " +
+                                            et_user.getText().toString().trim());
                             finish();
                             break;
                         case -1:
                             APPAplication.showDialog(VpnLoginActivity.this,
                                     "用户名或密码错误");
+                            APPAplication.recordUtil.addRord(
+                                    APPAplication.save.getString("name", ""),
+                                    APPAplication.save.getString("xh", ""),
+                                    "绑定VPN", "用户名或密码错误 " +
+                                            et_user.getText().toString().trim() + " " +
+                                            et_pwd.getText().toString().trim());
                             break;
                         case -2:
                             new AlertDialog.Builder(VpnLoginActivity.this)
                                     .setTitle("提示").setMessage("此用户已经在其他地方登录,点击确定后" +
                                     "会自动打开一个浏览器页面,请在页面里点击继续会话,然后点击右上角的" +
-                                    "登出,再返回科大圈绑定VPN!")
+                                    "登出,再返回科大圈绑定VPN!\n注意: 登出以后不要在浏览器里面再次登录," +
+                                    "否则会无限循环!")
                                     .setCancelable(false)
                                     .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                         @Override

@@ -7,13 +7,9 @@
     <com.youth.banner.Banner
         android:id="@+id/find_header_banner"
         android:layout_width="match_parent"
-        android:layout_height="150dp">
+        android:layout_height="150dp"
+        android:background="@drawable/bg_find_banner"
+        android:padding="10dp">
 
     </com.youth.banner.Banner>
-
-    <com.xhb.jxnk25.maillineview.MailLineView
-        android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp" />
 </LinearLayout>

@@ -2,6 +2,8 @@ package com.yangs.kedaquan.bbs;
 
 import android.graphics.Color;
 
+import com.yangs.kedaquan.R;
+
 /**
  * Created by yangs on 2017/8/2.
  */
@@ -54,5 +56,5 @@ public class BBS {
         this.color = color;
     }
 
-    private int color = Color.BLACK;
+    private int color = R.color.bbs_listview_gray2;
 }

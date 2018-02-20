@@ -36,9 +36,8 @@
             <TextView
                 android:id="@+id/coursepj_listview_name"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="2dp"
-                android:layout_weight="2"
                 android:gravity="center"
                 android:text="社会调查"
                 android:textSize="18sp" />
@@ -46,8 +45,7 @@
             <TextView
                 android:id="@+id/coursepj_listview_teacher"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="张老师"
                 android:textSize="12sp" />

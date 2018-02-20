@@ -7,18 +7,21 @@
         <!--状态栏颜色-->
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <!--对应EditText编辑时、RadioButton选中、CheckBox等选中时的颜色。-->
-        <item name="colorAccent">@color/blue</item>
+        <item name="colorAccent">@color/global_blue</item>
     </style>
 
     <style name="SplashTheme" parent="AppTheme">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
-        <item name="android:windowBackground">@drawable/bg_splash_first</item>
+        <item name="android:windowBackground">@drawable/bg_splash</item>
     </style>
 
-    <style name="ToolbarTheme">
-        <item name="colorControlNormal">#ffffff</item>
-        <item name="actionMenuTextColor">@color/white</item>
+    <style name="ToolbarTheme" parent="Theme.AppCompat.Light">
+        <!-- 设置 toolbar 溢出菜单的文字的颜色 -->
+        <item name="android:textColor">@color/global_blue</item>
+        <item name="actionMenuTextColor">@color/global_blue</item>
+        <item name="colorButtonNormal">@color/global_blue</item>
+        <item name="colorControlNormal">@color/global_blue</item>
     </style>
 
     <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">

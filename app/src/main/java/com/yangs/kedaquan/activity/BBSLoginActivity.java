@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -52,7 +53,11 @@ public class BBSLoginActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bbsloginactivity_layout);
-        toolbar = (Toolbar) findViewById(R.id.bbslogin_toolbar);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
+        toolbar = findViewById(R.id.bbslogin_toolbar);
         toolbar.setTitle("登录到论坛");
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -62,22 +67,22 @@ public class BBSLoginActivity extends AppCompatActivity implements View.OnClickL
             }
         });
         toolbar.setOnMenuItemClickListener(this);
-        et_user = (EditText) findViewById(R.id.bbslogin_et_user);
-        et_pwd = (EditText) findViewById(R.id.bbslogin_et_pwd);
-        et_pwd2 = (EditText) findViewById(R.id.bbslogin_et_pwd2);
-        et_email = (EditText) findViewById(R.id.bbslogin_et_email);
-        checkBox = (CheckBox) findViewById(R.id.bbslogin_cb);
-        iv_22 = (ImageView) findViewById(R.id.bbslogin_iv_22);
-        iv_33 = (ImageView) findViewById(R.id.bbslogin_iv_33);
-        ll_2233 = (LinearLayout) findViewById(R.id.bbslogin_ll_2233);
+        et_user = findViewById(R.id.bbslogin_et_user);
+        et_pwd = findViewById(R.id.bbslogin_et_pwd);
+        et_pwd2 = findViewById(R.id.bbslogin_et_pwd2);
+        et_email = findViewById(R.id.bbslogin_et_email);
+        checkBox = findViewById(R.id.bbslogin_cb);
+        iv_22 = findViewById(R.id.bbslogin_iv_22);
+        iv_33 = findViewById(R.id.bbslogin_iv_33);
+        ll_2233 = findViewById(R.id.bbslogin_ll_2233);
         checkBox.setChecked(APPAplication.save.getBoolean("bbs_pwd_rem", true));
         if (APPAplication.save.getBoolean("bbs_pwd_rem", true))
             et_pwd.setText(APPAplication.save.getString("bbs_pwd", ""));
         et_user.setText(APPAplication.save.getString("bbs_user", ""));
-        bt_login = (Button) findViewById(R.id.bbslogin_bt_login);
-        tv_regis = (TextView) findViewById(R.id.bbslogin_tv_register);
-        textInputLayout = (TextInputLayout) findViewById(R.id.bbslogin_til);
-        textInputLayout2 = (TextInputLayout) findViewById(R.id.bbslogin_til2);
+        bt_login = findViewById(R.id.bbslogin_bt_login);
+        tv_regis = findViewById(R.id.bbslogin_tv_register);
+        textInputLayout = findViewById(R.id.bbslogin_til);
+        textInputLayout2 = findViewById(R.id.bbslogin_til2);
         setHandler();
         bt_login.setOnClickListener(this);
         tv_regis.setOnClickListener(this);

@@ -3,6 +3,7 @@ package com.yangs.kedaquan.coursepj;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -31,7 +32,7 @@ import java.util.List;
  * Created by yangs on 2017/7/30.
  */
 
-public class CoursePJ extends Activity implements View.OnClickListener, OnItemClickListener, OnRefreshListener {
+public class CoursePJActivity extends Activity implements View.OnClickListener, OnItemClickListener, OnRefreshListener {
     private EditText et_xh;
     private EditText et_pwd;
     private Button bt_login;
@@ -54,6 +55,10 @@ public class CoursePJ extends Activity implements View.OnClickListener, OnItemCl
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.coursepj_layout);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
         titleBuilder = new TitleBuilder(this);
         titleBuilder.setLeftImage(R.drawable.ic_arraw_back_white).setTitleText("一键评教", Boolean.FALSE).setTvTitleNoClick().setIvRightNoClick();
         titleBuilder.setLeftOnClickListener(new View.OnClickListener() {
@@ -63,8 +68,9 @@ public class CoursePJ extends Activity implements View.OnClickListener, OnItemCl
             }
         });
         lRecyclerView = findViewById(R.id.coursepj_lr);
-        xh = APPAplication.save.getString("pj_xh", "");
-        pwd = APPAplication.save.getString("pj_pwd", "");
+        xh = APPAplication.save.getString("pj_xh", APPAplication.xh);
+        pwd = APPAplication.save.getString("pj_pwd", APPAplication.save
+                .getString("pwd", ""));
         View dialog_login_view = getLayoutInflater().inflate(R.layout.coursepj_login_dialog, null);
         et_xh = dialog_login_view.findViewById(R.id.coursepj_login_et_xh);
         et_pwd = dialog_login_view.findViewById(R.id.coursepj_login_et_pwd);
@@ -150,31 +156,34 @@ public class CoursePJ extends Activity implements View.OnClickListener, OnItemCl
             case R.id.coursepj_header_bt:
                 View view = getLayoutInflater().inflate(R.layout.coursepj_dialog_yijian, null);
                 final EditText ee = view.findViewById(R.id.coursepj_dialog_yijian_et);
-                new AlertDialog.Builder(CoursePJ.this).setTitle("评教设置").setView(view)
+                new AlertDialog.Builder(CoursePJActivity.this).setTitle("评教设置").setView(view)
                         .setCancelable(false)
                         .setPositiveButton("开始评教", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
                                 if (progressDialog == null)
-                                    progressDialog = new ProgressDialog(CoursePJ.this);
+                                    progressDialog = new ProgressDialog(CoursePJActivity.this);
                                 progressDialog.setCancelable(false);
                                 new Thread(new Runnable() {
                                     @Override
                                     public void run() {
                                         for (int i = 0; i < list.size(); i++) {
-                                            CoursePJ.ss = i;
+                                            CoursePJActivity.ss = i;
                                             runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    progressDialog.setMessage("正在评教 [" + list.get(CoursePJ.ss).getName() + "] ...");
+                                                    progressDialog.setMessage("正在评教 [" + list.get(CoursePJActivity.ss).getName() + "] ...");
                                                     if (!progressDialog.isShowing())
                                                         progressDialog.show();
                                                 }
                                             });
                                             coursePjSource.doPj(list.get(i).getUrl(), ee.getText().toString());
                                         }
-                                        coursePjSource.Success("all");
+                                        APPAplication.recordUtil.addRord(
+                                                APPAplication.save.getString("name", ""),
+                                                APPAplication.save.getString("xh", ""),
+                                                "yjpj", xh);
                                         runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
@@ -205,14 +214,14 @@ public class CoursePJ extends Activity implements View.OnClickListener, OnItemCl
                     lRecyclerView.refresh();
                     break;
                 case 2:
-                    APPAplication.showDialog(CoursePJ.this, "用户名或密码错误");
+                    APPAplication.showDialog(CoursePJActivity.this, "用户名或密码错误");
                     break;
                 case 3:
-                    APPAplication.showDialog(CoursePJ.this, "网络出错");
+                    APPAplication.showDialog(CoursePJActivity.this, "网络出错");
                     break;
                 case 4:
                     lRecyclerViewAdapter.addHeaderView(header_view);
-                    header_bt.setOnClickListener(CoursePJ.this);
+                    header_bt.setOnClickListener(CoursePJActivity.this);
                     coursePjAdapter.clear();
                     lRecyclerViewAdapter.notifyDataSetChanged();
                     coursePjAdapter.addAll(list);
@@ -226,12 +235,12 @@ public class CoursePJ extends Activity implements View.OnClickListener, OnItemCl
                     lRecyclerView.refresh();
                     break;
                 case 6:
-                    APPAplication.showDialog(CoursePJ.this, "当前没有需要评教的课!");
+                    APPAplication.showDialog(CoursePJActivity.this, "当前没有需要评教的课!");
                     lRecyclerView.refreshComplete(10);
                     lRecyclerViewAdapter.notifyDataSetChanged();
                     break;
                 case 7:
-                    APPAplication.showDialog(CoursePJ.this, "当前没有需要评教的课!");
+                    APPAplication.showDialog(CoursePJActivity.this, "当前没有需要评教的课!");
                     lRecyclerView.refreshComplete(10);
                     lRecyclerViewAdapter.notifyDataSetChanged();
                     break;
@@ -242,17 +251,17 @@ public class CoursePJ extends Activity implements View.OnClickListener, OnItemCl
 
     @Override
     public void onItemClick(View view, final int position) {
-        new AlertDialog.Builder(CoursePJ.this).setTitle("是否评教此课程?").setCancelable(false)
+        new AlertDialog.Builder(CoursePJActivity.this).setTitle("是否评教此课程?").setCancelable(false)
                 .setMessage(list.get(position).getName())
                 .setPositiveButton("是", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         if (list.get(position).getHasPj()) {
-                            APPAplication.showDialog(CoursePJ.this, "此课程已经评教了,无法再次评教!");
+                            APPAplication.showDialog(CoursePJActivity.this, "此课程已经评教了,无法再次评教!");
                         } else {
                             if (progressDialog == null)
-                                progressDialog = new ProgressDialog(CoursePJ.this);
+                                progressDialog = new ProgressDialog(CoursePJActivity.this);
                             progressDialog.setMessage("正在评教 [" + list.get(position).getName() + "] ...");
                             progressDialog.setCancelable(false);
                             if (!progressDialog.isShowing())
@@ -261,7 +270,10 @@ public class CoursePJ extends Activity implements View.OnClickListener, OnItemCl
                                 @Override
                                 public void run() {
                                     coursePjSource.doPj(list.get(position).getUrl(), "老师的教学工作很认真出色");
-                                    coursePjSource.Success(list.get(position).getName());
+                                    APPAplication.recordUtil.addRord(
+                                            APPAplication.save.getString("name", ""),
+                                            APPAplication.save.getString("xh", ""),
+                                            "yjpj", xh + " ; " + list.get(position).getName());
                                     handler.sendEmptyMessage(5);
                                 }
                             }).start();

@@ -30,7 +30,9 @@ import android.widget.TextView;
 
 import com.yangs.kedaquan.R;
 import com.yangs.kedaquan.activity.APPAplication;
+import com.yangs.kedaquan.coursepj.CoursePJActivity;
 import com.yangs.kedaquan.utils.VersionControl;
+import com.yangs.kedaquan.utils.WrapContentLinearLayoutManager;
 import com.yangs.kedaquan.utils.getKebiaoSource;
 
 import org.jsoup.Jsoup;
@@ -72,7 +74,7 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.score_layout);
         toolbar = findViewById(R.id.score_layout_toolbar);
-        toolbar.setTitle("成绩绩点");
+        toolbar.setTitle("cjjd");
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,15 +88,19 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
         tv_empty = findViewById(R.id.score_layout_tv);
         list = new ArrayList<>();
         scoreAdapter = new ScoreAdapter(list);
-        datalist = new String[7];
-        datalist[0] = "2015-2016-1";
-        datalist[1] = "2015-2016-2";
-        datalist[2] = "2015-2016学年";
-        datalist[3] = "2016-2017-1";
-        datalist[4] = "2016-2017-2";
-        datalist[5] = "2016-2017学年";
-        datalist[6] = "2017-2018-1";
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        datalist = new String[10];
+        datalist[0] = "2014-2015-1";
+        datalist[1] = "2014-2015-2";
+        datalist[2] = "2014-2015学年";
+        datalist[3] = "2015-2016-1";
+        datalist[4] = "2015-2016-2";
+        datalist[5] = "2015-2016学年";
+        datalist[6] = "2016-2017-1";
+        datalist[7] = "2016-2017-2";
+        datalist[8] = "2016-2017学年";
+        datalist[9] = "2017-2018-1";
+        recyclerView.setLayoutManager(new WrapContentLinearLayoutManager(
+                this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(scoreAdapter);
         scoreAdapter.setOnItemOnClickListener(this);
         scoreAdapter.setOnDeatilItemClickListener(this);
@@ -103,6 +109,7 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
         srl.setOnRefreshListener(this);
         if (term_dialog == null) {
             term_dialog = new AlertDialog.Builder(this).setTitle("选择学期")
+                    .setCancelable(false)
                     .setSingleChoiceItems(datalist, -1, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -120,7 +127,20 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
         }
         xh = APPAplication.save.getString("xh", "");
         pwd = APPAplication.save.getString("pwd", "");
+        if (xh.equals("") || pwd.equals("")) {
+            APPAplication.showToast("没有绑定账号,请切换到 bottom_iv_me 界面来导入课表!", 0);
+            finish();
+        }
         term_dialog.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            srl.setRefreshing(true);
+            onRefresh();
+        }
     }
 
     private Handler handler = new Handler(new Handler.Callback() {
@@ -128,6 +148,11 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
         public boolean handleMessage(Message message) {
             switch (message.what) {
                 case 1:
+                    String content = xh + " " + year + " " + new_jd;
+                    APPAplication.recordUtil.addRord(
+                            APPAplication.save.getString("name", ""),
+                            APPAplication.save.getString("xh", ""),
+                            "查成绩", content);
                     srl.setRefreshing(false);
                     recyclerView.setVisibility(View.VISIBLE);
                     tv_empty.setVisibility(View.GONE);
@@ -147,73 +172,91 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
                     srl.setRefreshing(false);
                     APPAplication.showDialog(ScoreActivity.this, "网络出错");
                     break;
+                case 5:
+                    srl.setRefreshing(false);
+                    new AlertDialog.Builder(ScoreActivity.this).setTitle("提示")
+                            .setMessage("完成本学期所有课程的教学评价以后才能查看成绩。\n是否需要打开 yjpj?")
+                            .setCancelable(false)
+                            .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    Intent intent = new Intent(ScoreActivity.this,
+                                            CoursePJActivity.class);
+                                    startActivityForResult(intent, 1);
+                                }
+                            }).setNegativeButton("否", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).create().show();
+                    break;
             }
             return true;
         }
     });
 
     private void calculateGPA(Boolean isSelf) {
-        if (list.size() == 0)
-            return;
-        float sum = 0f;
-        float XFsum = 0f;
-        for (int i = 0, j = list.size(); i < j; i++) {
-            Score score = list.get(i);
-            if (!score.getCheck())
-                continue;
-            float s1;   //成绩
-            float s2;   //学分
-            try {
-                s2 = Float.parseFloat(score.getXf());
-            } catch (NumberFormatException e) {
-                continue;   //没有学分,skip it
-            }
-            try {
-                s1 = Float.parseFloat(score.getScore());
-            } catch (NumberFormatException e) {
-                switch (score.getScore()) {
-                    case "优":
-                        s1 = 95;
-                        break;
-                    case "良":
-                        s1 = 85;
-                        break;
-                    case "中":
-                    case "通过":
-                        s1 = 75;
-                        break;
-                    case "及格":
-                        s1 = 65;
-                        break;
-                    default:
-                        s1 = 0;
-                        break;
+        try {
+            if (list.size() == 0)
+                return;
+            float sum = 0f;
+            float XFsum = 0f;
+            for (int i = 0, j = list.size(); i < j; i++) {
+                Score score = list.get(i);
+                if (!score.getCheck())
+                    continue;
+                float s1;   //成绩
+                float s2;   //学分
+                try {
+                    s2 = Float.parseFloat(score.getXf());
+                } catch (NumberFormatException e) {
+                    continue;   //没有学分,skip it
                 }
-            }
-            sum += (s1 - 50) / 10 * s2;
-            XFsum += s2;
-        }
-        jd = sum / XFsum;
-        Score score = new Score();
-        BigDecimal b = new BigDecimal(jd);
-        new_jd = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-        if (isSelf) {
-            list.get(0).setJd(new_jd + "");
-        } else {
-            score.setJd(new_jd + "");
-            score.setTerm(year);
-            score.setCheck(false);
-            list.add(0, score);
-        }
-        if (!APPAplication.debug) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    VersionControl versionControl = new VersionControl();
-                    String content = xh + " " + year + " " + new_jd;
-                    versionControl.recordGPA(content);
+                try {
+                    s1 = Float.parseFloat(score.getScore());
+                    if (s1 < 60)
+                        s1 = 50;
+                } catch (NumberFormatException e) {
+                    switch (score.getScore()) {
+                        case "优":
+                            s1 = 95;
+                            break;
+                        case "良":
+                            s1 = 85;
+                            break;
+                        case "中":
+                        case "通过":
+                        case "合格":
+                            s1 = 75;
+                            break;
+                        case "及格":
+                            s1 = 65;
+                            break;
+                        default:
+                            s1 = 50;
+                            break;
+                    }
                 }
-            }).start();
+                sum += (s1 - 50) / 10 * s2;
+                XFsum += s2;
+            }
+            jd = sum / XFsum;
+            Score score = new Score();
+            BigDecimal b = new BigDecimal(jd);
+            new_jd = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+            if (isSelf) {
+                list.get(0).setJd(new_jd + "");
+            } else {
+                score.setJd(new_jd + "");
+                score.setTerm(year);
+                score.setCheck(false);
+                list.add(0, score);
+            }
+        } catch (Exception e) {
+            APPAplication.showDialog(this, "计算绩点时发生了一个错误," +
+                    "请点击右上角进行反馈!");
         }
     }
 
@@ -245,13 +288,19 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
                                         score1.setCno(ee.get(2).text());
                                         score1.setName(ee.get(3).text());
                                         score1.setScore(ee.get(4).text());
+                                        if (score1.getScore().equals("请评教")) {
+                                            handler.sendEmptyMessage(5);
+                                            return;
+                                        }
                                         score1.setXf(ee.get(5).text());
                                         score1.setKs(ee.get(6).text());
                                         score1.setKhfx(ee.get(7).text());
                                         score1.setKcsx(ee.get(8).text());
                                         score1.setKcxz(ee.get(9).text());
                                         if ((score1.getKcsx().equals("必修") || score1.getKcsx().equals("任选"))
-                                                && !score1.getName().contains("体育"))
+                                                && !score1.getName().contains("体育")
+                                                && !score1.getName().contains("校公选")
+                                                && !score1.getName().contains("等级考试"))
                                             score1.setCheck(true);
                                         else
                                             score1.setCheck(false);
@@ -269,13 +318,19 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
                                                 score1.setCno(ee.get(2).text());
                                                 score1.setName(ee.get(3).text());
                                                 score1.setScore(ee.get(4).text());
+                                                if (score1.getScore().equals("请评教")) {
+                                                    handler.sendEmptyMessage(5);
+                                                    return;
+                                                }
                                                 score1.setXf(ee.get(5).text());
                                                 score1.setKs(ee.get(6).text());
                                                 score1.setKhfx(ee.get(7).text());
                                                 score1.setKcsx(ee.get(8).text());
                                                 score1.setKcxz(ee.get(9).text());
                                                 if ((score1.getKcsx().equals("必修") || score1.getKcsx().equals("任选"))
-                                                        && !score1.getName().contains("体育"))
+                                                        && !score1.getName().contains("体育")
+                                                        && !score1.getName().contains("校公选")
+                                                        && !score1.getName().contains("等级考试"))
                                                     score1.setCheck(true);
                                                 else
                                                     score1.setCheck(false);
@@ -308,13 +363,19 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
                                         score1.setCno(ee.get(2).text());
                                         score1.setName(ee.get(3).text());
                                         score1.setScore(ee.get(4).text());
+                                        if (score1.getScore().equals("请评教")) {
+                                            handler.sendEmptyMessage(5);
+                                            return;
+                                        }
                                         score1.setXf(ee.get(5).text());
                                         score1.setKs(ee.get(6).text());
                                         score1.setKhfx(ee.get(7).text());
                                         score1.setKcsx(ee.get(8).text());
                                         score1.setKcxz(ee.get(9).text());
                                         if ((score1.getKcsx().equals("必修") || score1.getKcsx().equals("任选"))
-                                                && !score1.getName().contains("体育"))
+                                                && !score1.getName().contains("体育")
+                                                && !score1.getName().contains("校公选")
+                                                && !score1.getName().contains("等级考试"))
                                             score1.setCheck(true);
                                         else
                                             score1.setCheck(false);
