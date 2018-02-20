@@ -1,7 +1,7 @@
 # 科大圈
 
 **江苏科技大学课表,成绩查询,论坛客户端**
-#### 目前登录使用人数过5000,欢迎下载使用,提交商店正在审核中
+#### 目前登录使用人数过9000,欢迎下载使用
 #### [点此下载最新版](http://www.myangs.com/app/KeDaQuan.apk)
 ### 开发感想
 - 目前在读江苏科技大学15级信管专业
@@ -23,11 +23,12 @@
 - 一键评教
 - 图书搜索
 ### 软件截图
-# <img src="https://github.com/yangs2012/kedaquan/blob/master/screenshot/kebiao.png" width=360 height=640/>           <img src="https://github.com/yangs2012/kedaquan/blob/master/screenshot/score.png" width=360 height=640/>
-
-# <img src="https://github.com/yangs2012/kedaquan/blob/master/screenshot/bbs.png" width=360 height=640/>           <img src="https://github.com/yangs2012/kedaquan/blob/master/screenshot/coursePj.png" width=360 height=640/>
-
-# <img src="https://github.com/yangs2012/kedaquan/blob/master/screenshot/book.png" width=360 height=640/>           <img src="https://github.com/yangs2012/kedaquan/blob/master/screenshot/find.png" width=360 height=640/>
+# <img src="https://github.com/yangs2012/kedaquan/blob/master/screenshot/kebiao.png" width=360 height=640/>           
+#<img src="https://github.com/yangs2012/kedaquan/blob/master/screenshot/find.png" width=360 height=640/>
+#<img src="https://github.com/yangs2012/kedaquan/blob/master/screenshot/score.png" width=360 height=640/>
+# <img src="https://github.com/yangs2012/kedaquan/blob/master/screenshot/bbs.png" width=360 height=640/>           
+#<img src="https://github.com/yangs2012/kedaquan/blob/master/screenshot/coursePj.png" width=360 height=640/>
+# <img src="https://github.com/yangs2012/kedaquan/blob/master/screenshot/book.png" width=360 height=640/>           
 ### 联系我
 - **yangs**
 - [我的博客](http://www.myangs.com)
@@ -40,9 +41,7 @@
 - [fresco](https://github.com/facebook/fresco)
 - [GalleryPick](https://github.com/YancyYe/GalleryPick)
 - [LRecyclerView](https://github.com/jdsjlzx/LRecyclerView)
-### 特别感谢
-    14焊接 Qian
-    成绩绩点等相关Web端功能由他开发完成。
+
 #### [科大圈官网](http://www.onewanqian.cn:8000/)
 ### License
     Copyright 2017 yangs
