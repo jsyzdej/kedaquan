@@ -2,7 +2,7 @@ package com.yangs.kedaquan.utils;
 
 import android.os.Build;
 
-import com.yangs.kedaquan.activity.APPAplication;
+import com.yangs.kedaquan.APPAplication;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

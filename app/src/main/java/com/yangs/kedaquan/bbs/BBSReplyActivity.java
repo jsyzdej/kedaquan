@@ -20,8 +20,8 @@ import com.github.jdsjlzx.interfaces.OnRefreshListener;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.yangs.kedaquan.R;
-import com.yangs.kedaquan.activity.APPAplication;
-import com.yangs.kedaquan.activity.Browser;
+import com.yangs.kedaquan.APPAplication;
+import com.yangs.kedaquan.activity.BrowserActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -161,7 +161,7 @@ public class BBSReplyActivity extends AppCompatActivity implements OnItemClickLi
         Intent intent = null;
         switch (item.getItemId()) {
             case R.id.bbsreply_menu_me:
-                intent = new Intent(this, Browser.class);
+                intent = new Intent(this, BrowserActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("url", "http://www.myangs.com:81/" + APPAplication.bbsSource.user_url);
                 bundle.putString("cookie", APPAplication.bbsSource.cookie);

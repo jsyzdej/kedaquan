@@ -1,7 +1,5 @@
 package com.yangs.kedaquan.utils;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -16,15 +14,13 @@ import java.util.Map;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.yangs.kedaquan.activity.APPAplication;
+import com.yangs.kedaquan.APPAplication;
 
 /**
  * Created by yangs on 2017/3/18.

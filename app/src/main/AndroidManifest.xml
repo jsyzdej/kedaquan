@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
-        android:name="com.yangs.kedaquan.activity.APPAplication"
+        android:name="com.yangs.kedaquan.APPAplication"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@drawable/ic_launcher"
@@ -38,11 +38,12 @@
             </intent-filter>
         </activity>
         <activity android:name="com.yangs.kedaquan.activity.MainActivity" />
-        <activity android:name="com.yangs.kedaquan.activity.Kebiao_detail" />
-        <activity android:name="com.yangs.kedaquan.activity.meAbout" />
+        <activity android:name="com.yangs.kedaquan.activity.KebiaoDetailActivity" />
+        <activity android:name="com.yangs.kedaquan.activity.meAboutActivity" />
         <activity
-            android:name="com.yangs.kedaquan.activity.Browser"
-            android:configChanges="orientation|screenSize|keyboardHidden" />
+            android:name="com.yangs.kedaquan.activity.BrowserActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:process=":browser" />
         <activity android:name="com.yangs.kedaquan.book.Book_Lend" />
         <activity android:name="com.yangs.kedaquan.book.Book_Find" />
         <activity android:name="com.yangs.kedaquan.coursepj.CoursePJActivity" />
@@ -53,6 +54,7 @@
         <activity android:name="com.yangs.kedaquan.activity.NoticeActivity" />
         <activity android:name="com.yangs.kedaquan.activity.KebiaoGetActivity" />
         <activity android:name="com.yangs.kedaquan.activity.VpnLoginActivity" />
+        <activity android:name=".activity.CetTicketActivity" />
 
         <receiver android:name="com.yangs.kedaquan.utils.CompleteReceiver">
             <intent-filter>

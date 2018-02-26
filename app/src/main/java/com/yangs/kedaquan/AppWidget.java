@@ -10,8 +10,6 @@ import android.graphics.Color;
 import android.text.TextUtils;
 import android.widget.RemoteViews;
 
-import com.yangs.kedaquan.activity.APPAplication;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

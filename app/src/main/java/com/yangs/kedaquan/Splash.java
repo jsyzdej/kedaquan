@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.yangs.kedaquan.activity.APPAplication;
 import com.yangs.kedaquan.activity.MainActivity;
 
 import java.io.File;

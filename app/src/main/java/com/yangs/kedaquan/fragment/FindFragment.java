@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,7 +19,6 @@ import android.widget.EditText;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipeline;
-import com.github.jdsjlzx.ItemDecoration.GridItemDecoration;
 import com.github.jdsjlzx.interfaces.OnItemClickListener;
 import com.github.jdsjlzx.interfaces.OnItemLongClickListener;
 import com.github.jdsjlzx.interfaces.OnRefreshListener;
@@ -33,8 +31,9 @@ import com.tencent.smtt.sdk.CookieSyncManager;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
 import com.yangs.kedaquan.R;
-import com.yangs.kedaquan.activity.APPAplication;
-import com.yangs.kedaquan.activity.Browser;
+import com.yangs.kedaquan.APPAplication;
+import com.yangs.kedaquan.activity.BrowserActivity;
+import com.yangs.kedaquan.activity.CetTicketActivity;
 import com.yangs.kedaquan.activity.VpnLoginActivity;
 import com.yangs.kedaquan.book.Book_Find;
 import com.yangs.kedaquan.coursepj.CoursePJActivity;
@@ -125,6 +124,7 @@ public class FindFragment extends LazyLoadFragment implements OnBannerListener, 
         dataList.add("学术论文");
         dataList.add("电话列表");
         dataList.add("四六级");
+        dataList.add("四六级准考证找回");
         dataList.add("实时公交");
         FindMainAdapter adapter = new FindMainAdapter(dataList);
         lRecyclerViewAdapter = new LRecyclerViewAdapter(adapter);
@@ -174,7 +174,7 @@ public class FindFragment extends LazyLoadFragment implements OnBannerListener, 
                 APPAplication.save.getString("name", ""),
                 APPAplication.save.getString("xh", ""),
                 "点击广告" + (position + 1), "");
-        Intent intent = new Intent(activity, Browser.class);
+        Intent intent = new Intent(activity, BrowserActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("url", findUrlList.get(position));
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -211,7 +211,7 @@ public class FindFragment extends LazyLoadFragment implements OnBannerListener, 
                                 Bundle bundle = new Bundle();
                                 bundle.putString("url", url_data.get(dataList.get(position)));
                                 bundle.putString("cookie", APPAplication.save.getString("vpn_cookie", ""));
-                                Intent intent2 = new Intent(activity, Browser.class);
+                                Intent intent2 = new Intent(activity, BrowserActivity.class);
                                 intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 intent2.putExtras(bundle);
                                 startActivity(intent2);
@@ -269,7 +269,7 @@ public class FindFragment extends LazyLoadFragment implements OnBannerListener, 
                                         bundle.putString("cookie",
                                                 APPAplication.save.getString("vpn_cookie", "")
                                                         + ";" + source.getCookie());
-                                        Intent intent2 = new Intent(activity, Browser.class);
+                                        Intent intent2 = new Intent(activity, BrowserActivity.class);
                                         intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         intent2.putExtras(bundle);
                                         startActivity(intent2);
@@ -285,6 +285,10 @@ public class FindFragment extends LazyLoadFragment implements OnBannerListener, 
                         });
                     }
                 }).start();
+                break;
+            case 16:
+                intent = new Intent(activity, CetTicketActivity.class); //四六级准考证找回
+                startActivity(intent);
                 break;
             default:
                 if (position == 2 || position == 3 || position == 4) {
@@ -346,7 +350,7 @@ public class FindFragment extends LazyLoadFragment implements OnBannerListener, 
                     Bundle bundle = new Bundle();
                     bundle.putString("url", url_data.get(dataList.get(position)));
                     bundle.putString("cookie", APPAplication.save.getString("vpn_cookie", ""));
-                    Intent intent2 = new Intent(activity, Browser.class);
+                    Intent intent2 = new Intent(activity, BrowserActivity.class);
                     intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent2.putExtras(bundle);
                     startActivity(intent2);

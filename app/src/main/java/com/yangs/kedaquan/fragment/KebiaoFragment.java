@@ -34,8 +34,8 @@ import com.yancy.gallerypick.config.GalleryConfig;
 import com.yancy.gallerypick.config.GalleryPick;
 import com.yancy.gallerypick.inter.IHandlerCallBack;
 import com.yangs.kedaquan.R;
-import com.yangs.kedaquan.activity.APPAplication;
-import com.yangs.kedaquan.activity.Kebiao_detail;
+import com.yangs.kedaquan.APPAplication;
+import com.yangs.kedaquan.activity.KebiaoDetailActivity;
 import com.yangs.kedaquan.utils.DateUtil;
 import com.yangs.kedaquan.utils.FrescoImageLoader;
 
@@ -401,7 +401,7 @@ public class KebiaoFragment extends LazyLoadFragment implements Toolbar.OnMenuIt
                                     }
                                 }
                             }
-                            final Intent intent = new Intent(activity, Kebiao_detail.class);
+                            final Intent intent = new Intent(activity, KebiaoDetailActivity.class);
                             textView.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
@@ -415,7 +415,7 @@ public class KebiaoFragment extends LazyLoadFragment implements Toolbar.OnMenuIt
                                         listDialog.setItems(items, new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
-                                                final Intent intent = new Intent(activity, Kebiao_detail.class);
+                                                final Intent intent = new Intent(activity, KebiaoDetailActivity.class);
                                                 Bundle bundle = new Bundle();
                                                 bundle.putString("kcm", course_info.get(which).get("课程名"));
                                                 bundle.putString("kcdm", course_info.get(which).get("课程代码"));

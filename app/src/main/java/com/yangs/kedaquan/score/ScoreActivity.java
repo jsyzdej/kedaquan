@@ -1,12 +1,12 @@
 package com.yangs.kedaquan.score;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -29,15 +29,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yangs.kedaquan.R;
-import com.yangs.kedaquan.activity.APPAplication;
+import com.yangs.kedaquan.APPAplication;
 import com.yangs.kedaquan.coursepj.CoursePJActivity;
-import com.yangs.kedaquan.utils.VersionControl;
 import com.yangs.kedaquan.utils.WrapContentLinearLayoutManager;
 import com.yangs.kedaquan.utils.getKebiaoSource;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.math.BigDecimal;
@@ -73,8 +71,12 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.score_layout);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
         toolbar = findViewById(R.id.score_layout_toolbar);
-        toolbar.setTitle("cjjd");
+        toolbar.setTitle("成绩绩点");
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

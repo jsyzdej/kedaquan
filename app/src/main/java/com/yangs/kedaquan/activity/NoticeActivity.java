@@ -15,6 +15,7 @@ import com.github.jdsjlzx.interfaces.OnItemClickListener;
 import com.github.jdsjlzx.interfaces.OnRefreshListener;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
+import com.yangs.kedaquan.APPAplication;
 import com.yangs.kedaquan.R;
 import com.yangs.kedaquan.utils.NoticeSource;
 
@@ -77,7 +78,7 @@ public class NoticeActivity extends AppCompatActivity implements OnItemClickList
                     .setMessage(list.get(position).getContent()).setPositiveButton("打开地址", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    Intent intent = new Intent(NoticeActivity.this, Browser.class);
+                    Intent intent = new Intent(NoticeActivity.this, BrowserActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("url", list.get(position).getUrl());
                     intent.putExtras(bundle);

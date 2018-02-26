@@ -3,7 +3,6 @@ package com.yangs.kedaquan.activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,6 +23,7 @@ import com.tencent.smtt.sdk.CookieManager;
 import com.tencent.smtt.sdk.CookieSyncManager;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
+import com.yangs.kedaquan.APPAplication;
 import com.yangs.kedaquan.R;
 import com.yangs.kedaquan.utils.VpnSource;
 
@@ -164,7 +164,7 @@ public class KebiaoGetActivity extends AppCompatActivity implements View.OnClick
                     Bundle bundle = new Bundle();
                     bundle.putString("url", "https://vpn.just.edu.cn/framework/,DanaInfo=jwgl.just.edu.cn,Port=8080+enteraccount.jsp");
                     bundle.putString("cookie", APPAplication.save.getString("vpn_cookie", ""));
-                    Intent intent = new Intent(KebiaoGetActivity.this, Browser.class);
+                    Intent intent = new Intent(KebiaoGetActivity.this, BrowserActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtras(bundle);
                     startActivity(intent);
@@ -200,7 +200,7 @@ public class KebiaoGetActivity extends AppCompatActivity implements View.OnClick
                             Bundle bundle = new Bundle();
                             bundle.putString("url", "https://vpn.just.edu.cn/framework/,DanaInfo=jwgl.just.edu.cn,Port=8080+enteraccount.jsp");
                             bundle.putString("cookie", APPAplication.save.getString("vpn_cookie", ""));
-                            Intent intent = new Intent(KebiaoGetActivity.this, Browser.class);
+                            Intent intent = new Intent(KebiaoGetActivity.this, BrowserActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent.putExtras(bundle);
                             startActivity(intent);

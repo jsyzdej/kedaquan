@@ -22,7 +22,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -37,8 +36,8 @@ import com.github.jdsjlzx.interfaces.OnRefreshListener;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.yangs.kedaquan.R;
-import com.yangs.kedaquan.activity.APPAplication;
-import com.yangs.kedaquan.activity.Browser;
+import com.yangs.kedaquan.APPAplication;
+import com.yangs.kedaquan.activity.BrowserActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -349,7 +348,7 @@ public class BBSDetailActivity extends AppCompatActivity implements OnItemClickL
                 break;
             case R.id.bbsdetail_header_tv_user:
             case R.id.bbsdetail_header_iv:
-                Intent intent = new Intent(BBSDetailActivity.this, Browser.class);
+                Intent intent = new Intent(BBSDetailActivity.this, BrowserActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("url", "http://www.myangs.com:81/" + list.get(0).getUser_url());
                 bundle.putString("cookie", APPAplication.bbsSource.cookie);

@@ -4,7 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Handler;
 
-import com.yangs.kedaquan.activity.APPAplication;
+import com.yangs.kedaquan.APPAplication;
 
 /**
  * Created by yangs on 2017/11/16 0016.

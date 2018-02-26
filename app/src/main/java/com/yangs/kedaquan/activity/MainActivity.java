@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.yangs.kedaquan.APPAplication;
 import com.yangs.kedaquan.R;
 import com.yangs.kedaquan.coursepj.CoursePJActivity;
 import com.yangs.kedaquan.fragment.BBSFragment;
@@ -335,7 +336,7 @@ public class MainActivity extends AppCompatActivity implements
                     .putString("kbxx_remark", json_kbxx.getString("remark")).apply();
         } else
             APPAplication.save.edit().putString("kbxx_status", "关").apply();
-        final JSONArray json_find = json.getJSONArray("bottom_iv_find");
+        final JSONArray json_find = json.getJSONArray("发现");
         for (int i = 0, j = json_find.size(); i < j; i++) {
             JSONObject jo = (JSONObject) json_find.get(i);
             APPAplication.save.edit().putString("find_" + i + "_url", jo.getString("url"))

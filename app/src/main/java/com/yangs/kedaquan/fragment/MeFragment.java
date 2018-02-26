@@ -24,12 +24,12 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.yangs.kedaquan.R;
-import com.yangs.kedaquan.activity.APPAplication;
+import com.yangs.kedaquan.APPAplication;
 import com.yangs.kedaquan.activity.BBSLoginActivity;
 import com.yangs.kedaquan.activity.KebiaoGetActivity;
 import com.yangs.kedaquan.activity.NoticeActivity;
 import com.yangs.kedaquan.activity.VpnLoginActivity;
-import com.yangs.kedaquan.activity.meAbout;
+import com.yangs.kedaquan.activity.meAboutActivity;
 import com.yangs.kedaquan.bbs.BBSSource;
 import com.yangs.kedaquan.utils.AsyncTaskUtil;
 import com.yangs.kedaquan.utils.RecordUtil;
@@ -253,7 +253,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
                         });
                 break;
             case R.id.me_layout_about:
-                startActivity(new Intent(activity, meAbout.class));
+                startActivity(new Intent(activity, meAboutActivity.class));
                 break;
         }
     }

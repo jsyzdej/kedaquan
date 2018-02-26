@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.yangs.kedaquan.APPAplication;
 import com.yangs.kedaquan.R;
 
 /**

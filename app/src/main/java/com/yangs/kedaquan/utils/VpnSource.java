@@ -4,7 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.SQLException;
 
-import com.yangs.kedaquan.activity.APPAplication;
+import com.yangs.kedaquan.APPAplication;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

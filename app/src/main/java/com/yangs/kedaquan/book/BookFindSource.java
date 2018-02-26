@@ -2,7 +2,7 @@ package com.yangs.kedaquan.book;
 
 import android.util.Log;
 
-import com.yangs.kedaquan.activity.APPAplication;
+import com.yangs.kedaquan.APPAplication;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

@@ -1,8 +1,6 @@
 package com.yangs.kedaquan.coursepj;
 
-import android.text.TextUtils;
-
-import com.yangs.kedaquan.activity.APPAplication;
+import com.yangs.kedaquan.APPAplication;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

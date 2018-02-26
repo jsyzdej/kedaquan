@@ -4,8 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.yangs.kedaquan.activity.APPAplication;
-import com.yangs.kedaquan.score.Score;
+import com.yangs.kedaquan.APPAplication;
 
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
@@ -18,9 +17,7 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;

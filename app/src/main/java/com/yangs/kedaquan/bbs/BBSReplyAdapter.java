@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.yangs.kedaquan.R;
-import com.yangs.kedaquan.activity.APPAplication;
-import com.yangs.kedaquan.activity.Browser;
+import com.yangs.kedaquan.APPAplication;
+import com.yangs.kedaquan.activity.BrowserActivity;
 
 import java.util.List;
 
@@ -44,7 +44,7 @@ public class BBSReplyAdapter extends RecyclerView.Adapter<BBSReplyAdapter.ViewHo
         holder.iv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, Browser.class);
+                Intent intent = new Intent(context, BrowserActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("url", list.get(position).getUserUrl());
                 bundle.putString("cookie", APPAplication.bbsSource.cookie);

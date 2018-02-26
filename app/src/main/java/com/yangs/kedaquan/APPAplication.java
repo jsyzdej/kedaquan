@@ -1,4 +1,4 @@
-package com.yangs.kedaquan.activity;
+package com.yangs.kedaquan;
 
 import android.app.AlertDialog;
 import android.app.Application;
@@ -20,6 +20,12 @@ import com.yangs.kedaquan.utils.RecordUtil;
 import com.yangs.kedaquan.utils.VpnSource;
 import com.yangs.kedaquan.utils.CrashHandler;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -32,7 +38,6 @@ import java.util.List;
 public class APPAplication extends Application {
     private static Context context;
     public static Boolean isFindUrl = false;
-    public static List<String> FindUrlList;
     public static SharedPreferences save;
     public static int kebiao_show_ct;
     public static String term;
@@ -56,66 +61,81 @@ public class APPAplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        debug = true;
-        bbs_login_status = false;
-        bbs_login_status_check = false;
-        context = getApplicationContext();
-        save = getSharedPreferences("MainActivity", MODE_PRIVATE);
-        kp_status = save.getString("kp_status", "关");
-        name = save.getString("name", "");
-        xh = save.getString("xh", "");
-        login_stat = save.getInt("login_stat", 0);
-        kebiao_show_ct = save.getInt("kebiao_show_ct", 0);
-        term = save.getString("term", "2017-2018-2");
-        db = getApplicationContext().openOrCreateDatabase("info.db", Context.MODE_PRIVATE, null);
-        if (bbsSource == null) {
-            bbsSource = new BBSSource();
-        }
-        isInitWebview = false;
-        vpn_user = save.getString("vpn_user", "");
-        vpn_pwd = save.getString("vpn_pwd", "");
-        vpnSource = new VpnSource(vpn_user, vpn_pwd);
+        String processName = null;
+        File file = new File("/proc/" + android.os.Process.myPid() + "/cmdline");
         try {
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            week = (int) (1 + (Calendar.getInstance().getTime().getTime() - df.parse("2018-2-26")
-                    .getTime()) / (1000 * 3600 * 24 * 7));
-            if (week < 1 || week > 20)
+            FileInputStream fis = new FileInputStream(file);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader br = new BufferedReader(isr);
+            processName = br.readLine().trim();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if ("com.yangs.kedaquan".equals(processName)) {
+            debug = false;
+            bbs_login_status = false;
+            bbs_login_status_check = false;
+            context = getApplicationContext();
+            save = getSharedPreferences("MainActivity", MODE_PRIVATE);
+            kp_status = save.getString("kp_status", "关");
+            name = save.getString("name", "");
+            xh = save.getString("xh", "");
+            login_stat = save.getInt("login_stat", 0);
+            kebiao_show_ct = save.getInt("kebiao_show_ct", 0);
+            term = save.getString("term", "2017-2018-2");
+            db = getApplicationContext().openOrCreateDatabase("info.db", Context.MODE_PRIVATE, null);
+            if (bbsSource == null) {
+                bbsSource = new BBSSource();
+            }
+            isInitWebview = false;
+            vpn_user = save.getString("vpn_user", "");
+            vpn_pwd = save.getString("vpn_pwd", "");
+            vpnSource = new VpnSource(vpn_user, vpn_pwd);
+            try {
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                week = (int) (1 + (Calendar.getInstance().getTime().getTime() - df.parse("2018-2-26")
+                        .getTime()) / (1000 * 3600 * 24 * 7));
+                if (week < 1 || week > 20)
+                    week = 1;
+            } catch (ParseException e) {
                 week = 1;
-        } catch (ParseException e) {
-            week = 1;
-            e.printStackTrace();
-        }
-        try {
-            PackageInfo packageInfo = this.getPackageManager().getPackageInfo(this.getPackageName()
-                    , 0);
-            version = packageInfo.versionName;
-        } catch (Exception e) {
-            version = "1.0";
-            e.printStackTrace();
-        }
-        recordUtil = new RecordUtil();
-        Fresco.initialize(this);
-        ImagePipeline imagePipeline = Fresco.getImagePipeline();
-        imagePipeline.clearCaches();
-        if (!debug) {
-            CrashHandler crashHandler = CrashHandler.getInstance();
-            crashHandler.init(getApplicationContext());
-        }
-        QbSdk.initX5Environment(context, new QbSdk.PreInitCallback() {
-            @Override
-            public void onCoreInitFinished() {
-
+                e.printStackTrace();
             }
+            try {
+                PackageInfo packageInfo = this.getPackageManager().getPackageInfo(this.getPackageName()
+                        , 0);
+                version = packageInfo.versionName;
+            } catch (Exception e) {
+                version = "1.0";
+                e.printStackTrace();
+            }
+            recordUtil = new RecordUtil();
+            Fresco.initialize(this);
+            ImagePipeline imagePipeline = Fresco.getImagePipeline();
+            imagePipeline.clearCaches();
+            if (!debug) {
+                CrashHandler crashHandler = CrashHandler.getInstance();
+                crashHandler.init(getApplicationContext());
+            }
+            QbSdk.initX5Environment(context, new QbSdk.PreInitCallback() {
+                @Override
+                public void onCoreInitFinished() {
 
-            @Override
-            public void onViewInitFinished(boolean b) {
-                if (b) {
-                    Log.i("TAG", "X5内核加载成功");
-                } else {
-                    Log.i("TAG", "X5内核加载失败");
                 }
-            }
-        });
+
+                @Override
+                public void onViewInitFinished(boolean b) {
+                    if (b) {
+                        Log.i("TAG", "X5内核加载成功");
+                    } else {
+                        Log.i("TAG", "X5内核加载失败");
+                    }
+
+                }
+            });
+        }
     }
 
     public static Context getContext() {

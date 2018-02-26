@@ -16,13 +16,14 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.yangs.kedaquan.APPAplication;
 import com.yangs.kedaquan.R;
 
 /**
  * Created by yangs on 2017/2/24.
  */
 
-public class meAbout extends AppCompatActivity implements View.OnClickListener {
+public class meAboutActivity extends AppCompatActivity implements View.OnClickListener {
     private Toolbar toolbar;
     private TextView tv_version;
     private LinearLayout ll_zr;
@@ -73,11 +74,11 @@ public class meAbout extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(meAbout.this, Browser.class);
+        Intent intent = new Intent(meAboutActivity.this, BrowserActivity.class);
         Bundle bundle = new Bundle();
         switch (v.getId()) {
             case R.id.me_about_zr:
-                new AlertDialog.Builder(meAbout.this).setTitle("开发者招聘")
+                new AlertDialog.Builder(meAboutActivity.this).setTitle("开发者招聘")
                         .setMessage("本人15大三,想找一个会写android的来把这个项目传递下去," +
                                 "会点android入门的就行,以后也可以把这个写进你的" +
                                 "简历中哦！")
@@ -100,9 +101,9 @@ public class meAbout extends AppCompatActivity implements View.OnClickListener {
                         }).create().show();
                 break;
             case R.id.me_about_share:
-                View share_v = LayoutInflater.from(meAbout.this)
+                View share_v = LayoutInflater.from(meAboutActivity.this)
                         .inflate(R.layout.me_about_share_layout, null);
-                new AlertDialog.Builder(meAbout.this)
+                new AlertDialog.Builder(meAboutActivity.this)
                         .setView(share_v).create().show();
                 break;
             case R.id.me_about_yangs:
@@ -122,7 +123,7 @@ public class meAbout extends AppCompatActivity implements View.OnClickListener {
                         "4.fresco<br>&nbsp;&nbsp;&nbsp;<a href=''>https://github.com/facebook/fresco</a><br>" +
                         "5.GalleryPick<br>&nbsp;&nbsp;&nbsp;<a href=''>https://github.com/YancyYe/GalleryPick</a><br>" +
                         "6.LRecyclerView<br>&nbsp;&nbsp;&nbsp;<a href=''>https://github.com/jdsjlzx/LRecyclerView</a><br>";
-                new AlertDialog.Builder(meAbout.this).setTitle("开源许可").setCancelable(false)
+                new AlertDialog.Builder(meAboutActivity.this).setTitle("开源许可").setCancelable(false)
                         .setMessage(Html.fromHtml(msg)).setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

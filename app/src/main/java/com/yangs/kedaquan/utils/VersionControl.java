@@ -1,6 +1,6 @@
 package com.yangs.kedaquan.utils;
 
-import com.yangs.kedaquan.activity.APPAplication;
+import com.yangs.kedaquan.APPAplication;
 
 import org.json.JSONObject;
 

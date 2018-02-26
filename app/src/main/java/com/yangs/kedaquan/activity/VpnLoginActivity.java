@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,8 +17,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.yangs.kedaquan.APPAplication;
 import com.yangs.kedaquan.R;
-import com.yangs.kedaquan.utils.VpnSource;
 
 /**
  * Created by yangs on 2017/11/16 0016.

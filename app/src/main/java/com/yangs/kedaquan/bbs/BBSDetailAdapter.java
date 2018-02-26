@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.yangs.kedaquan.R;
-import com.yangs.kedaquan.activity.APPAplication;
-import com.yangs.kedaquan.activity.Browser;
+import com.yangs.kedaquan.APPAplication;
+import com.yangs.kedaquan.activity.BrowserActivity;
 
 import java.util.List;
 
@@ -47,7 +47,7 @@ public class BBSDetailAdapter extends RecyclerView.Adapter<BBSDetailAdapter.View
         holder.user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, Browser.class);
+                Intent intent = new Intent(context, BrowserActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("url", "http://www.myangs.com:81/" + list.get(position).getUser_url());
                 bundle.putString("cookie", APPAplication.bbsSource.cookie);
@@ -59,7 +59,7 @@ public class BBSDetailAdapter extends RecyclerView.Adapter<BBSDetailAdapter.View
         holder.bbsdetail_listview_iv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, Browser.class);
+                Intent intent = new Intent(context, BrowserActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("url", "http://www.myangs.com:81/" + list.get(position).getUser_url());
                 bundle.putString("cookie", APPAplication.bbsSource.cookie);

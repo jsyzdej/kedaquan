@@ -85,6 +85,9 @@ public class FindMainAdapter extends RecyclerView.Adapter<FindMainAdapter.ViewHo
                 holder.iv.setImageResource(R.drawable.slj);
                 break;
             case 16:
+                holder.iv.setImageResource(R.drawable.slj);
+                break;
+            case 17:
                 holder.iv.setImageResource(R.drawable.ssgj);
                 break;
         }

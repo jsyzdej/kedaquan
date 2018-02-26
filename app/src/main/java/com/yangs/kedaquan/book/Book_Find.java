@@ -26,8 +26,8 @@ import com.github.jdsjlzx.interfaces.OnRefreshListener;
 import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.yangs.kedaquan.R;
-import com.yangs.kedaquan.activity.APPAplication;
-import com.yangs.kedaquan.activity.Browser;
+import com.yangs.kedaquan.APPAplication;
+import com.yangs.kedaquan.activity.BrowserActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -185,7 +185,7 @@ public class Book_Find extends Activity implements View.OnClickListener, View.On
 
     @Override
     public void onItemClick(View view, int position) {
-        Intent intent = new Intent(Book_Find.this, Browser.class);
+        Intent intent = new Intent(Book_Find.this, BrowserActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("url", "https://vpn.just.edu.cn/opac/"
                 + bookFindAdapter.getList().get(position).getUrl());

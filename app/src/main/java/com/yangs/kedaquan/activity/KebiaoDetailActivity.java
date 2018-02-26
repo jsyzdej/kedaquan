@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,21 +18,19 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.yangs.kedaquan.APPAplication;
 import com.yangs.kedaquan.R;
-
-import java.io.File;
 
 /**
  * Created by yangs on 2017/2/16.
  */
 
-public class Kebiao_detail extends AppCompatActivity implements Toolbar.OnMenuItemClickListener {
+public class KebiaoDetailActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener {
 
     private Toolbar toolbar;
     private TextView kcm;
@@ -137,7 +134,7 @@ public class Kebiao_detail extends AppCompatActivity implements Toolbar.OnMenuIt
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
-            Kebiao_detail.this.setResult(1);
+            KebiaoDetailActivity.this.setResult(1);
             finish();
         }
         return true;
@@ -202,10 +199,10 @@ public class Kebiao_detail extends AppCompatActivity implements Toolbar.OnMenuIt
                                             break;
 
                                     }
-                                    SQLiteDatabase db = Kebiao_detail.this.openOrCreateDatabase("info.db", Context.MODE_PRIVATE, null);
+                                    SQLiteDatabase db = KebiaoDetailActivity.this.openOrCreateDatabase("info.db", Context.MODE_PRIVATE, null);
                                     String sql = "update course set 课程名='" + c_kcm.getText().toString() + "',课程代码='" + c_kcdm.getText().toString() + "',教室='" + c_js.getText().toString() + "',老师='" + c_ls.getText().toString() + "',星期=" + i + ",节次=" + j + ",周次='" + c_zc.getText().toString() + "' where id=" + index;
                                     db.execSQL(sql);
-                                    Toast.makeText(Kebiao_detail.this, "修改成功!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(KebiaoDetailActivity.this, "修改成功!", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }).create();
@@ -228,10 +225,10 @@ public class Kebiao_detail extends AppCompatActivity implements Toolbar.OnMenuIt
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        SQLiteDatabase db = Kebiao_detail.this.openOrCreateDatabase("info.db", Context.MODE_PRIVATE, null);
+                        SQLiteDatabase db = KebiaoDetailActivity.this.openOrCreateDatabase("info.db", Context.MODE_PRIVATE, null);
                         db.execSQL("delete from course where id = " + index);
                         db.close();
-                        Kebiao_detail.this.setResult(1);
+                        KebiaoDetailActivity.this.setResult(1);
                         finish();
                     }
                 }).show();

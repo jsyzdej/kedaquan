@@ -4,15 +4,17 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import com.yangs.kedaquan.activity.APPAplication;
+import com.yangs.kedaquan.APPAplication;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeoutException;
 
 import okhttp3.FormBody;
 import okhttp3.Headers;
@@ -456,6 +458,22 @@ public class BBSSource {
         } catch (Exception e) {
         }
         return -1;
+    }
+
+    public String cetTicketQuery(String name, String sfz, String type) {
+        String result = "";
+        String params = "{\"ks_xm\":\"" + name + "\",\"ks_sfz\":\"" + sfz + "\",\"jb\":\"" + type + "\"}";
+        Request request = new Request.Builder()
+                .url("http://app.cet.edu.cn:7066/baas/app/setuser.do?method=UserVerify&action=&params=" + params)
+                .headers(requestHeaders).build();
+        try {
+            Response response = mOkHttpClient.newCall(request).execute();
+            byte[] responseBytes = response.body().bytes();
+            result = new String(responseBytes, "UTF-8");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     public Bitmap getDrawble(String url) {

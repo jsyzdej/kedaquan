@@ -9,7 +9,6 @@ import android.os.Message;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatDrawableManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -28,7 +27,7 @@ import com.github.jdsjlzx.recyclerview.LRecyclerView;
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter;
 import com.melnykov.fab.FloatingActionButton;
 import com.yangs.kedaquan.R;
-import com.yangs.kedaquan.activity.APPAplication;
+import com.yangs.kedaquan.APPAplication;
 import com.yangs.kedaquan.activity.BBSLoginActivity;
 import com.yangs.kedaquan.bbs.BBS;
 import com.yangs.kedaquan.bbs.BBSAdapter;
@@ -38,7 +37,7 @@ import com.yangs.kedaquan.bbs.BBSReplyActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.yangs.kedaquan.activity.APPAplication.bbsSource;
+import static com.yangs.kedaquan.APPAplication.bbsSource;
 
 /**
  * Created by yangs on 2017/8/6.
