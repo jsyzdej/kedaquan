@@ -367,7 +367,7 @@ public class MainActivity extends AppCompatActivity implements
         bottom_tv_find.setTextColor(Color.rgb(154, 154, 154));
         bottom_iv_find.setImageResource(R.drawable.bottom_iv_find);
         bottom_tv_me.setTextColor(Color.rgb(154, 154, 154));
-        bottom_iv_me.setImageResource(R.drawable.bottom_iv_find);
+        bottom_iv_me.setImageResource(R.drawable.bottom_iv_me);
         switch (index) {
             case 1:
                 bottom_tv_kebiao.setTextColor(Color.rgb(30, 137, 231));
