@@ -79,12 +79,12 @@ public class meAboutActivity extends AppCompatActivity implements View.OnClickLi
         switch (v.getId()) {
             case R.id.me_about_zr:
                 new AlertDialog.Builder(meAboutActivity.this).setTitle("开发者招聘")
-                        .setMessage("本人15大三,想找一个会写android的来把这个项目传递下去," +
-                                "会点android入门的就行,以后也可以把这个写进你的" +
-                                "简历中哦！")
-                        .setPositiveButton("与我联系", new DialogInterface.OnClickListener() {
+                        .setMessage("原作者15级软件，于17年毕业。" +
+                                "当前项目发布者为高雅人士" +
+                                "mailto:billymaster@protonmail.com").create().show();
+                 /*       .setPositiveButton("与原作者联系", new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                          public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
                                 PackageManager packageManager = getPackageManager();
                                 try {
@@ -98,7 +98,8 @@ public class meAboutActivity extends AppCompatActivity implements View.OnClickLi
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
                             }
-                        }).create().show();
+                    }).create().show();
+                */
                 break;
             case R.id.me_about_share:
                 View share_v = LayoutInflater.from(meAboutActivity.this)

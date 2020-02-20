@@ -216,10 +216,10 @@ public class KebiaoFragment extends LazyLoadFragment implements Toolbar.OnMenuIt
                     textView.setText("14:00\n" + "第" + i + "节\n" + "15:40");
                     break;
                 case 4:
-                    textView.setText("15:50\n" + "第" + i + "节\n" + "17:30");
+                    textView.setText("16:00\n" + "第" + i + "节\n" + "17:40");
                     break;
                 case 5:
-                    textView.setText("19:00\n" + "第" + i + "节\n" + "21:35");
+                    textView.setText("19:00\n" + "第" + i + "节\n" + "20:40");
                     break;
             }
             textView.setTextSize(12f);

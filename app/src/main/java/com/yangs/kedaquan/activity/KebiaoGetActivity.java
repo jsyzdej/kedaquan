@@ -80,20 +80,22 @@ public class KebiaoGetActivity extends AppCompatActivity implements View.OnClick
         }
         et_user.setText(APPAplication.save.getString("xh", ""));
         et_pwd.setText(APPAplication.save.getString("pwd", ""));
-        mItems = new String[8];
-        mItems[0] = "2014-2015-1";
-        mItems[1] = "2014-2015-2";
-        mItems[2] = "2015-2016-1";
-        mItems[3] = "2015-2016-2";
-        mItems[4] = "2016-2017-1";
-        mItems[5] = "2016-2017-2";
-        mItems[6] = "2017-2018-1";
-        mItems[7] = "2017-2018-2";
+        mItems = new String[9];
+        mItems[0] = "2015-2016-2";
+        mItems[1] = "2016-2017-1";
+        mItems[2] = "2016-2017-2";
+        mItems[3] = "2017-2018-1";
+        mItems[4] = "2017-2018-2";
+        mItems[5] = "2018-2019-1";
+        mItems[6] = "2018-2019-2";
+        mItems[7] = "2019-2020-1";
+        mItems[8] = "2019-2020-2";
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, mItems);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
-        spinner.setSelection(7, true);
+        spinner.setSelection(8, true);
     }
 
     private Handler handler = new Handler(new Handler.Callback() {

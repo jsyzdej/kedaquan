@@ -84,7 +84,7 @@ public class APPAplication extends Application {
             xh = save.getString("xh", "");
             login_stat = save.getInt("login_stat", 0);
             kebiao_show_ct = save.getInt("kebiao_show_ct", 0);
-            term = save.getString("term", "2017-2018-2");
+            term = save.getString("term", "2019-2020-2");
             db = getApplicationContext().openOrCreateDatabase("info.db", Context.MODE_PRIVATE, null);
             if (bbsSource == null) {
                 bbsSource = new BBSSource();
