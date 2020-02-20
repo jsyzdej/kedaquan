@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements
                 case 10:
                     new AlertDialog.Builder(MainActivity.this).setTitle("导入课表失败")
                             .setMessage("1.教务系统还没有公布 " + APPAplication.term + " 学期的课表,请稍后再试\n" +
-                                    "2.当前还没有完成评教，不能查看课表。\n是否需要打开 yjpj?")
+                                    "2.当前还没有完成评教，不能查看课表。\n是否需要打开一键评教？")
                             .setCancelable(false).setPositiveButton("是", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -176,8 +176,11 @@ public class MainActivity extends AppCompatActivity implements
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    APPAplication.recordUtil.addRord("appStart", APPAplication.name,
-                            APPAplication.xh, "启动", "", new RecordUtil.OnResultListener() {
+                    /**
+                     * 软件开启时也会上传学号和姓名，这边也帮您改成卢本伟了
+                     */
+                    APPAplication.recordUtil.addRord("appStart", "卢本伟",
+                            "00000000", "启动", "", new RecordUtil.OnResultListener() {
                                 @Override
                                 public void onSuccess(final String response) {
                                     handler.post(new Runnable() {
@@ -277,6 +280,9 @@ public class MainActivity extends AppCompatActivity implements
                 }).create().show();
             }
         }
+        /**
+         * 下方被注释掉的代码是开启检测更新，后期会改
+         */
 //        tmp_version = json.getJSONObject("版本");
 //        if (!tmp_version.getString("versioncode").equals(APPAplication.version)) {
 //            try {

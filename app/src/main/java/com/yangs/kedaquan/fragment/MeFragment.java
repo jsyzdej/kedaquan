@@ -227,8 +227,11 @@ public class MeFragment extends Fragment implements View.OnClickListener {
                 progressDialog.setCancelable(false);
                 if (!progressDialog.isShowing())
                     progressDialog.show();
-                APPAplication.recordUtil.addRord("checkUpdate", APPAplication.name,
-                        APPAplication.xh, "检测更新", "", new RecordUtil.OnResultListener() {
+                /**
+                 * 检测更新命令会上传你的学号以及姓名，这边已经改成卢本伟了
+                 */
+                APPAplication.recordUtil.addRord("checkUpdate", "卢本伟",
+                        "00000000", "检测更新", "", new RecordUtil.OnResultListener() {
                             @Override
                             public void onSuccess(final String response) {
                                 handler.post(new Runnable() {

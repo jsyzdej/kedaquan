@@ -90,20 +90,19 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
         tv_empty = findViewById(R.id.score_layout_tv);
         list = new ArrayList<>();
         scoreAdapter = new ScoreAdapter(list);
-        datalist = new String[13];
-        datalist[0] = "2015-2016学年";
-        datalist[1] = "2016-2017-1";
-        datalist[2] = "2016-2017-2";
-        datalist[3] = "2016-2017学年";
-        datalist[4] = "2017-2018-1";
-        datalist[5] = "2017-2018-2";
-        datalist[6] = "2017-2018学年";
-        datalist[7] = "2018-2019-1";
-        datalist[8] = "2018-2019-2";
-        datalist[9] = "2018-2019学年";
-        datalist[10] = "2019-2020-1";
-        datalist[11] = "2019-2020-2";
-        datalist[12] = "2019-2020学年";
+        datalist = new String[12];
+        datalist[0] = "2016-2017-1";
+        datalist[1] = "2016-2017-2";
+        datalist[2] = "2016-2017学年";
+        datalist[3] = "2017-2018-1";
+        datalist[4] = "2017-2018-2";
+        datalist[5] = "2017-2018学年";
+        datalist[6] = "2018-2019-1";
+        datalist[7] = "2018-2019-2";
+        datalist[8] = "2018-2019学年";
+        datalist[9] = "2019-2020-1";
+        datalist[10] = "2019-2020-2";
+        datalist[11] = "2019-2020学年";
         recyclerView.setLayoutManager(new WrapContentLinearLayoutManager(
                 this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(scoreAdapter);
@@ -274,6 +273,9 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
                 switch (source.checkUser()) {
                     case 0:
                         if (year.contains("学年")) {
+                            /**
+                             * 如果含字符串“学年”时的绩点计算，实际上这边与下面的else内容重复了，等以后修改
+                             */
                             String year_1 = year.replace("学年", "") + "-1";
                             final String year_2 = year.replace("学年", "") + "-2";
                             source.getScore(year_1, new getKebiaoSource.OnResponseResult() {
@@ -332,11 +334,15 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
                                                 score1.setKhfx(ee.get(7).text());
                                                 score1.setKcsx(ee.get(8).text());
                                                 score1.setKcxz(ee.get(9).text());
-                                                if ((score1.getKcsx().equals("必修") || score1.getKcsx().equals("任选"))
-                                                        && !score1.getName().contains("体育")
-                                                        && !score1.getName().contains("校公选")
-                                                        && !score1.getName().contains("等级考试"))
-                                                    score1.setCheck(true);
+                                                /**
+                                                 * 这个绩点算法算定的科目可能有问题，具体以学校为准
+                                                 */
+//                                                if ((score1.getKcsx().equals("必修") || score1.getKcsx().equals("任选"))
+//                                                        && !score1.getName().contains("体育")
+//                                                        && !score1.getName().contains("校公选")
+//                                                        && !score1.getName().contains("等级考试"))
+                                                if (score1.getKcsx().equals("必修"))
+                                                score1.setCheck(true);
                                                 else
                                                     score1.setCheck(false);
                                                 list.add(score1);
@@ -351,6 +357,9 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
                                 }
                             });
                         } else {
+                            /**
+                             * 等待修改
+                             */
                             source.getScore(year, new getKebiaoSource.OnResponseResult() {
                                 @Override
                                 public void onResponseResult(int code, String result) {
@@ -377,10 +386,11 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
                                         score1.setKhfx(ee.get(7).text());
                                         score1.setKcsx(ee.get(8).text());
                                         score1.setKcxz(ee.get(9).text());
-                                        if ((score1.getKcsx().equals("必修") || score1.getKcsx().equals("任选"))
-                                                && !score1.getName().contains("体育")
-                                                && !score1.getName().contains("校公选")
-                                                && !score1.getName().contains("等级考试"))
+//                                        if ((score1.getKcsx().equals("必修") || score1.getKcsx().equals("任选"))
+//                                                && !score1.getName().contains("体育")
+//                                                && !score1.getName().contains("校公选")
+//                                                && !score1.getName().contains("等级考试"))
+                                        if (score1.getKcsx().equals("必修"))
                                             score1.setCheck(true);
                                         else
                                             score1.setCheck(false);

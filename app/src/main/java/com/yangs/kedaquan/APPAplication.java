@@ -73,7 +73,10 @@ public class APPAplication extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if ("com.yangs.kedaquan".equals(processName)) {
+        /**
+         * 去除包名检测
+         */
+//        if ("com.yangs.kedaquan".equals(processName)) {
             debug = false;
             bbs_login_status = false;
             bbs_login_status_check = false;
@@ -95,7 +98,10 @@ public class APPAplication extends Application {
             vpnSource = new VpnSource(vpn_user, vpn_pwd);
             try {
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                week = (int) (1 + (Calendar.getInstance().getTime().getTime() - df.parse("2018-2-26")
+                /**
+                 * 注意，下面这行用于判断当前周，请务必修改好第一周的周一日期
+                 */
+                week = (int) (1 + (Calendar.getInstance().getTime().getTime() - df.parse("2020-2-17")
                         .getTime()) / (1000 * 3600 * 24 * 7));
                 if (week < 1 || week > 20)
                     week = 1;
@@ -135,7 +141,7 @@ public class APPAplication extends Application {
 
                 }
             });
-        }
+//        }
     }
 
     public static Context getContext() {
