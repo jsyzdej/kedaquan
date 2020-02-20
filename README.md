@@ -1,5 +1,12 @@
 # 科大圈
 
+此为较早版本开源项目fork后的项目，全部开源，本人将会逐步删除一些涉及隐私的代码
+
+
+------------------------
+#以下内容为作者留。与本人无关
+
+
 **江苏科技大学课表,成绩查询,论坛客户端**
 #### 目前登录使用人数过9000,欢迎下载使用
 #### [点此下载最新版](http://www.myangs.com/app/KeDaQuan.apk)
@@ -23,12 +30,12 @@
 - 一键评教
 - 图书搜索
 ### 软件截图
-# <img src="https://github.com/yangs2012/kedaquan/blob/master/screenshot/kebiao.png" width=360 height=640/>
-# <img src="https://github.com/yangs2012/kedaquan/blob/master/screenshot/score.png" width=360 height=640/>
-# <img src="https://github.com/yangs2012/kedaquan/blob/master/screenshot/find.png" width=360 height=640/>
-# <img src="https://github.com/yangs2012/kedaquan/blob/master/screenshot/bbs.png" width=360 height=640/>           
-# <img src="https://github.com/yangs2012/kedaquan/blob/master/screenshot/coursePj.png" width=360 height=640/>
-# <img src="https://github.com/yangs2012/kedaquan/blob/master/screenshot/book.png" width=360 height=640/>           
+# <img src="https://github.com/jsyzdej/kedaquan/blob/master/screenshot/kebiao.png" width=360 height=640/>
+# <img src="https://github.com/jsyzdej/kedaquan/blob/master/screenshot/score.png" width=360 height=640/>
+# <img src="https://github.com/jsyzdej/kedaquan/blob/master/screenshot/find.png" width=360 height=640/>
+# <img src="https://github.com/jsyzdej/kedaquan/blob/master/screenshot/bbs.png" width=360 height=640/>           
+# <img src="https://github.com/jsyzdej/kedaquan/blob/master/screenshot/coursePj.png" width=360 height=640/>
+# <img src="https://github.com/jsyzdej/kedaquan/blob/master/screenshot/book.png" width=360 height=640/>           
 ### 联系我
 - **yangs**
 - [我的博客](http://www.myangs.com)
