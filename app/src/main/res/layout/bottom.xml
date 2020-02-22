@@ -104,7 +104,7 @@
             android:layout_height="22dp"
             android:layout_marginTop="3dp"
             android:contentDescription="我"
-            android:src="@drawable/bottom_iv_find" />
+            android:src="@drawable/bottom_iv_me" />
 
         <TextView
             android:id="@+id/id_tab_tv_me"
