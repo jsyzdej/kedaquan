@@ -5,70 +5,6 @@ package com.yangs.kedaquan.score;
  */
 
 public class Score {
-    public String getCno() {
-        return cno;
-    }
-
-    public void setCno(String cno) {
-        this.cno = cno;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getScore() {
-        return score;
-    }
-
-    public void setScore(String score) {
-        this.score = score;
-    }
-
-    public String getXf() {
-        return xf;
-    }
-
-    public void setXf(String xf) {
-        this.xf = xf;
-    }
-
-    public String getKs() {
-        return ks;
-    }
-
-    public void setKs(String ks) {
-        this.ks = ks;
-    }
-
-    public String getKhfx() {
-        return khfx;
-    }
-
-    public void setKhfx(String khfx) {
-        this.khfx = khfx;
-    }
-
-    public String getKcsx() {
-        return kcsx;
-    }
-
-    public void setKcsx(String kcsx) {
-        this.kcsx = kcsx;
-    }
-
-    public String getKcxz() {
-        return kcxz;
-    }
-
-    public void setKcxz(String kcxz) {
-        this.kcxz = kcxz;
-    }
-
     private String cno;     //课程号
     private String name;    //课程名
     private String score;   //成绩
@@ -83,43 +19,103 @@ public class Score {
     private Boolean isCheck;
     private Boolean isCBVisil = false;
 
-    public Boolean getCheck() {
+    String getCno() {
+        return cno;
+    }
+
+    void setCno(String cno) {
+        this.cno = cno;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    String getScore() {
+        return score;
+    }
+
+    void setScore(String score) {
+        this.score = score;
+    }
+
+    String getXf() {
+        return xf;
+    }
+
+    void setXf(String xf) {
+        this.xf = xf;
+    }
+
+    String getKs() {
+        return ks;
+    }
+
+    void setKs(String ks) {
+        this.ks = ks;
+    }
+
+    String getKhfx() {
+        return khfx;
+    }
+
+    void setKhfx(String khfx) {
+        this.khfx = khfx;
+    }
+
+    String getKcsx() {
+        return kcsx;
+    }
+
+    void setKcsx(String kcsx) {
+        this.kcsx = kcsx;
+    }
+
+    public String getKcxz() {
+        return kcxz;
+    }
+
+    void setKcxz(String kcxz) {
+        this.kcxz = kcxz;
+    }
+
+    Boolean getCheck() {
         return isCheck;
     }
 
-    public void setCheck(Boolean check) {
+    void setCheck(Boolean check) {
         isCheck = check;
     }
 
-    public Boolean getCBVisil() {
+    Boolean getCBVisil() {
         return isCBVisil;
     }
 
-    public void setCBVisil(Boolean CBVisil) {
-        isCBVisil = CBVisil;
+    void setCBVisil() {
+        isCBVisil = true;
     }
 
-    public Boolean getClick() {
+    Boolean getClick() {
         return isClick;
     }
 
-    public void setClick(Boolean click) {
+    void setClick(Boolean click) {
         isClick = click;
     }
 
-    public String getJd() {
+    String getJd() {
         return jd;
     }
 
-    public void setJd(String jd) {
+    void setJd(String jd) {
         this.jd = jd;
     }
 
-    public String getTerm() {
-        return term;
-    }
+    String getTerm() {return term;}
 
-    public void setTerm(String term) {
-        this.term = term;
-    }
+    void setTerm(String term) {this.term = term;}
 }

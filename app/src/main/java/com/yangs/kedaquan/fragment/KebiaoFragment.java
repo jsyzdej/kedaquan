@@ -79,18 +79,14 @@ public class KebiaoFragment extends LazyLoadFragment implements Toolbar.OnMenuIt
     private LinearLayout kebiao_header_ll_6;
     private LinearLayout kebiao_header_ll_7;
     private int firstDayOfWeek;
-    private LinearLayout side_index_layout;
     private TextView kebiao_extra;
     private LinearLayout kebiao_ll_extra;
     private LinearLayout[] linearLayout;
     private ArrayList<Integer> myImageList;
-    private DisplayMetrics dm;
     private int heightPixels;
     private int widthPixels;
-    private int[] counts;
     private int week;
     private int kebiao_show_ct;
-    private Toolbar toolbar;
     public TextView toolbar_login;
     public TextView toolbar_time;
     private OnKebiaoRefreshListener onLoginListener;
@@ -129,7 +125,7 @@ public class KebiaoFragment extends LazyLoadFragment implements Toolbar.OnMenuIt
         setHasOptionsMenu(true);
         kebiao_ll = mLayKebiao.findViewById(R.id.kebiao_ll);
         onLoginListener = (OnKebiaoRefreshListener) activity;
-        toolbar = mLayKebiao.findViewById(R.id.kebiao_toolbar);
+        Toolbar toolbar = mLayKebiao.findViewById(R.id.kebiao_toolbar);
         toolbar_login = mLayKebiao.findViewById(R.id.kebiao_toolbar_login);
         toolbar_time = mLayKebiao.findViewById(R.id.kebiao_toolbar_time);
         toolbar.setTitle("");
@@ -172,7 +168,7 @@ public class KebiaoFragment extends LazyLoadFragment implements Toolbar.OnMenuIt
         kebiao_header_ll_6 = mLayKebiao.findViewById(R.id.kebiao_header_ll_six);
         kebiao_header_ll_7 = mLayKebiao.findViewById(R.id.kebiao_header_ll_seven);
         initKebiaoHeader(new Date(System.currentTimeMillis()));
-        side_index_layout = mLayKebiao.findViewById(R.id.side_index_layout);
+        LinearLayout side_index_layout = mLayKebiao.findViewById(R.id.side_index_layout);
         kebiao_extra = mLayKebiao.findViewById(R.id.kebiao_tv_shixi);
         kebiao_ll_extra = mLayKebiao.findViewById(R.id.kebiao_ll_extra);
         linearLayout = new LinearLayout[7];
@@ -198,7 +194,7 @@ public class KebiaoFragment extends LazyLoadFragment implements Toolbar.OnMenuIt
         myImageList.add(R.drawable.textview_border_molan);
         myImageList.add(R.drawable.textview_border_tuhuang);
         myImageList.add(R.drawable.textview_border_tao);
-        dm = new DisplayMetrics();
+        DisplayMetrics dm = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
         heightPixels = dm.heightPixels;
         widthPixels = dm.widthPixels;
@@ -310,7 +306,7 @@ public class KebiaoFragment extends LazyLoadFragment implements Toolbar.OnMenuIt
 
     public void initKebiao() {
         try {
-            counts = new int[7];
+            int[] counts = new int[7];
             for (int nn = 0; nn < 7; nn++) {
                 linearLayout[nn].removeAllViews();
                 counts[nn] = 0;
@@ -576,14 +572,14 @@ public class KebiaoFragment extends LazyLoadFragment implements Toolbar.OnMenuIt
                 break;
             case R.id.kebiao_menu_changeterm:
                 final String[] datalist = new String[8];
-                datalist[0] = "2014-2015-1";
-                datalist[1] = "2014-2015-2";
-                datalist[2] = "2015-2016-1";
-                datalist[3] = "2015-2016-2";
-                datalist[4] = "2016-2017-1";
-                datalist[5] = "2016-2017-2";
-                datalist[6] = "2017-2018-1";
-                datalist[7] = "2017-2018-2";
+                datalist[0] = "2016-2017-1";
+                datalist[1] = "2016-2017-2";
+                datalist[2] = "2017-2018-1";
+                datalist[3] = "2017-2018-2";
+                datalist[4] = "2018-2019-1";
+                datalist[5] = "2018-2019-2";
+                datalist[6] = "2019-2020-1";
+                datalist[7] = "2019-2020-2";
                 int index = 6;
                 for (int i = 0; i < datalist.length; i++) {
                     if (datalist[i].equals(APPAplication.term))

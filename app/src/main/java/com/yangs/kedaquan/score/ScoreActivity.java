@@ -40,6 +40,7 @@ import org.jsoup.select.Elements;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -88,21 +89,16 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
         srl = findViewById(R.id.score_layout_srl);
         recyclerView = findViewById(R.id.score_layout_rv);
         tv_empty = findViewById(R.id.score_layout_tv);
+
+        Calendar cal = Calendar.getInstance();
+        int year_now = cal.get(Calendar.YEAR);
+
         list = new ArrayList<>();
         scoreAdapter = new ScoreAdapter(list);
-        datalist = new String[12];
-        datalist[0] = "2016-2017-1";
-        datalist[1] = "2016-2017-2";
-        datalist[2] = "2016-2017学年";
-        datalist[3] = "2017-2018-1";
-        datalist[4] = "2017-2018-2";
-        datalist[5] = "2017-2018学年";
-        datalist[6] = "2018-2019-1";
-        datalist[7] = "2018-2019-2";
-        datalist[8] = "2018-2019学年";
-        datalist[9] = "2019-2020-1";
-        datalist[10] = "2019-2020-2";
-        datalist[11] = "2019-2020学年";
+        datalist = new String[1];
+        datalist[0] = "20" + APPAplication.xh.substring(0,2) + "-" + String.valueOf(year_now);
+        //直接改成获取全部成绩，以后会改一下界面
+
         recyclerView.setLayoutManager(new WrapContentLinearLayoutManager(
                 this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(scoreAdapter);
@@ -272,15 +268,101 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
                 source = new getKebiaoSource(xh, pwd, ScoreActivity.this);
                 switch (source.checkUser()) {
                     case 0:
-                        if (year.contains("学年")) {
-                            /**
-                             * 如果含字符串“学年”时的绩点计算，实际上这边与下面的else内容重复了，等以后修改
-                             */
-                            String year_1 = year.replace("学年", "") + "-1";
-                            final String year_2 = year.replace("学年", "") + "-2";
-                            source.getScore(year_1, new getKebiaoSource.OnResponseResult() {
+
+                        // 从这开始，要改好多，
+                        // 以防万一，先注释掉。
+
+//                        if (year.contains("学年")) {
+//                            /*
+//                              如果含字符串“学年”时的绩点计算，
+//                              实际上这边与下面的else内容重复了，
+//                              等以后修改
+//                             */
+//                            String year_1 = year.replace("学年", "") + "-1";
+//                            final String year_2 = year.replace("学年", "") + "-2";
+//                            source.getScore(year_1, new getKebiaoSource.OnResponseResult() {
+//                                @Override
+//                                public void onResponseResult(int code, String result) {
+//                                    if (code == -1) {
+//                                        handler.sendEmptyMessage(4);
+//                                        return;
+//                                    }
+//                                    list.clear();
+//                                    Document document = Jsoup.parse(result);
+//                                    Elements score = document.getElementsByAttributeValue("id",
+//                                            "dataList").select("tr");
+//                                    for (int j = 1; j < score.size(); j++) {
+//                                        Score score1 = new Score();
+//                                        Elements ee = score.get(j).select("td");
+//                                        score1.setCno(ee.get(2).text());
+//                                        score1.setName(ee.get(3).text());
+//                                        score1.setScore(ee.get(4).text());
+//                                        if (score1.getScore().equals("请评教")) {
+//                                            handler.sendEmptyMessage(5);
+//                                            return;
+//                                        }
+//                                        score1.setXf(ee.get(5).text());
+//                                        score1.setKs(ee.get(6).text());
+//                                        score1.setKhfx(ee.get(7).text());
+//                                        score1.setKcsx(ee.get(8).text());
+//                                        score1.setKcxz(ee.get(9).text());
+//                                        if (score1.getKcsx().equals("必修"))
+//                                            score1.setCheck(true);
+//                                        else
+//                                            score1.setCheck(false);
+//                                        list.add(score1);
+//                                    }
+//                                    source.getScore(year_2, new getKebiaoSource.OnResponseResult() {
+//                                        @Override
+//                                        public void onResponseResult(int code, String result) {
+//                                            Document document = Jsoup.parse(result);
+//                                            Elements score = document.getElementsByAttributeValue("id",
+//                                                    "dataList").select("tr");
+//                                            for (int j = 1; j < score.size(); j++) {
+//                                                Score score1 = new Score();
+//                                                Elements ee = score.get(j).select("td");
+//                                                score1.setCno(ee.get(2).text());
+//                                                score1.setName(ee.get(3).text());
+//                                                score1.setScore(ee.get(4).text());
+//                                                if (score1.getScore().equals("请评教")) {
+//                                                    handler.sendEmptyMessage(5);
+//                                                    return;
+//                                                }
+//                                                score1.setXf(ee.get(5).text());
+//                                                score1.setKs(ee.get(6).text());
+//                                                score1.setKhfx(ee.get(7).text());
+//                                                score1.setKcsx(ee.get(8).text());
+//                                                score1.setKcxz(ee.get(9).text());
+//                                                /*
+//                                                  这个绩点算法算定的科目可能有问题，具体以学校为准
+//                                                 */
+////                                                if ((score1.getKcsx().equals("必修") || score1.getKcsx().equals("任选"))
+////                                                        && !score1.getName().contains("体育")
+////                                                        && !score1.getName().contains("校公选")
+////                                                        && !score1.getName().contains("等级考试"))
+//                                                if (score1.getKcsx().equals("必修"))
+//                                                score1.setCheck(true);
+//                                                else
+//                                                    score1.setCheck(false);
+//                                                list.add(score1);
+//                                            }
+//                                            calculateGPA(false);
+//                                            if (list.size() > 0)
+//                                                handler.sendEmptyMessage(1);
+//                                            else
+//                                                handler.sendEmptyMessage(2);
+//                                        }
+//                                    });
+//                                }
+//                            });
+//                        } else {
+
+                            //改了年之后直接跳转到这，上面的if内容日后注释掉
+
+                            source.getScore("", new getKebiaoSource.OnResponseResult() {
                                 @Override
                                 public void onResponseResult(int code, String result) {
+                                    //这部分是各种错误代码
                                     if (code == -1) {
                                         handler.sendEmptyMessage(4);
                                         return;
@@ -292,6 +374,7 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
                                     for (int j = 1; j < score.size(); j++) {
                                         Score score1 = new Score();
                                         Elements ee = score.get(j).select("td");
+                                        score1.setTerm(ee.get(1).text());
                                         score1.setCno(ee.get(2).text());
                                         score1.setName(ee.get(3).text());
                                         score1.setScore(ee.get(4).text());
@@ -299,88 +382,9 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
                                             handler.sendEmptyMessage(5);
                                             return;
                                         }
-                                        score1.setXf(ee.get(5).text());
-                                        score1.setKs(ee.get(6).text());
-                                        score1.setKhfx(ee.get(7).text());
-                                        score1.setKcsx(ee.get(8).text());
-                                        score1.setKcxz(ee.get(9).text());
-                                        if ((score1.getKcsx().equals("必修") || score1.getKcsx().equals("任选"))
-                                                && !score1.getName().contains("体育")
-                                                && !score1.getName().contains("校公选")
-                                                && !score1.getName().contains("等级考试"))
-                                            score1.setCheck(true);
-                                        else
-                                            score1.setCheck(false);
-                                        list.add(score1);
-                                    }
-                                    source.getScore(year_2, new getKebiaoSource.OnResponseResult() {
-                                        @Override
-                                        public void onResponseResult(int code, String result) {
-                                            Document document = Jsoup.parse(result);
-                                            Elements score = document.getElementsByAttributeValue("id",
-                                                    "dataList").select("tr");
-                                            for (int j = 1; j < score.size(); j++) {
-                                                Score score1 = new Score();
-                                                Elements ee = score.get(j).select("td");
-                                                score1.setCno(ee.get(2).text());
-                                                score1.setName(ee.get(3).text());
-                                                score1.setScore(ee.get(4).text());
-                                                if (score1.getScore().equals("请评教")) {
-                                                    handler.sendEmptyMessage(5);
-                                                    return;
-                                                }
-                                                score1.setXf(ee.get(5).text());
-                                                score1.setKs(ee.get(6).text());
-                                                score1.setKhfx(ee.get(7).text());
-                                                score1.setKcsx(ee.get(8).text());
-                                                score1.setKcxz(ee.get(9).text());
-                                                /**
-                                                 * 这个绩点算法算定的科目可能有问题，具体以学校为准
-                                                 */
-//                                                if ((score1.getKcsx().equals("必修") || score1.getKcsx().equals("任选"))
-//                                                        && !score1.getName().contains("体育")
-//                                                        && !score1.getName().contains("校公选")
-//                                                        && !score1.getName().contains("等级考试"))
-                                                if (score1.getKcsx().equals("必修"))
-                                                score1.setCheck(true);
-                                                else
-                                                    score1.setCheck(false);
-                                                list.add(score1);
-                                            }
-                                            calculateGPA(false);
-                                            if (list.size() > 0)
-                                                handler.sendEmptyMessage(1);
-                                            else
-                                                handler.sendEmptyMessage(2);
-                                        }
-                                    });
-                                }
-                            });
-                        } else {
-                            /**
-                             * 等待修改
-                             */
-                            source.getScore(year, new getKebiaoSource.OnResponseResult() {
-                                @Override
-                                public void onResponseResult(int code, String result) {
-                                    if (code == -1) {
-                                        handler.sendEmptyMessage(4);
-                                        return;
-                                    }
-                                    list.clear();
-                                    Document document = Jsoup.parse(result);
-                                    Elements score = document.getElementsByAttributeValue("id",
-                                            "dataList").select("tr");
-                                    for (int j = 1; j < score.size(); j++) {
-                                        Score score1 = new Score();
-                                        Elements ee = score.get(j).select("td");
-                                        score1.setCno(ee.get(2).text());
-                                        score1.setName(ee.get(3).text());
-                                        score1.setScore(ee.get(4).text());
-                                        if (score1.getScore().equals("请评教")) {
-                                            handler.sendEmptyMessage(5);
-                                            return;
-                                        }
+
+                                        //下面正文
+
                                         score1.setXf(ee.get(5).text());
                                         score1.setKs(ee.get(6).text());
                                         score1.setKhfx(ee.get(7).text());
@@ -390,7 +394,8 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
 //                                                && !score1.getName().contains("体育")
 //                                                && !score1.getName().contains("校公选")
 //                                                && !score1.getName().contains("等级考试"))
-                                        if (score1.getKcsx().equals("必修"))
+                                        if (score1.getKcsx().equals("必修")
+                                                && !score1.getName().contains("体育"))
                                             score1.setCheck(true);
                                         else
                                             score1.setCheck(false);
@@ -403,7 +408,7 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
                                         handler.sendEmptyMessage(2);
                                 }
                             });
-                        }
+//                        }
                         break;
                     case -1:
                         handler.sendEmptyMessage(3);
@@ -438,7 +443,7 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
             case R.id.score_menu_zx:
                 if (item.getTitle().equals("自选")) {
                     for (int i = 1, j = list.size(); i < j; i++) {
-                        list.get(i).setCBVisil(true);
+                        list.get(i).setCBVisil();
                     }
                     scoreAdapter.notifyDataSetChanged();
                     item.setTitle("计算绩点");

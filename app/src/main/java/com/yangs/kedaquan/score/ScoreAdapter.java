@@ -131,6 +131,8 @@ public class ScoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     scoreViewHolder.ll_xf.setText(list.get(position).getXf() + "");
                     scoreViewHolder.ll_kcsx.setText(list.get(position).getKcsx() + "");
                     scoreViewHolder.ll_khfs.setText(list.get(position).getKhfx() + "");
+                    scoreViewHolder.ll_term.setText(list.get(position).getTerm() + "");
+
                 } else {
                     scoreViewHolder.score_ll.setVisibility(View.GONE);
                 }
@@ -214,6 +216,7 @@ public class ScoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         TextView ll_ks;
         TextView ll_khfs;
         TextView ll_kcsx;
+        TextView ll_term;
 
         public ScoreViewHolder(View view) {
             super(view);
@@ -228,6 +231,7 @@ public class ScoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             ll_ks = view.findViewById(R.id.score_listview_ll_ks);
             ll_khfs = view.findViewById(R.id.score_listview_ll_khfs);
             ll_kcsx = view.findViewById(R.id.score_listview_ll_kcsx);
+            ll_term = view.findViewById(R.id.score_listview_ll_term);
         }
     }
 }
