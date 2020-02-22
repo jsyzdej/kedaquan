@@ -1,5 +1,6 @@
 package com.yangs.kedaquan.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -123,15 +124,14 @@ public class FindFragment extends LazyLoadFragment implements OnBannerListener, 
         dataList.add("毕业设计");
         dataList.add("学术论文");
         dataList.add("电话列表");
-        dataList.add("四六级");
-        dataList.add("四六级准考证找回");
+        dataList.add("CET");
+        dataList.add("CET准考证找回");
         dataList.add("实时公交");
         FindMainAdapter adapter = new FindMainAdapter(dataList);
         lRecyclerViewAdapter = new LRecyclerViewAdapter(adapter);
         header_view = activity.getLayoutInflater().inflate(R.layout.find_header_layout, null);
         banner = header_view.findViewById(R.id.find_header_banner);
         List<String> images = new ArrayList<>();
-        images.add("http://kedaquan-1251118879.file.myqcloud.com/1.jpg");
         images.add("http://kedaquan-1251118879.file.myqcloud.com/2.jpg");
         images.add("http://kedaquan-1251118879.file.myqcloud.com/3.jpg");
         banner.setImages(images).setImageLoader(new GlideImageLoader())
@@ -244,7 +244,7 @@ public class FindFragment extends LazyLoadFragment implements OnBannerListener, 
                 startActivity(intent);
                 break;
             case 8:
-                intent = new Intent(activity, Book_Find.class); //tsjy
+                intent = new Intent(activity, Book_Find.class); //图书借阅
                 startActivity(intent);
                 break;
             case 6:
@@ -361,7 +361,7 @@ public class FindFragment extends LazyLoadFragment implements OnBannerListener, 
 
     @Override
     public void onItemClick(View view, final int position) {
-        if (position > 13) {
+        if (position > 13 || position == 1) {
             gotoPage(position);
             return;
         }
@@ -385,7 +385,7 @@ public class FindFragment extends LazyLoadFragment implements OnBannerListener, 
                             if (APPAplication.isInitWebview) {
                                 progressDialog.dismiss();
                                 gotoPage(position);
-                            } else if (position == 1 || position == 6 || position == 9) {
+                            } else if (position == 6 || position == 9) {
                                 String cookie = APPAplication.save.getString("vpn_cookie", "");
                                 String url = "https://vpn.just.edu.cn/,DanaInfo=jwgl.just.edu.cn,Port=8080+";
                                 try {
@@ -477,7 +477,6 @@ public class FindFragment extends LazyLoadFragment implements OnBannerListener, 
                 ImagePipeline imagePipeline = Fresco.getImagePipeline();
                 imagePipeline.clearCaches();
                 List<String> images = new ArrayList<String>();
-                images.add("http://kedaquan-1251118879.file.myqcloud.com/1.jpg");
                 images.add("http://kedaquan-1251118879.file.myqcloud.com/2.jpg");
                 images.add("http://kedaquan-1251118879.file.myqcloud.com/3.jpg");
                 banner.update(images);
@@ -485,17 +484,16 @@ public class FindFragment extends LazyLoadFragment implements OnBannerListener, 
         }, 2500);
     }
 
+    @SuppressLint("HandlerLeak")
     private void setHandler() {
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                switch (msg.what) {
-                    case 2:
+                if (msg.what == 2) {
                         if (progressDialog.isShowing())
                             progressDialog.dismiss();
                         APPAplication.showDialog(getContext(), "从服务器获取链接失败!");
-                        break;
                 }
             }
         };

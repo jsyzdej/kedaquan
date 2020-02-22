@@ -97,9 +97,9 @@ public class FindMainAdapter extends RecyclerView.Adapter<FindMainAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView item;
-        public ImageView iv;
+        private ImageView iv;
 
-        public ViewHolder(View view) {
+        private ViewHolder(View view) {
             super(view);
             item = view.findViewById(R.id.find_item_tv);
             iv = view.findViewById(R.id.find_item_iv);
