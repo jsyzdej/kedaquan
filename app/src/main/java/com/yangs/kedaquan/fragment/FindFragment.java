@@ -93,7 +93,7 @@ public class FindFragment extends LazyLoadFragment implements OnBannerListener, 
         mLayFind = getContentView();
         toolbar = mLayFind.findViewById(R.id.find_toolbar);
         url_data = new HashMap<>();
-        url_data.put("科大校历", "https://vpn.just.edu.cn/list/,DanaInfo=202.195.195.226+65.html");
+        url_data.put("科大校历", "http://jwc.just.edu.cn/2019/0703/c5746a164061/page.htm");
         url_data.put("体育成绩", "https://vpn.just.edu.cn/xsgl/,DanaInfo=202.195.195.147+cjcx.asp");
         url_data.put("体育刷卡", "https://vpn.just.edu.cn/zcgl/,DanaInfo=202.195.195.147+xskwcx.asp?action=jlbcx");
         url_data.put("早操出勤", "https://vpn.just.edu.cn/zcgl/,DanaInfo=202.195.195.147+xskwcx.asp?action=zccx");
@@ -102,7 +102,7 @@ public class FindFragment extends LazyLoadFragment implements OnBannerListener, 
         url_data.put("奥蓝系统", "https://vpn.just.edu.cn/,DanaInfo=202.195.195.238,Port=866+LOGIN.ASPX");
         url_data.put("办事大厅", "https://vpn.just.edu.cn/,DanaInfo=my.just.edu.cn");
         url_data.put("电话列表", "http://mp.weixin.qq.com/s?__biz=MzA5MDQ1MTU5OQ==&mid=203948380&idx=1&sn=38768267f5611e44b0ad2480559a463c#wechat_redirect");
-        url_data.put("四六级", "http://www.yunchafen.com.cn/score/alipay/cet-login");
+        url_data.put("四六级", "http://cet.neea.edu.cn/cet/query_c.html");
         url_data.put("空教室", "https://vpn.just.edu.cn/jsxsd/kbcx/,DanaInfo=jwgl.just.edu.cn,Port=8080+kbxx_classroom");
         url_data.put("实时公交", "http://211.138.195.226/ba_traffic_js/wapbus/zhenjiang/");
         url_data.put("毕业设计", "https://vpn.just.edu.cn/,DanaInfo=bysj.just.edu.cn");
@@ -236,11 +236,11 @@ public class FindFragment extends LazyLoadFragment implements OnBannerListener, 
         Intent intent;
         switch (position) {
             case 0:
-                intent = new Intent(activity, ScoreActivity.class);  //cjjd
+                intent = new Intent(activity, ScoreActivity.class);  //成绩绩点
                 startActivity(intent);
                 break;
             case 7:
-                intent = new Intent(activity, CoursePJActivity.class);  //yjpj
+                intent = new Intent(activity, CoursePJActivity.class);  //一键评教
                 startActivity(intent);
                 break;
             case 8:

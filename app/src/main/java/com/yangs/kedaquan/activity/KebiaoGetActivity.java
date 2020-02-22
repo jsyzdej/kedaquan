@@ -101,7 +101,7 @@ public class KebiaoGetActivity extends AppCompatActivity implements View.OnClick
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
-        spinner.setSelection(8, true);
+        spinner.setSelection(7, true);
     }
 
     private Handler handler = new Handler(new Handler.Callback() {

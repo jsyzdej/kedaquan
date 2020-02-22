@@ -234,16 +234,17 @@ public class CoursePJActivity extends Activity implements View.OnClickListener, 
                     APPAplication.showToast("评教完成", 0);
                     lRecyclerView.refresh();
                     break;
-                case 6:
+//                case 6 :
+                default:
                     APPAplication.showDialog(CoursePJActivity.this, "当前没有需要评教的课!");
                     lRecyclerView.refreshComplete(10);
                     lRecyclerViewAdapter.notifyDataSetChanged();
                     break;
-                case 7:
-                    APPAplication.showDialog(CoursePJActivity.this, "当前没有需要评教的课!");
-                    lRecyclerView.refreshComplete(10);
-                    lRecyclerViewAdapter.notifyDataSetChanged();
-                    break;
+//                case 7:
+//                    APPAplication.showDialog(CoursePJActivity.this, "当前没有需要评教的课!");
+//                    lRecyclerView.refreshComplete(10);
+//                    lRecyclerViewAdapter.notifyDataSetChanged();
+//                    break;
             }
             return true;
         }
