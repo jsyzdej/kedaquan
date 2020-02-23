@@ -78,9 +78,9 @@ public class meAboutActivity extends AppCompatActivity implements View.OnClickLi
         Bundle bundle = new Bundle();
         switch (v.getId()) {
             case R.id.me_about_zr:
-                new AlertDialog.Builder(meAboutActivity.this).setTitle("开发者招聘")
-                        .setMessage("原作者15级软件，于17年毕业。" +
-                                "当前项目发布者为高雅人士" +
+                new AlertDialog.Builder(meAboutActivity.this).setTitle("关于")
+                        .setMessage("原作者15级软件，于19年毕业。" +
+                                "当前项目发布者为神必人" +
                                 "mailto:billymaster@protonmail.com").create().show();
                  /*       .setPositiveButton("与原作者联系", new DialogInterface.OnClickListener() {
                             @Override

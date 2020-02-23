@@ -463,11 +463,9 @@ public class MainActivity extends AppCompatActivity implements
                 break;
             case 4:
                 APPAplication.recordUtil.addRord(
-                        APPAplication.save.getString("name", ""),
-                        APPAplication.save.getString("xh", ""),
-                        "导入课表", "成功 " +
-                                APPAplication.save.getString("name", "") + " " +
-                                APPAplication.save.getString("xh", ""));
+                        "卢本伟",
+                        "00000000",
+                        "导入课表", "成功");
                 APPAplication.login_stat = 1;
                 APPAplication.save.edit().putInt("week", APPAplication.week)
                         .putInt("login_stat", 1).apply();
@@ -507,8 +505,8 @@ public class MainActivity extends AppCompatActivity implements
                                     case -2:
                                         waitingDialog.cancel();
                                         APPAplication.recordUtil.addRord(
-                                                APPAplication.save.getString("name", ""),
-                                                APPAplication.save.getString("xh", ""),
+                                                "卢本伟",
+                                                "00000000",
                                                 "导入课表", "获取课表时正则失败");
                                         handler.sendEmptyMessage(12);
                                         break;
@@ -518,8 +516,8 @@ public class MainActivity extends AppCompatActivity implements
                                         APPAplication.save.edit().putInt("week", APPAplication.week)
                                                 .putInt("login_stat", 1).apply();
                                         APPAplication.recordUtil.addRord(
-                                                APPAplication.save.getString("name", ""),
-                                                APPAplication.save.getString("xh", ""),
+                                                "卢本伟",
+                                                "00000000",
                                                 "导入课表", "成功 " + bundle.getString("term"));
                                         waitingDialog.cancel();
                                         handler.sendEmptyMessage(8);
@@ -531,15 +529,15 @@ public class MainActivity extends AppCompatActivity implements
                             break;
                         case -1:
                             APPAplication.recordUtil.addRord(
-                                    APPAplication.save.getString("name", ""),
-                                    APPAplication.save.getString("xh", ""),
+                                    "卢本伟",
+                                    "00000000",
                                     "导入课表", "学号或密码错误");
                             handler.sendEmptyMessage(5);
                             break;
                         case -2:
                             APPAplication.recordUtil.addRord(
-                                    APPAplication.save.getString("name", ""),
-                                    APPAplication.save.getString("xh", ""),
+                                    "卢本伟",
+                                    "00000000",
                                     "导入课表", "教务系统维护");
                             waitingDialog.cancel();
                             handler.sendEmptyMessage(6);

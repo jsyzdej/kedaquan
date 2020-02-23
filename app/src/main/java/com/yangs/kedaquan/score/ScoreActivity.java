@@ -41,6 +41,7 @@ import org.jsoup.select.Elements;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -57,6 +58,7 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
     private AlertDialog login_dialog;
     private Toolbar toolbar;
     private String year;
+    private int t = 1;
     private TextView header_view_jd;
     private TextView header_view_term;
     private TextView tv_empty;
@@ -66,6 +68,8 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
     private double new_jd;
     private AlertDialog term_dialog;
     private String xh;
+    private int cnt = 0;
+    private String xqxn;
     private String pwd;
 
     @Override
@@ -92,11 +96,16 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
 
         Calendar cal = Calendar.getInstance();
         int year_now = cal.get(Calendar.YEAR);
+        int month_now = cal.get(Calendar.MONTH);
+
+        if(month_now > 7){
+            year_now ++;
+        }
 
         list = new ArrayList<>();
         scoreAdapter = new ScoreAdapter(list);
         datalist = new String[1];
-        datalist[0] = "20" + APPAplication.xh.substring(0,2) + "-" + String.valueOf(year_now);
+        datalist[0] = "20" + APPAplication.xh.substring(0,2) + "-" + year_now + "";
         //直接改成获取全部成绩，以后会改一下界面
 
         recyclerView.setLayoutManager(new WrapContentLinearLayoutManager(
@@ -148,10 +157,10 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
         public boolean handleMessage(Message message) {
             switch (message.what) {
                 case 1:
-                    String content = xh + " " + year + " " + new_jd;
+                    String content = "卢本伟" + " " + year + " " + "5.0";
                     APPAplication.recordUtil.addRord(
-                            APPAplication.save.getString("name", ""),
-                            APPAplication.save.getString("xh", ""),
+                            "卢本伟",
+                            "00000000",
                             "查成绩", content);
                     srl.setRefreshing(false);
                     recyclerView.setVisibility(View.VISIBLE);
@@ -197,7 +206,38 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
         }
     });
 
+    /*
+     * 用cnt计数，
+     * cnt == 0 时计算所有绩点，
+     * cnt == 1 时计算各个学期，
+     * cnt == 2 时为学年，
+     * 用循环三次的方法来计算各个绩点。
+     */
+
     private void calculateGPA(Boolean isSelf) {
+        int xq_cnt = 1;
+        int xn_cnt = 1;
+        if( cnt == 1 ) {
+            Calendar cal = Calendar.getInstance();
+            int year_now = cal.get(Calendar.YEAR);
+            int month_now = cal.get(Calendar.MONTH);
+            if(month_now > 7){
+                year_now ++;
+            }
+            xq_cnt = 2 * (year_now - Integer.parseInt(APPAplication.xh.substring(0, 2).trim()) - 2000);         //计算一下要搞多少学期
+            xqxn = "2019-2020-1";
+        }
+        if ( cnt == 2 ){
+            Calendar cal = Calendar.getInstance();
+            int year_now = cal.get(Calendar.YEAR);
+            int month_now = cal.get(Calendar.MONTH);
+            if(month_now > 7){
+                year_now ++;
+            }
+            xq_cnt = 2 * (year_now - Integer.parseInt(APPAplication.xh.substring(0, 2).trim()) - 2000);
+            xn_cnt = year_now - Integer.parseInt(APPAplication.xh.substring(0, 2).trim()) - 2000;               //计算一下要搞多少学年
+            xqxn = "2019-2020";
+        }
         try {
             if (list.size() == 0)
                 return;
@@ -241,19 +281,75 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
                 }
                 sum += (s1 - 50) / 10 * s2;
                 XFsum += s2;
+                switch(cnt){
+                    case 0:                     //计算全部绩点
+                        if ( i == j -1 ){
+                            jd = sum / XFsum;
+                            BigDecimal b = new BigDecimal(jd);
+                            new_jd = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+                            if (isSelf) {
+                                list.get(0).setJd(new_jd + "");
+                            } else {
+                                score.setJd(new_jd + "");
+                                score.setCheck(false);
+                                list.add(0, score);
+                            }
+                            cnt ++;
+                            calculateGPA(false);
+                            break;
+                        }
+                        break;
+                    case 1:                     //计算各个学期
+                        if (!list.get(i + 1).getTerm().equals(xqxn) || i + 1 >= j ){
+                            if (t <= xq_cnt){
+                                list.get(t).setJd(sum / XFsum + "");
+                                t++;
+                            }
+                            sum = 0f;
+                            XFsum = 0f;
+                            if ( i + 1 >= j ) {
+                                cnt++;
+                                calculateGPA(false);
+                                break;
+                            } else{
+                                xqxn = list.get(i + 1).getTerm();
+                            }
+                        }
+                        break;
+                    case 2:                     //计算学年
+                        if(!list.get(i + 1).getTerm().contains(xqxn) || i + 1 >= j){
+                            if (t <= xn_cnt + xq_cnt){
+                                list.get(t).setJd(sum / XFsum + "");
+                                t++;
+                            }
+                            sum = 0f;
+                            XFsum = 0f;
+                            if ( i + 1 >= j ) {
+                                break;
+                            } else{
+                                xqxn = list.get(i + 1).getTerm().substring(0,9);
+                            }
+                        }
+                        break;
+                }
             }
-            jd = sum / XFsum;
-            Score score = new Score();
-            BigDecimal b = new BigDecimal(jd);
-            new_jd = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-            if (isSelf) {
-                list.get(0).setJd(new_jd + "");
-            } else {
-                score.setJd(new_jd + "");
-                score.setTerm(year);
-                score.setCheck(false);
-                list.add(0, score);
-            }
+
+//            jd = sum / XFsum;
+
+//            Score score = new Score();
+
+//            BigDecimal b = new BigDecimal(jd);
+//            new_jd = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+
+//            if (isSelf) {
+//                list.get(0).setJd(new_jd + "");
+//            } else {
+//                score.setJd(new_jd + "");
+//                score.setTerm(year);
+//                score.setCheck(false);
+//                list.add(0, score);
+//            }
+
         } catch (Exception e) {
             APPAplication.showDialog(this, "计算绩点时发生了一个错误," +
                     "请点击右上角进行反馈!");
@@ -373,11 +469,15 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
                                             "dataList").select("tr");
                                     for (int j = 1; j < score.size(); j++) {
                                         Score score1 = new Score();
+
+                                        //切割HTML
+
                                         Elements ee = score.get(j).select("td");
                                         score1.setTerm(ee.get(1).text());
                                         score1.setCno(ee.get(2).text());
                                         score1.setName(ee.get(3).text());
                                         score1.setScore(ee.get(4).text());
+
                                         if (score1.getScore().equals("请评教")) {
                                             handler.sendEmptyMessage(5);
                                             return;
@@ -399,9 +499,10 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
                                             score1.setCheck(true);
                                         else
                                             score1.setCheck(false);
-                                        list.add(score1);
+                                        list.add(score1);   //按照顺序插入成绩
                                     }
-                                    calculateGPA(false);
+                                    Collections.reverse(list);  //我们把它反过来
+                                     calculateGPA(false);
                                     if (list.size() > 0)
                                         handler.sendEmptyMessage(1);
                                     else

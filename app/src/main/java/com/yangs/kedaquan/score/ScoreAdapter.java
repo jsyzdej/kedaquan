@@ -1,5 +1,6 @@
 package com.yangs.kedaquan.score;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
@@ -32,7 +33,6 @@ public class ScoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public List<Score> getList() {
         return list;
     }
-
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == 1) {
@@ -73,18 +73,26 @@ public class ScoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position, List<Object> payloads) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, @SuppressLint("RecyclerView") final int position, List<Object> payloads) {
         if (payloads.isEmpty()) {
             if (position == 0) {
                 HeadViewHolder headViewHolder = (HeadViewHolder) holder;
-                headViewHolder.tv_jd.setText("绩点: " + list.get(0).getJd());
-                headViewHolder.tv_term.setText(list.get(0).getTerm());
+                headViewHolder.tv_jd.setText("总绩点: " + list.get(0).getJd() + "");
+                /**
+                 * 下面这行要改，先留个标记
+                 */
+                String eachtermjd = "待制作";
+                for (int t = 1 ;list.get(t).getJd() != null; t++){
+                    eachtermjd += list.get(t).getJd() + "\n";
+                }
+                headViewHolder.tv_term.setText(eachtermjd);
             } else {
                 ScoreViewHolder scoreViewHolder = (ScoreViewHolder) holder;
                 scoreViewHolder.score_ll_first.setTag(position);
                 scoreViewHolder.score_ll.setTag(position);
-                scoreViewHolder.index.setText(position + "");
+                scoreViewHolder.index.setText((list.size() - position) + "");
                 scoreViewHolder.name.setText(list.get(position).getName());
                 try {
                     int s = Integer.parseInt(list.get(position).getScore());

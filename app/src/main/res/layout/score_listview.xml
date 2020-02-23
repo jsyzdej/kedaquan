@@ -30,7 +30,7 @@
                 android:gravity="center"
                 android:text="1"
                 android:textColor="@color/gallery_text_black"
-                android:textSize="15sp" />
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/score_listview_tv_name"
@@ -40,7 +40,7 @@
                 android:gravity="center"
                 android:text="Linux C开发"
                 android:textColor="@color/gallery_text_black"
-                android:textSize="20sp" />
+                android:textSize="17sp" />
 
             <TextView
                 android:id="@+id/score_listview_tv_score"
@@ -50,7 +50,7 @@
                 android:gravity="center"
                 android:text="95"
                 android:textColor="@color/gallery_text_gray"
-                android:textSize="20sp" />
+                android:textSize="17sp" />
         </LinearLayout>
     </LinearLayout>
 
