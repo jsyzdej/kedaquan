@@ -215,28 +215,11 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
      */
 
     private void calculateGPA(Boolean isSelf) {
-        int xq_cnt = 1;
-        int xn_cnt = 1;
         if( cnt == 1 ) {
-            Calendar cal = Calendar.getInstance();
-            int year_now = cal.get(Calendar.YEAR);
-            int month_now = cal.get(Calendar.MONTH);
-            if(month_now > 7){
-                year_now ++;
-            }
-            xq_cnt = 2 * (year_now - Integer.parseInt(APPAplication.xh.substring(0, 2).trim()) - 2000);         //计算一下要搞多少学期
-            xqxn = "2019-2020-1";
+            xqxn = list.get(1).getTerm();
         }
         if ( cnt == 2 ){
-            Calendar cal = Calendar.getInstance();
-            int year_now = cal.get(Calendar.YEAR);
-            int month_now = cal.get(Calendar.MONTH);
-            if(month_now > 7){
-                year_now ++;
-            }
-            xq_cnt = 2 * (year_now - Integer.parseInt(APPAplication.xh.substring(0, 2).trim()) - 2000);
-            xn_cnt = year_now - Integer.parseInt(APPAplication.xh.substring(0, 2).trim()) - 2000;               //计算一下要搞多少学年
-            xqxn = "2019-2020";
+            xqxn = list.get(1).getTerm().substring(0,9);
         }
         try {
             if (list.size() == 0)
@@ -301,10 +284,8 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
                         break;
                     case 1:                     //计算各个学期
                         if (!list.get(i + 1).getTerm().equals(xqxn) || i + 1 >= j ){
-                            if (t <= xq_cnt){
-                                list.get(t).setJd(sum / XFsum + "");
-                                t++;
-                            }
+                            list.get(t).setJd(sum / XFsum + "");
+                            t++;
                             sum = 0f;
                             XFsum = 0f;
                             if ( i + 1 >= j ) {
@@ -318,10 +299,8 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
                         break;
                     case 2:                     //计算学年
                         if(!list.get(i + 1).getTerm().contains(xqxn) || i + 1 >= j){
-                            if (t <= xn_cnt + xq_cnt){
-                                list.get(t).setJd(sum / XFsum + "");
-                                t++;
-                            }
+                            list.get(t).setJd(sum / XFsum + "");
+                            t++;
                             sum = 0f;
                             XFsum = 0f;
                             if ( i + 1 >= j ) {
@@ -553,6 +532,8 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
+                            cnt =0;
+                            t=1;
                             calculateGPA(true);
                             scoreAdapter.notifyItemChanged(0);
                         }

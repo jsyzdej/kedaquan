@@ -22,7 +22,7 @@ import okhttp3.Response;
 public class RecordUtil {
     private OkHttpClient mOkHttpClient;
     private Headers requestHeaders;
-    private static final String SERVER = "http://www.eaglemoe.com:8080/kedaquan/";
+    private static final String SERVER = "http://www.myangs.com:8080/kedaquan/";
     private static final String AdServlet = SERVER + "AdServlet";
     private static final String RecordServlet = SERVER + "RecordServlet";
     private static final String VersionServlet = SERVER + "VersionServlet";
