@@ -283,38 +283,38 @@ public class MainActivity extends AppCompatActivity implements
         /**
          * 下方被注释掉的代码是开启检测更新，后期会改
          */
-//        tmp_version = json.getJSONObject("版本");
-//        if (!tmp_version.getString("versioncode").equals(APPAplication.version)) {
-//            try {
-//                final String url = tmp_version.getString("url");
-//                final String app_name = "KeDaQuan.apk";
-//                String info = "版本号 : " + tmp_version.getString("versioncode") + "\n"
-//                        + "大小 : " + tmp_version.getString("size") + "\n"
-//                        + "发布时间 : " + tmp_version.getString("time") + "\n"
-//                        + "详细 : \n" + tmp_version.getString("content");
-//                new AlertDialog.Builder(MainActivity.this).setTitle("发现新版本")
-//                        .setMessage(info)
-//                        .setNegativeButton("点击更新", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                Toast.makeText(MainActivity.this, "正在下载中...", Toast.LENGTH_SHORT).show();
-//                                mDownloadAsyncTask = new AsyncTaskUtil(MainActivity.this, handler);
-//                                mDownloadAsyncTask.execute(url, app_name);
-//                            }
-//                        }).setPositiveButton("手动下载", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        Intent intent = new Intent();
-//                        intent.setAction("android.intent.action.VIEW");
-//                        Uri content_url = Uri.parse(url);
-//                        intent.setData(content_url);
-//                        startActivity(intent);
-//                    }
-//                }).show();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
+        tmp_version = json.getJSONObject("版本");
+        if (!tmp_version.getString("versioncode").equals(APPAplication.version)) {
+            try {
+                final String url = tmp_version.getString("url");
+                final String app_name = "KeDaQuan.apk";
+                String info = "版本号 : " + tmp_version.getString("versioncode") + "\n"
+                        + "大小 : " + tmp_version.getString("size") + "\n"
+                        + "发布时间 : " + tmp_version.getString("time") + "\n"
+                        + "详细 : \n" + tmp_version.getString("content");
+                new AlertDialog.Builder(MainActivity.this).setTitle("发现新版本")
+                        .setMessage(info)
+                        .setNegativeButton("点击更新", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(MainActivity.this, "正在下载中...", Toast.LENGTH_SHORT).show();
+                                mDownloadAsyncTask = new AsyncTaskUtil(MainActivity.this, handler);
+                                mDownloadAsyncTask.execute(url, app_name);
+                            }
+                        }).setPositiveButton("手动下载", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent();
+                        intent.setAction("android.intent.action.VIEW");
+                        Uri content_url = Uri.parse(url);
+                        intent.setData(content_url);
+                        startActivity(intent);
+                    }
+                }).show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         final JSONObject json_kp = (JSONObject) json.getJSONArray("开屏").get(0);
         if (json_kp.getString("状态").equals("开")) {
             if (!json_kp.getString("id").equals(APPAplication.save.getString("kp_id", ""))) {

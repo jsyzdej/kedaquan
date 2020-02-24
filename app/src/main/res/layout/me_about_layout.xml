@@ -98,6 +98,20 @@
             <View style="@style/bg_line" />
 
             <LinearLayout
+                android:id="@+id/github_index"
+                style="@style/mid_layout2">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Github项目页"
+                    android:textColor="@color/gallery_black"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <View style="@style/bg_line" />
+
+            <LinearLayout
                 android:id="@+id/me_about_yangs"
                 style="@style/bottom_layout2">
 
@@ -108,6 +122,20 @@
                     android:textColor="@color/gallery_black"
                     android:textSize="18sp" />
 
+            </LinearLayout>
+
+            <View style="@style/bg_line" />
+
+            <LinearLayout
+                android:id="@+id/me_about_jsyzdej"
+                style="@style/mid_layout2">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="神必人博客"
+                    android:textColor="@color/gallery_black"
+                    android:textSize="18sp" />
             </LinearLayout>
 
         </LinearLayout>

@@ -31,6 +31,8 @@ public class meAboutActivity extends AppCompatActivity implements View.OnClickLi
     private LinearLayout ll_versioninfo;
     private LinearLayout ll_share;
     private LinearLayout ll_yangs;
+    private LinearLayout ll_github;
+    private LinearLayout ll_jsyzdej;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +49,15 @@ public class meAboutActivity extends AppCompatActivity implements View.OnClickLi
         ll_share = findViewById(R.id.me_about_share);
         ll_open = findViewById(R.id.me_about_open);
         ll_yangs = findViewById(R.id.me_about_yangs);
+        ll_github = findViewById(R.id.github_index);
+        ll_jsyzdej = findViewById(R.id.me_about_jsyzdej);
         ll_zr.setOnClickListener(this);
         ll_versioninfo.setOnClickListener(this);
         ll_open.setOnClickListener(this);
         ll_share.setOnClickListener(this);
         ll_yangs.setOnClickListener(this);
+        ll_github.setOnClickListener(this);
+        ll_jsyzdej.setOnClickListener(this);
         String version;
         try {
             PackageInfo packageInfo = this.getPackageManager().getPackageInfo(this.getPackageName(), 0);
@@ -78,10 +84,16 @@ public class meAboutActivity extends AppCompatActivity implements View.OnClickLi
         Bundle bundle = new Bundle();
         switch (v.getId()) {
             case R.id.me_about_zr:
-                new AlertDialog.Builder(meAboutActivity.this).setTitle("关于")
+                new AlertDialog.Builder(meAboutActivity.this).setTitle("关于").setCancelable(false)
                         .setMessage("原作者15级软件，于19年毕业。" +
                                 "当前项目发布者为神必人" +
-                                "mailto:billymaster@protonmail.com").create().show();
+                                "问题反馈mailto:billymaster@protonmail.com" +
+                                "或者进入github项目页提交issues").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).create().show();
                  /*       .setPositiveButton("与原作者联系", new DialogInterface.OnClickListener() {
                             @Override
                           public void onClick(DialogInterface dialog, int which) {
@@ -114,6 +126,16 @@ public class meAboutActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.me_about_versioninfo:
                 bundle.putString("url", "http://www.myangs.com/kedaquan_version.html");
+                intent.putExtras(bundle);
+                startActivity(intent);
+                break;
+            case R.id.github_index:
+                bundle.putString("url", "https://github.com/jsyzdej/kedaquan");
+                intent.putExtras(bundle);
+                startActivity(intent);
+                break;
+            case R.id.me_about_jsyzdej:
+                bundle.putString("url", "https://www.eaglemoe.com/");
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
