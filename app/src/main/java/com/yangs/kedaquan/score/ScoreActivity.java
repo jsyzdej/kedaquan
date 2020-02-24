@@ -228,13 +228,16 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
             float XFsum = 0f;
             for (int i = 0, j = list.size(); i < j; i++) {
                 Score score = list.get(i);
-                if (!score.getCheck())
+                if (!score.getCheck()) {
+//                    APPAplication.showToast( list.get(i).getName() + "check", 0);
                     continue;
+                }
                 float s1;   //成绩
                 float s2;   //学分
                 try {
                     s2 = Float.parseFloat(score.getXf());
                 } catch (NumberFormatException e) {
+//                    APPAplication.showToast( i + "无学分", 0);
                     continue;   //没有学分,skip it
                 }
                 try {
@@ -270,13 +273,12 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
                             jd = sum / XFsum;
                             BigDecimal b = new BigDecimal(jd);
                             new_jd = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-                            if (isSelf) {
+//                            if (isSelf) {
                                 list.get(0).setJd(new_jd + "");
-                            } else {
-                                score.setJd(new_jd + "");
-                                score.setCheck(false);
-                                list.add(0, score);
-                            }
+//                            } else {
+//                                score.setJd(new_jd + "");
+//                                list.add(score);     //新增占位用
+//                            }
                             cnt ++;
                             calculateGPA(false);
                             break;
@@ -284,14 +286,14 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
                         break;
                     case 1:                     //计算各个学期
                         if ( i == j - 1 ){
-                            list.get(t).setJd(sum / XFsum + "");
+                            list.get(t).setJd(String.format("%.2f", sum / XFsum ));
                             list.get(t).setJD_Term(xqxn);
                             t++;
                             cnt++;
                             calculateGPA(false);
                             break;
                         } else if (!list.get(i + 1).getTerm().equals(xqxn)){
-                            list.get(t).setJd(sum / XFsum + "");
+                            list.get(t).setJd(String.format("%.2f", sum / XFsum ));
                             list.get(t).setJD_Term(xqxn);
                             t++;
                             xqxn = list.get(i + 1).getTerm();
@@ -301,11 +303,11 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
                         break;
                     case 2:                     //计算学年
                         if ( i == j - 1 ){
-                            list.get(t).setJd(sum / XFsum + "");
+                            list.get(t).setJd(String.format("%.2f", sum / XFsum ));
                             list.get(t).setJD_Term(xqxn);
                             break;
                         } else if (!list.get(i + 1).getTerm().contains(xqxn)){
-                            list.get(t).setJd(sum / XFsum + "");
+                            list.get(t).setJd(String.format("%.2f", sum / XFsum ));
                             list.get(t).setJD_Term(xqxn);
                             t++;
                             xqxn = list.get(i + 1).getTerm().substring(0,9);
@@ -483,8 +485,13 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
                                             score1.setCheck(false);
                                         list.add(score1);   //按照顺序插入成绩
                                     }
+                                    //下面三行占位符，无实际用途
+                                    Score zwf = new Score();
+                                    zwf.setCheck(false);
+                                    list.add(zwf);
+
                                     Collections.reverse(list);  //我们把它反过来
-                                     calculateGPA(false);
+                                    calculateGPA(false);
                                     if (list.size() > 0)
                                         handler.sendEmptyMessage(1);
                                     else
