@@ -83,9 +83,9 @@ public class ScoreAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 /**
                  * 下面这行要改，先留个标记
                  */
-                String eachtermjd = "待制作";
+                String eachtermjd = "";
                 for (int t = 1 ;list.get(t).getJd() != null; t++){
-                    eachtermjd += list.get(t).getJd() + "\n";
+                    eachtermjd += (list.get(t).getJD_Term() + ":" + list.get(t).getJd() + "\n");
                 }
                 headViewHolder.tv_term.setText(eachtermjd);
             } else {

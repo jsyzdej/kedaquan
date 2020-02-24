@@ -266,7 +266,7 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
                 XFsum += s2;
                 switch(cnt){
                     case 0:                     //计算全部绩点
-                        if ( i == j -1 ){
+                        if ( i == j - 1 ){
                             jd = sum / XFsum;
                             BigDecimal b = new BigDecimal(jd);
                             new_jd = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
@@ -283,31 +283,34 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
                         }
                         break;
                     case 1:                     //计算各个学期
-                        if (!list.get(i + 1).getTerm().equals(xqxn) || i + 1 >= j ){
+                        if ( i == j - 1 ){
                             list.get(t).setJd(sum / XFsum + "");
+                            list.get(t).setJD_Term(xqxn);
                             t++;
+                            cnt++;
+                            calculateGPA(false);
+                            break;
+                        } else if (!list.get(i + 1).getTerm().equals(xqxn)){
+                            list.get(t).setJd(sum / XFsum + "");
+                            list.get(t).setJD_Term(xqxn);
+                            t++;
+                            xqxn = list.get(i + 1).getTerm();
                             sum = 0f;
                             XFsum = 0f;
-                            if ( i + 1 >= j ) {
-                                cnt++;
-                                calculateGPA(false);
-                                break;
-                            } else{
-                                xqxn = list.get(i + 1).getTerm();
-                            }
                         }
                         break;
                     case 2:                     //计算学年
-                        if(!list.get(i + 1).getTerm().contains(xqxn) || i + 1 >= j){
+                        if ( i == j - 1 ){
                             list.get(t).setJd(sum / XFsum + "");
+                            list.get(t).setJD_Term(xqxn);
+                            break;
+                        } else if (!list.get(i + 1).getTerm().contains(xqxn)){
+                            list.get(t).setJd(sum / XFsum + "");
+                            list.get(t).setJD_Term(xqxn);
                             t++;
+                            xqxn = list.get(i + 1).getTerm().substring(0,9);
                             sum = 0f;
                             XFsum = 0f;
-                            if ( i + 1 >= j ) {
-                                break;
-                            } else{
-                                xqxn = list.get(i + 1).getTerm().substring(0,9);
-                            }
                         }
                         break;
                 }

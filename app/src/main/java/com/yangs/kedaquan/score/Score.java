@@ -14,6 +14,7 @@ public class Score {
     private String kcsx;    //课程属性
     private String kcxz;    //课程性质
     private String jd;
+    private String jd_term;
     private String term;
     private Boolean isClick = false;
     private Boolean isCheck;
@@ -115,7 +116,19 @@ public class Score {
         this.jd = jd;
     }
 
-    String getTerm() {return term;}
+    String getTerm() {
+        return term;
+    }
 
-    void setTerm(String term) {this.term = term;}
+    void setTerm(String term) {
+        this.term = term;
+    }
+
+    String getJD_Term() {
+        return jd_term;
+    }
+
+    void setJD_Term(String jd_term) {
+        this.jd_term = jd_term;
+    }
 }
