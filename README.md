@@ -2,6 +2,8 @@
 
 此为较早版本开源项目fork后的项目，全部开源，本人将会逐步删除一些涉及隐私的代码（更新随缘
 
+最新版本在release里，自行下载
+
 暂时改了一些没啥卵用的，如下图
 
 # <img src="https://github.com/jsyzdej/kedaquan/blob/master/screenshot/Snipaste_2020-02-22_20-49-23.png" width=360 height=640/>
@@ -11,7 +13,6 @@
 
 **江苏科技大学课表,成绩查询,论坛客户端**
 #### 目前登录使用人数过9000,欢迎下载使用
-#### [点此下载最新版](http://www.myangs.com/app/KeDaQuan.apk)
 ### 开发感想
 - 目前在读江苏科技大学15级信管专业
 - 很早就想开发一个给我们江科大学子用的App了，一来方便同学，二来也可以锻炼自己的编程能力。
