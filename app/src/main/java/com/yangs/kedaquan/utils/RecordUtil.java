@@ -22,10 +22,10 @@ import okhttp3.Response;
 public class RecordUtil {
     private OkHttpClient mOkHttpClient;
     private Headers requestHeaders;
-    private static final String SERVER = "http://www.myangs.com:8080/kedaquan/";
-    private static final String AdServlet = SERVER + "AdServlet";
+    private static final String SERVER = "https://www.eaglemoe.com/kedaquan/";
+    private static final String AdServlet = SERVER + "AdServlet.php";
     private static final String RecordServlet = SERVER + "RecordServlet";
-    private static final String VersionServlet = SERVER + "VersionServlet";
+    private static final String VersionServlet = SERVER + "VersionServlet.php";
     private String model;
     private String network;
     private String versioncode;
