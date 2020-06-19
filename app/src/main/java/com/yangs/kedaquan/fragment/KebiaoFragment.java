@@ -559,6 +559,8 @@ public class KebiaoFragment extends LazyLoadFragment implements Toolbar.OnMenuIt
                                 Bundle bundle = new Bundle();
                                 bundle.putString("user", APPAplication.save.getString("xh", ""));
                                 bundle.putString("pwd", APPAplication.save.getString("pwd", ""));
+                                bundle.putString("vpn_user", APPAplication.save.getString("vpn_user", ""));
+                                bundle.putString("vpn_pwd", APPAplication.save.getString("vpn_pwd", ""));
                                 bundle.putString("term", APPAplication.term);
                                 data.putExtra("data", bundle);
                                 onLoginListener.onKebiaoRefresh(data);

@@ -18,7 +18,7 @@
         android:title="切换学期"
         app:showAsAction="never" />
     <item
-        android:id="@+id/score_menu_advie"
+        android:id="@+id/score_menu_advice"
         android:orderInCategory="100"
         android:title="绩点错误反馈"
         app:showAsAction="never" />
