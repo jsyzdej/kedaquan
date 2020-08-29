@@ -41,6 +41,7 @@ import com.yangs.kedaquan.coursepj.CoursePJActivity;
 import com.yangs.kedaquan.find.FindMainAdapter;
 import com.yangs.kedaquan.find.GlideImageLoader;
 import com.yangs.kedaquan.score.ScoreActivity;
+import com.yangs.kedaquan.score.ScoreActivity2;
 import com.yangs.kedaquan.utils.VPNUtils;
 import com.yangs.kedaquan.utils.getKebiaoSource;
 import com.youth.banner.Banner;
@@ -239,6 +240,10 @@ public class FindFragment extends LazyLoadFragment implements OnBannerListener, 
                 intent = new Intent(activity, ScoreActivity.class);  //成绩绩点
                 startActivity(intent);
                 break;
+            case 18:
+                intent = new Intent(activity, ScoreActivity2.class);  //成绩绩点
+                startActivity(intent);
+                break;
             case 7:
                 intent = new Intent(activity, CoursePJActivity.class);  //一键评教
                 startActivity(intent);
@@ -361,7 +366,7 @@ public class FindFragment extends LazyLoadFragment implements OnBannerListener, 
 
     @Override
     public void onItemClick(View view, final int position) {
-        if (position > 13 || position == 1) {
+        if (position > 13 || position == 1 ) {
             gotoPage(position);
             return;
         }

@@ -176,26 +176,6 @@ public class MainActivity extends AppCompatActivity implements
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    /**
-                     * 软件开启时也会上传学号和姓名，这边也帮您改成卢本伟了
-                     */
-                    APPAplication.recordUtil.addRord("appStart", "卢本伟",
-                            "00000000", "启动", "", new RecordUtil.OnResultListener() {
-                                @Override
-                                public void onSuccess(final String response) {
-                                    handler.post(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            praseJson(response);
-                                        }
-                                    });
-                                }
-
-                                @Override
-                                public void onNetworkError() {
-                                    APPAplication.showToast("网络错误", 0);
-                                }
-                            });
                 }
             }).start();
     }
@@ -462,10 +442,6 @@ public class MainActivity extends AppCompatActivity implements
                     bbsFragment.lRecyclerView.refresh();
                 break;
             case 4:
-                APPAplication.recordUtil.addRord(
-                        "卢本伟",
-                        "00000000",
-                        "导入课表", "成功");
                 APPAplication.login_stat = 1;
                 APPAplication.save.edit().putInt("week", APPAplication.week)
                         .putInt("login_stat", 1).apply();
@@ -504,10 +480,6 @@ public class MainActivity extends AppCompatActivity implements
                                         break;
                                     case -2:
                                         waitingDialog.cancel();
-                                        APPAplication.recordUtil.addRord(
-                                                "卢本伟",
-                                                "00000000",
-                                                "导入课表", "获取课表时正则失败");
                                         handler.sendEmptyMessage(12);
                                         break;
                                     default:
@@ -515,10 +487,6 @@ public class MainActivity extends AppCompatActivity implements
                                         APPAplication.login_stat = 1;
                                         APPAplication.save.edit().putInt("week", APPAplication.week)
                                                 .putInt("login_stat", 1).apply();
-                                        APPAplication.recordUtil.addRord(
-                                                "卢本伟",
-                                                "00000000",
-                                                "导入课表", "成功 " + bundle.getString("term"));
                                         waitingDialog.cancel();
                                         handler.sendEmptyMessage(8);
                                         break;
@@ -528,17 +496,9 @@ public class MainActivity extends AppCompatActivity implements
                             }
                             break;
                         case -1:
-                            APPAplication.recordUtil.addRord(
-                                    "卢本伟",
-                                    "00000000",
-                                    "导入课表", "学号或密码错误");
                             handler.sendEmptyMessage(5);
                             break;
                         case -2:
-                            APPAplication.recordUtil.addRord(
-                                    "卢本伟",
-                                    "00000000",
-                                    "导入课表", "教务系统维护");
                             waitingDialog.cancel();
                             handler.sendEmptyMessage(6);
                             break;

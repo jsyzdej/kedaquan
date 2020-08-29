@@ -88,14 +88,14 @@ public class KebiaoGetActivity extends AppCompatActivity implements View.OnClick
         et_user.setText(APPAplication.save.getString("xh", ""));
         et_pwd.setText(APPAplication.save.getString("pwd", ""));
         mItems = new String[8];
-        mItems[0] = "2016-2017-1";
-        mItems[1] = "2016-2017-2";
-        mItems[2] = "2017-2018-1";
-        mItems[3] = "2017-2018-2";
-        mItems[4] = "2018-2019-1";
-        mItems[5] = "2018-2019-2";
-        mItems[6] = "2019-2020-1";
-        mItems[7] = "2019-2020-2";
+        mItems[0] = "2016-2017-2";
+        mItems[1] = "2017-2018-1";
+        mItems[2] = "2017-2018-2";
+        mItems[3] = "2018-2019-1";
+        mItems[4] = "2018-2019-2";
+        mItems[5] = "2019-2020-1";
+        mItems[6] = "2019-2020-2";
+        mItems[7] = "2020-2021-1";
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, mItems);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

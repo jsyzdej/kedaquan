@@ -574,14 +574,14 @@ public class KebiaoFragment extends LazyLoadFragment implements Toolbar.OnMenuIt
                 break;
             case R.id.kebiao_menu_changeterm:
                 final String[] datalist = new String[8];
-                datalist[0] = "2016-2017-1";
-                datalist[1] = "2016-2017-2";
-                datalist[2] = "2017-2018-1";
-                datalist[3] = "2017-2018-2";
-                datalist[4] = "2018-2019-1";
-                datalist[5] = "2018-2019-2";
-                datalist[6] = "2019-2020-1";
-                datalist[7] = "2019-2020-2";
+                datalist[0] = "2016-2017-2";
+                datalist[1] = "2017-2018-1";
+                datalist[2] = "2017-2018-2";
+                datalist[3] = "2018-2019-1";
+                datalist[4] = "2018-2019-2";
+                datalist[5] = "2019-2020-1";
+                datalist[6] = "2019-2020-2";
+                datalist[7] = "2020-2021-1";
                 int index = 6;
                 for (int i = 0; i < datalist.length; i++) {
                     if (datalist[i].equals(APPAplication.term))

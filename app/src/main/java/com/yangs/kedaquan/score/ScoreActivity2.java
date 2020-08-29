@@ -48,7 +48,7 @@ import java.util.List;
  * Created by yangs on 2017/8/2.
  */
 
-public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, ScoreAdapter.OnItemOnClickListener, Toolbar.OnMenuItemClickListener, ScoreAdapter.OnDeatilItemClickListener {
+public class ScoreActivity2 extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, ScoreAdapter.OnItemOnClickListener, Toolbar.OnMenuItemClickListener, ScoreAdapter.OnDeatilItemClickListener {
     private ScoreAdapter scoreAdapter;
     private SwipeRefreshLayout srl;
     private RecyclerView recyclerView;
@@ -172,22 +172,22 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
                     break;
                 case 3:
                     srl.setRefreshing(false);
-                    APPAplication.showDialog(ScoreActivity.this, "用户名或密码错误");
+                    APPAplication.showDialog(ScoreActivity2.this, "用户名或密码错误");
                     break;
                 case 4:
                     srl.setRefreshing(false);
-                    APPAplication.showDialog(ScoreActivity.this, "网络出错");
+                    APPAplication.showDialog(ScoreActivity2.this, "网络出错");
                     break;
                 case 5:
                     srl.setRefreshing(false);
-                    new AlertDialog.Builder(ScoreActivity.this).setTitle("提示")
+                    new AlertDialog.Builder(ScoreActivity2.this).setTitle("提示")
                             .setMessage("完成本学期所有课程的教学评价以后才能查看成绩。\n是否需要打开 yjpj?")
                             .setCancelable(false)
                             .setPositiveButton("是", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();
-                                    Intent intent = new Intent(ScoreActivity.this,
+                                    Intent intent = new Intent(ScoreActivity2.this,
                                             CoursePJActivity.class);
                                     startActivityForResult(intent, 1);
                                 }
@@ -271,7 +271,7 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
                             BigDecimal b = new BigDecimal(jd);
                             new_jd = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 //                            if (isSelf) {
-                                list.get(0).setJd(new_jd + "");
+                            list.get(0).setJd(new_jd + "");
 //                            } else {
 //                                score.setJd(new_jd + "");
 //                                list.add(score);     //新增占位用
@@ -342,68 +342,68 @@ public class ScoreActivity extends AppCompatActivity implements SwipeRefreshLayo
         new Thread(new Runnable() {
             @Override
             public void run() {
-                source = new getKebiaoSource(xh, pwd, ScoreActivity.this);
+                source = new getKebiaoSource(xh, pwd, ScoreActivity2.this);
                 switch (source.checkUser()) {
                     case 0:
-                            source.getScore("", new getKebiaoSource.OnResponseResult() {
-                                @Override
-                                public void onResponseResult(int code, String result) {
-                                    //这部分是各种错误代码
-                                    if (code == -1) {
-                                        handler.sendEmptyMessage(4);
+                        source.getScore2("", new getKebiaoSource.OnResponseResult() {
+                            @Override
+                            public void onResponseResult(int code, String result) {
+                                //这部分是各种错误代码
+                                if (code == -1) {
+                                    handler.sendEmptyMessage(4);
+                                    return;
+                                }
+                                list.clear();
+                                Document document = Jsoup.parse(result);
+                                Elements score = document.getElementsByAttributeValue("id",
+                                        "dataList").select("tr");
+                                for (int j = 1; j < score.size(); j++) {
+                                    Score score1 = new Score();
+
+                                    //切割HTML
+
+                                    Elements ee = score.get(j).select("td");
+                                    score1.setTerm(ee.get(1).text());
+                                    score1.setCno(ee.get(2).text());
+                                    score1.setName(ee.get(3).text());
+                                    score1.setScore(ee.get(4).text());
+
+                                    if (score1.getScore().equals("请评教")) {
+                                        handler.sendEmptyMessage(5);
                                         return;
                                     }
-                                    list.clear();
-                                    Document document = Jsoup.parse(result);
-                                    Elements score = document.getElementsByAttributeValue("id",
-                                            "dataList").select("tr");
-                                    for (int j = 1; j < score.size(); j++) {
-                                        Score score1 = new Score();
 
-                                        //切割HTML
+                                    //下面正文
 
-                                        Elements ee = score.get(j).select("td");
-                                        score1.setTerm(ee.get(1).text());
-                                        score1.setCno(ee.get(2).text());
-                                        score1.setName(ee.get(3).text());
-                                        score1.setScore(ee.get(4).text());
-
-                                        if (score1.getScore().equals("请评教")) {
-                                            handler.sendEmptyMessage(5);
-                                            return;
-                                        }
-
-                                        //下面正文
-
-                                        score1.setXf(ee.get(5).text());
-                                        score1.setKs(ee.get(6).text());
-                                        score1.setKhfx(ee.get(7).text());
-                                        score1.setKcsx(ee.get(8).text());
-                                        score1.setKcxz(ee.get(9).text());
+                                    score1.setXf(ee.get(5).text());
+                                    score1.setKs(ee.get(6).text());
+                                    score1.setKhfx(ee.get(7).text());
+                                    score1.setKcsx(ee.get(8).text());
+                                    score1.setKcxz(ee.get(9).text());
 //                                        if ((score1.getKcsx().equals("必修") || score1.getKcsx().equals("任选"))
 //                                                && !score1.getName().contains("体育")
 //                                                && !score1.getName().contains("校公选")
 //                                                && !score1.getName().contains("等级考试"))
-                                        if (score1.getKcsx().equals("必修")
-                                                && !score1.getName().contains("体育"))
-                                            score1.setCheck(true);
-                                        else
-                                            score1.setCheck(false);
-                                        list.add(score1);   //按照顺序插入成绩
-                                    }
-                                    //下面三行占位符，无实际用途
-                                    Score zwf = new Score();
-                                    zwf.setCheck(false);
-                                    list.add(zwf);
-
-                                    Collections.reverse(list);  //我们把它反过来
-                                    calculateGPA(false);
-                                    if (list.size() > 0)
-                                        handler.sendEmptyMessage(1);
+                                    if (score1.getKcsx().equals("必修")
+                                            && !score1.getName().contains("体育"))
+                                        score1.setCheck(true);
                                     else
-                                        handler.sendEmptyMessage(2);
+                                        score1.setCheck(false);
+                                    list.add(score1);   //按照顺序插入成绩
                                 }
-                            });
+                                //下面三行占位符，无实际用途
+                                Score zwf = new Score();
+                                zwf.setCheck(false);
+                                list.add(zwf);
+
+                                Collections.reverse(list);  //我们把它反过来
+                                calculateGPA(false);
+                                if (list.size() > 0)
+                                    handler.sendEmptyMessage(1);
+                                else
+                                    handler.sendEmptyMessage(2);
+                            }
+                        });
 //                        }
                         break;
                     case -1:

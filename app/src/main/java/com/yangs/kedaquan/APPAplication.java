@@ -88,7 +88,7 @@ public class APPAplication extends Application {
             xh = save.getString("xh", "");
             login_stat = save.getInt("login_stat", 0);
             kebiao_show_ct = save.getInt("kebiao_show_ct", 0);
-            term = save.getString("term", "2019-2020-2");   //当前学期
+            term = save.getString("term", "2020-2021-1");   //当前学期
             db = getApplicationContext().openOrCreateDatabase("info.db", Context.MODE_PRIVATE, null);
             if (bbsSource == null) {
                 bbsSource = new BBSSource();
@@ -102,7 +102,7 @@ public class APPAplication extends Application {
                 /*
                   注意，下面这行用于判断当前周，请务必修改好第一周的周一日期
                  */
-                week = (int) (1 + (Calendar.getInstance().getTime().getTime() - df.parse("2020-2-17")
+                week = (int) (1 + (Calendar.getInstance().getTime().getTime() - df.parse("2020-09-07")
                         .getTime()) / (1000 * 3600 * 24 * 7));
                 if (week < 1 || week > 20)
                     week = 1;

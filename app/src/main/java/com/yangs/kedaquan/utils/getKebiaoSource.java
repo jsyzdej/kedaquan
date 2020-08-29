@@ -250,6 +250,23 @@ public class getKebiaoSource {
         }
     }
 
+    public void getScore2(String year, OnResponseResult onResponseResult) {
+        if (onResponseResult == null)
+            return;
+        FormBody.Builder formBodyBuilder = new FormBody.Builder().add("kksj", year);
+        RequestBody requestBody = formBodyBuilder.build();
+        Request request = new Request.Builder()
+                .url("https://vpn.just.edu.cn/jsxsd/kscj/,DanaInfo=jwgl.just.edu.cn,Port=8080+cjtd_add_left?kch=&xnxq01id=")
+                .headers(requestHeaders).post(requestBody).header("Cookie", cookie)
+                .build();
+        try {
+            Response response = mOkHttpClient.newCall(request).execute();
+            onResponseResult.onResponseResult(1, response.body().string());
+        } catch (IOException e) {
+            onResponseResult.onResponseResult(-1, null);
+        }
+    }
+
     public interface OnResponseResult {
         void onResponseResult(int code, String result);
     }

@@ -41,6 +41,7 @@ public class VpnSource {
     private String jw_pwd;
     private String cookie;
     private String location;
+    private RequestBody requestBody;
 
     public VpnSource(String vpn_user, String vpn_pwd) {
         this.vpn_user = vpn_user;
@@ -132,7 +133,7 @@ public class VpnSource {
      */
     public int checkVpnUser() {
         FormBody.Builder formBodyBuilder = new FormBody.Builder().add("tz_offset", "480")
-                .add("username", vpn_user).add("password", vpn_pwd).add("realm", "LDAP-REALM")
+                .add("username", vpn_user).add("password", vpn_pwd).add("realm", "LDAP-Sudi")
                 .add("btnSubmit", "登录");
         RequestBody requestBody = formBodyBuilder.build();
         Request request = new Request.Builder().url("https://vpn.just.edu.cn/dana-na/auth/url_default/login.cgi")
