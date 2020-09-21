@@ -176,6 +176,26 @@ public class MainActivity extends AppCompatActivity implements
             new Thread(new Runnable() {
                 @Override
                 public void run() {
+                    /**
+                     * 软件开启时也会上传学号和姓名，这边也帮您改成卢本伟了
+                     */
+                    APPAplication.recordUtil.addRord("appStart", "卢本伟",
+                            "00000000", "启动", "", new RecordUtil.OnResultListener() {
+                                @Override
+                                public void onSuccess(final String response) {
+                                    handler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            praseJson(response);
+                                        }
+                                    });
+                                }
+
+                                @Override
+                                public void onNetworkError() {
+                                    APPAplication.showToast("网络错误", 0);
+                                }
+                            });
                 }
             }).start();
     }
